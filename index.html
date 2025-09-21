@@ -46,48 +46,103 @@
 </head>
  
 <body class="bg-stone-50 text-stone-800">
-<!-- Banner de apoyo llamativo -->
-<div class="relative bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-200 shadow-lg overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-
-    <!-- Contenido principal -->
-    <div class="flex items-center gap-3 flex-1 min-w-0">
-      <!-- Icono animado -->
-      <div class="w-12 h-12 flex items-center justify-center rounded-full bg-white animate-bounce">
-        <span class="text-amber-600 text-2xl">💡</span>
-      </div>
-
-      <!-- Mensaje destacado -->
-      <p class="text-stone-900 text-sm sm:text-base font-semibold">
-        encosecha.com necesita tu apoyo para <span class="underline decoration-amber-700 decoration-2">seguir sembrando y creciendo</span>.
-      </p>
-       <form action="https://www.paypal.com/donate" method="post" target="_top">
-<input type="hidden" name="campaign_id" value="MKSVUAWB6CVFA" />
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-</form>
+<div class="relative gradient-bg rounded-2xl shadow-2xl overflow-hidden max-w-6xl mx-auto">
+    <!-- Patrón de fondo decorativo -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-4 left-4 w-20 h-20 border-2 border-white rounded-full"></div>
+        <div class="absolute bottom-4 right-4 w-16 h-16 border-2 border-white rounded-full"></div>
+        <div class="absolute top-1/2 left-1/3 w-12 h-12 border border-white rounded-full"></div>
     </div>
 
-    <!-- Botón con efecto pulso -->
-    <div class="flex gap-2 items-center flex-shrink-0">
-      <a href="https://wa.me/573147978583?text=Hola%20Carlos,%20me%20interesa%20apoyar%20encosecha.com"
-         class="relative bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-full text-sm sm:text-base flex items-center gap-2 shadow-xl transform transition duration-300 hover:scale-105">
-        <span class="absolute inset-0 rounded-full bg-amber-500 opacity-30 animate-ping"></span>
-        <span class="relative flex items-center gap-2">
-          💬 ¡Quiero apoyar!
-        </span>
-       
-      </a>
+    <div class="relative z-10 px-6 py-8 sm:px-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4 pulse-ring">
+                <span class="text-3xl">🌱</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">
+                ¡Ayuda a <span class="text-yellow-300">EnCosecha</span> a Crecer!
+            </h2>
+            <p class="text-green-100 text-lg max-w-2xl mx-auto">
+                Tu apoyo nos permite seguir sembrando conocimiento y cosechando un futuro mejor para todos
+            </p>
+        </div>
 
-      <!-- Botón cerrar -->
-      <button onclick="this.parentElement.parentElement.parentElement.remove()" 
-              class="text-stone-900 hover:text-stone-700 text-2xl font-bold">
-        ×
-      </button>
+        <!-- Métodos de Donación -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            
+            <!-- PayPal -->
+            <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/30 transition-all duration-300 transform hover:scale-105">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span class="text-white font-bold text-sm">PP</span>
+                </div>
+                <h3 class="text-white font-semibold mb-2">PayPal</h3>
+                <form action="https://www.paypal.com/donate" method="post" target="_top" class="inline-block">
+                    <input type="hidden" name="campaign_id" value="MKSVUAWB6CVFA" />
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200">
+                        Donar
+                    </button>
+                </form>
+            </div>
+
+            <!-- Nequi Colombia -->
+            <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/30 transition-all duration-300 transform hover:scale-105">
+                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span class="text-white font-bold text-sm">N</span>
+                </div>
+                <h3 class="text-white font-semibold mb-2">Nequi Colombia</h3>
+                <div class="relative">
+                    <button onclick="copyToClipboard('3147978583', this)" class="copy-btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 relative overflow-hidden">
+                        <span class="relative z-10">3147978583</span>
+                        <span class="copy-text absolute inset-0 bg-green-600 flex items-center justify-center text-xs">
+                            ¡Copiado!
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Solana -->
+            <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/30 transition-all duration-300 transform hover:scale-105">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span class="text-white font-bold text-sm">SOL</span>
+                </div>
+                <h3 class="text-white font-semibold mb-2">Solana</h3>
+                <button onclick="copyToClipboard('95nGdKtrB94cGVRzMvHeZYaR8DXZ5S3RXrJBEbQqFhnF', this)" class="copy-btn bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 relative overflow-hidden">
+                    <span class="relative z-10">Copiar Dirección</span>
+                    <span class="copy-text absolute inset-0 bg-green-600 flex items-center justify-center text-xs">
+                        ¡Copiado!
+                    </span>
+                </button>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/30 transition-all duration-300 transform hover:scale-105">
+                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span class="text-white text-lg">💬</span>
+                </div>
+                <h3 class="text-white font-semibold mb-2">WhatsApp</h3>
+                <a href="https://wa.me/573147978583?text=Hola%20Carlos,%20me%20interesa%20apoyar%20encosecha.com"
+                   target="_blank"
+                   class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200 inline-block">
+                    Contactar
+                </a>
+            </div>
+        </div>
+
+        <!-- Mensaje adicional y botón cerrar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-center sm:text-left">
+                <p class="text-green-100 text-sm">
+                    🌟 <strong>Cada donación cuenta</strong> - Juntos cultivamos el futuro
+                </p>
+            </div>
+            <button onclick="closeBanner()" 
+                    class="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg transition-colors duration-200">
+                ×
+            </button>
+        </div>
     </div>
-  </div>
 </div>
-
 
   <!-- Top Bar -->
   <div class="bg-gradient-to-r from-[var(--brand-soft)] to-[var(--accent-soft)] text-[var(--brand-ink)]">
