@@ -78,7 +78,86 @@
     </nav>
   </header>
 <!-- Banner de Donaciones Mejorado -->
-<div class="relative bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 rounded-2xl shadow-2xl overflow-hidden max-w-6xl mx-auto">
+
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden gradient-bg">
+    <div aria-hidden class="absolute inset-0 pointer-events-none">
+      <svg class="absolute -top-24 -right-24 w-[38rem] opacity-15" viewBox="0 0 400 400" fill="none">
+        <circle cx="200" cy="200" r="200" fill="url(#g)"/>
+        <defs>
+          <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 200) rotate(90) scale(200)">
+            <stop stop-color="#9ae6b4"/>
+            <stop offset="1" stop-color="#1f8a4c"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="inline-flex px-3 py-1 rounded-full bg-white/80 text-[var(--brand-ink)] font-medium text-sm">🚀 MVP en desarrollo</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-stone-900">Soy <span class="text-[var(--brand)]">Carlos Ospina</span>: agricultor construyendo el futuro de la alimentación.</h1>
+        <p class="mt-6 text-lg text-stone-700 max-w-xl">Estoy desarrollando <strong>encosecha.com</strong>, un MVP que conecta directamente mis cultivos con tu mesa. Cada alimento cuenta su historia real: sensores en campo, trazabilidad transparente y venta sin intermediarios.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#productos" class="inline-flex items-center justify-center rounded-2xl bg-[var(--brand)] px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition">Ver mis cultivos actuales</a>
+          <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl border-2 border-stone-300 px-6 py-3 font-medium hover:border-[var(--brand)] hover:text-[var(--brand)] transition">Unirme al piloto</a>
+        </div>
+        <div class="mt-8 p-4 rounded-2xl bg-white/70 border border-white/50">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-soft)]">📊</span>
+            <div>
+              <p class="text-sm font-semibold">Estado actual del MVP</p>
+              <p class="text-xs text-stone-600">3 lotes activos • 12 sensores IoT • 1 agricultor (yo) • Buscando primeros aliados</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="rounded-3xl border border-white/30 bg-white/90 backdrop-blur p-6 shadow-xl">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-2xl bg-[var(--brand-soft)] p-4">
+              <p class="text-xs uppercase tracking-wide text-[var(--brand-ink)] mb-2">Sensor IoT — Humedad</p>
+              <p class="text-2xl font-bold">67<span class="text-sm font-medium">%</span></p>
+              <p class="text-xs text-stone-500 mt-1">Lote Frijol-A • Hoy 09:30</p>
+              <div class="mt-2 w-full bg-stone-200 rounded-full h-1">
+                <div class="bg-[var(--brand)] h-1 rounded-full" style="width: 67%"></div>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-[var(--accent-soft)] p-4">
+              <p class="text-xs uppercase tracking-wide text-amber-800 mb-2">Sensor IoT — Temperatura</p>
+              <p class="text-2xl font-bold">22<span class="text-sm font-medium">°C</span></p>
+              <p class="text-xs text-stone-500 mt-1">Ambiente • Hoy 09:30</p>
+              <div class="mt-2 w-full bg-stone-200 rounded-full h-1">
+                <div class="bg-[var(--accent)] h-1 rounded-full" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="col-span-2 rounded-2xl border border-dashed border-stone-300 p-4">
+              <p class="text-xs uppercase tracking-wide text-stone-500 mb-3">Demo de QR por producto</p>
+              <div class="flex items-center gap-4">
+                <div class="aspect-square w-28 rounded bg-white grid place-content-center border border-stone-200 shadow-sm">
+                  <svg viewBox="0 0 80 80" class="w-20 h-20">
+                    <rect width="80" height="80" fill="#fff"/>
+                    <rect x="4" y="4" width="20" height="20" fill="#000"/>
+                    <rect x="56" y="4" width="20" height="20" fill="#000"/>
+                    <rect x="4" y="56" width="20" height="20" fill="#000"/>
+                    <rect x="32" y="32" width="16" height="16" fill="#000"/>
+                    <rect x="56" y="56" width="20" height="20" fill="#000"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold">Historia del lote Frijol-A</p>
+                  <p class="text-sm text-stone-600">Escanea para ver: origen en Sonsón, Antioquia; prácticas de cultivo; fechas de siembra y cosecha; y el camino hasta tu cocina.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 rounded-2xl shadow-2xl overflow-hidden max-w-6xl mx-auto">
     <!-- Patrón de fondo decorativo -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute top-4 left-4 w-20 h-20 border-2 border-white rounded-full"></div>
@@ -169,83 +248,6 @@
         </div>
     </div>
 </div>
-
-  <!-- Hero -->
-  <section class="relative overflow-hidden gradient-bg">
-    <div aria-hidden class="absolute inset-0 pointer-events-none">
-      <svg class="absolute -top-24 -right-24 w-[38rem] opacity-15" viewBox="0 0 400 400" fill="none">
-        <circle cx="200" cy="200" r="200" fill="url(#g)"/>
-        <defs>
-          <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 200) rotate(90) scale(200)">
-            <stop stop-color="#9ae6b4"/>
-            <stop offset="1" stop-color="#1f8a4c"/>
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <span class="inline-flex px-3 py-1 rounded-full bg-white/80 text-[var(--brand-ink)] font-medium text-sm">🚀 MVP en desarrollo</span>
-        </div>
-        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-stone-900">Soy <span class="text-[var(--brand)]">Carlos Ospina</span>: agricultor construyendo el futuro de la alimentación.</h1>
-        <p class="mt-6 text-lg text-stone-700 max-w-xl">Estoy desarrollando <strong>encosecha.com</strong>, un MVP que conecta directamente mis cultivos con tu mesa. Cada alimento cuenta su historia real: sensores en campo, trazabilidad transparente y venta sin intermediarios.</p>
-        <div class="mt-8 flex flex-col sm:flex-row gap-3">
-          <a href="#productos" class="inline-flex items-center justify-center rounded-2xl bg-[var(--brand)] px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition">Ver mis cultivos actuales</a>
-          <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl border-2 border-stone-300 px-6 py-3 font-medium hover:border-[var(--brand)] hover:text-[var(--brand)] transition">Unirme al piloto</a>
-        </div>
-        <div class="mt-8 p-4 rounded-2xl bg-white/70 border border-white/50">
-          <div class="flex items-center gap-3">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-soft)]">📊</span>
-            <div>
-              <p class="text-sm font-semibold">Estado actual del MVP</p>
-              <p class="text-xs text-stone-600">3 lotes activos • 12 sensores IoT • 1 agricultor (yo) • Buscando primeros aliados</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="relative">
-        <div class="rounded-3xl border border-white/30 bg-white/90 backdrop-blur p-6 shadow-xl">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="rounded-2xl bg-[var(--brand-soft)] p-4">
-              <p class="text-xs uppercase tracking-wide text-[var(--brand-ink)] mb-2">Sensor IoT — Humedad</p>
-              <p class="text-2xl font-bold">67<span class="text-sm font-medium">%</span></p>
-              <p class="text-xs text-stone-500 mt-1">Lote Frijol-A • Hoy 09:30</p>
-              <div class="mt-2 w-full bg-stone-200 rounded-full h-1">
-                <div class="bg-[var(--brand)] h-1 rounded-full" style="width: 67%"></div>
-              </div>
-            </div>
-            <div class="rounded-2xl bg-[var(--accent-soft)] p-4">
-              <p class="text-xs uppercase tracking-wide text-amber-800 mb-2">Sensor IoT — Temperatura</p>
-              <p class="text-2xl font-bold">22<span class="text-sm font-medium">°C</span></p>
-              <p class="text-xs text-stone-500 mt-1">Ambiente • Hoy 09:30</p>
-              <div class="mt-2 w-full bg-stone-200 rounded-full h-1">
-                <div class="bg-[var(--accent)] h-1 rounded-full" style="width: 45%"></div>
-              </div>
-            </div>
-            <div class="col-span-2 rounded-2xl border border-dashed border-stone-300 p-4">
-              <p class="text-xs uppercase tracking-wide text-stone-500 mb-3">Demo de QR por producto</p>
-              <div class="flex items-center gap-4">
-                <div class="aspect-square w-28 rounded bg-white grid place-content-center border border-stone-200 shadow-sm">
-                  <svg viewBox="0 0 80 80" class="w-20 h-20">
-                    <rect width="80" height="80" fill="#fff"/>
-                    <rect x="4" y="4" width="20" height="20" fill="#000"/>
-                    <rect x="56" y="4" width="20" height="20" fill="#000"/>
-                    <rect x="4" y="56" width="20" height="20" fill="#000"/>
-                    <rect x="32" y="32" width="16" height="16" fill="#000"/>
-                    <rect x="56" y="56" width="20" height="20" fill="#000"/>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-semibold">Historia del lote Frijol-A</p>
-                  <p class="text-sm text-stone-600">Escanea para ver: origen en Sonsón, Antioquia; prácticas de cultivo; fechas de siembra y cosecha; y el camino hasta tu cocina.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- Quién soy -->
