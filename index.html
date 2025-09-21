@@ -1699,6 +1699,30 @@
       
       lastScroll = currentScroll;
     });
+
+    function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(function() {
+            // Mostrar feedback visual
+            const copyText = button.querySelector('.copy-text');
+            copyText.style.opacity = '1';
+            
+            setTimeout(() => {
+                copyText.style.opacity = '0';
+            }, 2000);
+        }).catch(function(err) {
+            console.error('Error al copiar: ', err);
+            alert('Dirección copiada: ' + text);
+        });
+    }
+
+    function closeBanner() {
+        const banner = document.querySelector('.gradient-bg').parentElement;
+        banner.style.transform = 'translateY(-100%)';
+        banner.style.opacity = '0';
+        setTimeout(() => {
+            banner.remove();
+        }, 300);
+    }
   </script>
 </body>
 </html>
