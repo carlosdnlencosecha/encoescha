@@ -3,354 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Huerto - Tecnología al servicio de tu salud</title>
+    <title>mihuerto.co - Agricultura con Propósito</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
+        .float { animation: float 6s ease-in-out infinite; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .pulse-scale { animation: pulse-scale 2s ease-in-out infinite; }
+        
         .gradient-text {
-            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .pulse-slow {
-            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-white text-gray-900 antialiased">
     
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-green-50 to-slate-50 px-4 py-20 relative overflow-hidden">
-        <!-- Background tech pattern -->
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-10 left-10 w-32 h-32 border-2 border-blue-500 rounded-full pulse-slow"></div>
-            <div class="absolute bottom-20 right-20 w-40 h-40 border-2 border-green-500 rounded-full pulse-slow" style="animation-delay: 1s;"></div>
-            <div class="absolute top-1/2 left-1/4 w-24 h-24 border-2 border-emerald-500 rounded-full pulse-slow" style="animation-delay: 2s;"></div>
+    <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-white to-green-50 relative overflow-hidden px-4">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float" style="animation-delay: 2s;"></div>
         </div>
-
-        <div class="max-w-5xl mx-auto text-center relative z-10">
-            <div class="inline-block mb-6">
-                <span class="bg-gradient-to-r from-blue-100 to-green-100 text-blue-900 px-5 py-2 rounded-full text-sm font-semibold border border-blue-200">
-                    ⚡ Sensores IoT monitoreando 24/7
-                </span>
+        
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-medium mb-6 fade-in-up">
+                <span>🌱</span>
+                <span>Agricultura con Propósito</span>
             </div>
             
-            <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-                Tecnología <span class="gradient-text">cuidando</span> tu salud desde el campo
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight fade-in-up" style="animation-delay: 0.1s;">
+                Del campo directo<br/>
+                <span class="gradient-text">a tu mesa</span>
             </h1>
             
-            <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                12 sensores inteligentes monitorean cada cultivo para garantizar alimentos 100% libres de químicos con datos en tiempo real
+            <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed fade-in-up" style="animation-delay: 0.2s;">
+                Alimentos trazables, sin intermediarios, cultivados con tecnología de precisión
             </p>
-
-            <!-- Métricas en tiempo real -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
-                <div class="bg-white/80 backdrop-blur p-4 rounded-xl border border-gray-200 shadow-lg">
-                    <div class="text-3xl font-bold text-blue-600">12</div>
-                    <div class="text-xs text-gray-600">Sensores activos</div>
-                </div>
-                <div class="bg-white/80 backdrop-blur p-4 rounded-xl border border-gray-200 shadow-lg">
-                    <div class="text-3xl font-bold text-green-600">24/7</div>
-                    <div class="text-xs text-gray-600">Monitoreo continuo</div>
-                </div>
-                <div class="bg-white/80 backdrop-blur p-4 rounded-xl border border-gray-200 shadow-lg">
-                    <div class="text-3xl font-bold text-emerald-600">0%</div>
-                    <div class="text-xs text-gray-600">Químicos sintéticos</div>
-                </div>
-                <div class="bg-white/80 backdrop-blur p-4 rounded-xl border border-gray-200 shadow-lg">
-                    <div class="text-3xl font-bold text-teal-600">100%</div>
-                    <div class="text-xs text-gray-600">Trazabilidad</div>
-                </div>
-            </div>
-
-            <!-- CTA Principal -->
-            <div class="mb-12">
-                <a href="https://wa.me/573147978583?text=Hola%20Carlos,%20quiero%20conocer%20cómo%20la%20tecnología%20cuida%20mis%20alimentos" 
-                   target="_blank" 
-                   class="inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:from-green-700 hover:to-emerald-700 transition-all shadow-2xl hover:shadow-green-300 hover:scale-105">
-                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 fade-in-up" style="animation-delay: 0.3s;">
+                <a href="https://wa.me/573147978583?text=Hola%20Carlos!%20Vi%20mihuerto.co%20y%20quiero%20saber%20más%20🌱" 
+                   target="_blank"
+                   class="group bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 32 32">
+                        <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-4.713 1.262 1.262-4.669-0.292-0.508c-1.207-2.100-1.847-4.507-1.847-6.978 0-7.51 6.11-13.62 13.62-13.62 7.51 0 13.62 6.11 13.62 13.62s-6.557 13.055-14.073 13.055zM21.305 19.26c-0.346-0.174-2.049-1.007-2.366-1.123-0.316-0.117-0.547-0.174-0.776 0.174s-0.892 1.123-1.094 1.347c-0.201 0.224-0.402 0.251-0.748 0.076-0.346-0.174-1.461-0.539-2.785-1.722-1.031-0.922-1.726-2.061-1.928-2.407-0.201-0.346-0.022-0.533 0.152-0.707 0.156-0.155 0.346-0.402 0.518-0.603 0.174-0.201 0.231-0.346 0.346-0.571 0.117-0.224 0.058-0.427-0.029-0.603s-0.776-1.87-1.063-2.565c-0.28-0.672-0.56-0.58-0.776-0.591-0.201-0.010-0.431-0.012-0.662-0.012s-0.603 0.085-0.92 0.427c-0.316 0.346-1.206 1.179-1.206 2.873s1.235 3.333 1.406 3.561c0.174 0.224 2.425 3.732 5.872 5.234 0.821 0.354 1.462 0.566 1.962 0.724 0.825 0.262 1.577 0.225 2.168 0.137 0.662-0.099 2.049-0.835 2.335-1.642 0.288-0.807 0.288-1.501 0.201-1.642-0.086-0.14-0.316-0.224-0.662-0.398z"/>
                     </svg>
-                    Descubre cómo funciona
+                    Escríbeme por WhatsApp
                 </a>
-                <p class="text-gray-500 mt-4 text-sm">Respondo personalmente • 314 797 8583</p>
-            </div>
-
-            <!-- Sensores monitoreando -->
-            <div class="bg-white/60 backdrop-blur border border-gray-200 rounded-2xl p-6 max-w-2xl mx-auto shadow-xl">
-                <p class="text-sm font-semibold text-gray-700 mb-4">Monitoreo en tiempo real:</p>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-left">
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="w-2 h-2 bg-green-500 rounded-full pulse-slow"></span>
-                        <span class="text-gray-700">Humedad del suelo</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="w-2 h-2 bg-green-500 rounded-full pulse-slow"></span>
-                        <span class="text-gray-700">Temperatura</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="w-2 h-2 bg-green-500 rounded-full pulse-slow"></span>
-                        <span class="text-gray-700">pH del suelo</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="w-2 h-2 bg-green-500 rounded-full pulse-slow"></span>
-                        <span class="text-gray-700">Conductividad</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="w-2 h-2 bg-green-500 rounded-full pulse-slow"></span>
-                        <span class="text-gray-700">Pluviómetro</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="w-2 h-2 bg-green-500 rounded-full pulse-slow"></span>
-                        <span class="text-gray-700">Nutrientes</span>
-                    </div>
+                <div class="text-gray-600 font-medium">
+                    📱 <span class="text-emerald-600 font-semibold">314 797 8583</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cómo la tecnología protege tu salud -->
-    <section class="py-20 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    Tecnología que previene químicos
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Los sensores me permiten actuar antes de que surjan problemas, eliminando la necesidad de pesticidas y químicos
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl shadow-lg border border-blue-200">
-                        <div class="bg-blue-600 w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4">1</div>
-                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Detección temprana</h3>
-                        <p class="text-gray-700 mb-4">Los sensores detectan cambios en humedad, pH y temperatura antes de que aparezcan plagas o enfermedades.</p>
-                        <div class="text-sm text-blue-700 font-semibold">→ Sin necesidad de pesticidas</div>
-                    </div>
-                </div>
-
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl shadow-lg border border-green-200">
-                        <div class="bg-green-600 w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4">2</div>
-                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Nutrición precisa</h3>
-                        <p class="text-gray-700 mb-4">Monitoreo de conductividad eléctrica y nutrientes asegura que las plantas estén fuertes y saludables.</p>
-                        <div class="text-sm text-green-700 font-semibold">→ Sin fertilizantes químicos</div>
-                    </div>
-                </div>
-
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 p-8 rounded-2xl shadow-lg border border-emerald-200">
-                        <div class="bg-emerald-600 w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4">3</div>
-                        <h3 class="text-2xl font-bold mb-3 text-gray-900">Trazabilidad total</h3>
-                        <p class="text-gray-700 mb-4">Cada dato se registra permanentemente. Puedes verificar que nunca se usaron químicos en tu comida.</p>
-                        <div class="text-sm text-emerald-700 font-semibold">→ Transparencia verificable</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Productos con datos de sensores -->
-    <section class="py-20 bg-gradient-to-b from-slate-50 to-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    Alimentos monitoreados sensor a sensor
-                </h2>
-                <p class="text-xl text-gray-600">
-                    Cada producto tiene su propio dashboard de datos en tiempo real
-                </p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Frijol -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all border border-gray-200">
-                    <div class="bg-gradient-to-br from-amber-100 to-orange-100 p-6">
-                        <div class="text-6xl text-center mb-2">🫘</div>
-                        <div class="flex justify-center gap-2 flex-wrap">
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">pH: 6.5</span>
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">Humedad: 68%</span>
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">T: 22°C</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Frijol Cargamanto</h3>
-                        <p class="text-gray-600 mb-3 text-sm">Proteína vegetal monitoreada 24/7</p>
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm">
-                            <div class="font-semibold text-blue-900 mb-1">Sensores activos:</div>
-                            <div class="text-blue-700 text-xs">4 sensores monitoreando este lote cada hora</div>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-3xl font-bold text-green-600">$8.5k<span class="text-lg text-gray-500">/kg</span></span>
-                            <span class="text-sm text-gray-500">45 días</span>
-                        </div>
-                        <div class="bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-semibold text-center">
-                            ✓ Reserva con datos en vivo
-                        </div>
-                    </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto fade-in-up" style="animation-delay: 0.4s;">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-emerald-600 mb-1">100%</div>
+                    <div class="text-sm md:text-base text-gray-600">Trazable</div>
                 </div>
-
-                <!-- Maíz -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all border border-gray-200">
-                    <div class="bg-gradient-to-br from-yellow-100 to-amber-100 p-6">
-                        <div class="text-6xl text-center mb-2">🌽</div>
-                        <div class="flex justify-center gap-2 flex-wrap">
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">pH: 6.8</span>
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">Humedad: 72%</span>
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">T: 24°C</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Maíz Amarillo</h3>
-                        <p class="text-gray-600 mb-3 text-sm">No transgénico con trazabilidad IoT</p>
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm">
-                            <div class="font-semibold text-blue-900 mb-1">Sensores activos:</div>
-                            <div class="text-blue-700 text-xs">4 sensores monitoreando este lote cada hora</div>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-3xl font-bold text-green-600">$3.2k<span class="text-lg text-gray-500">/kg</span></span>
-                            <span class="text-sm text-gray-500">20 días</span>
-                        </div>
-                        <div class="bg-green-600 text-white px-3 py-2 rounded-lg text-xs font-semibold text-center">
-                            ✓ Reserva con datos en vivo
-                        </div>
-                    </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-emerald-600 mb-1">0</div>
+                    <div class="text-sm md:text-base text-gray-600">Intermediarios</div>
                 </div>
-
-                <!-- Cebolla -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all border border-gray-200">
-                    <div class="bg-gradient-to-br from-purple-100 to-pink-100 p-6">
-                        <div class="text-6xl text-center mb-2">🧅</div>
-                        <div class="flex justify-center gap-2 flex-wrap">
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">pH: 6.2</span>
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">Humedad: 65%</span>
-                            <span class="bg-white/80 px-2 py-1 rounded text-xs font-semibold text-gray-700">T: 21°C</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Cebolla Puerro</h3>
-                        <p class="text-gray-600 mb-3 text-sm">Fresca con historial completo</p>
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm">
-                            <div class="font-semibold text-blue-900 mb-1">Sensores activos:</div>
-                            <div class="text-blue-700 text-xs">4 sensores monitoreando este lote cada hora</div>
-                        </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-3xl font-bold text-green-600">$4.8k<span class="text-lg text-gray-500">/kg</span></span>
-                            <span class="text-sm font-semibold text-green-600">Disponible ya</span>
-                        </div>
-                        <div class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 py-2 rounded-lg text-xs font-semibold text-center">
-                            ✓ En stock • Ver datos ahora
-                        </div>
-                    </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-emerald-600 mb-1">IoT</div>
+                    <div class="text-sm md:text-base text-gray-600">Precisión</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-emerald-600 mb-1">24h</div>
+                    <div class="text-sm md:text-base text-gray-600">Frescura</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Desarrollador + Agricultor -->
-    <section class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-200">
-                <div class="flex flex-col md:flex-row items-start gap-6 mb-6">
-                    <div class="text-7xl">👨‍🌾💻</div>
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                            Soy Carlos Ospina
-                        </h2>
-                        <p class="text-blue-700 font-semibold text-lg mb-4">Agricultor + Desarrollador autodidacta</p>
-                        <p class="text-gray-700 text-lg leading-relaxed mb-4">
-                            Tercera generación cultivando en Sonsón. Programo y calibro mis propios sensores IoT porque quería demostrar que la tecnología puede eliminar la necesidad de químicos, no solo documentarla.
+    <!-- Features Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">¿Por qué <span class="gradient-text">mihuerto.co</span>?</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">La primera plataforma que conecta productores con consumidores de forma directa y transparente</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group p-8 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        🔍
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Trazabilidad Total</h3>
+                    <p class="text-gray-600 leading-relaxed">Escanea el QR y conoce toda la historia: desde la semilla, pasando por cada aplicación, hasta el día de cosecha.</p>
+                </div>
+                
+                <div class="group p-8 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        📡
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Agricultura 4.0</h3>
+                    <p class="text-gray-600 leading-relaxed">Sensores IoT monitoreando en tiempo real humedad, temperatura y nutrientes para cultivos optimizados.</p>
+                </div>
+                
+                <div class="group p-8 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        🤝
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Sin Intermediarios</h3>
+                    <p class="text-gray-600 leading-relaxed">Compra directo del productor. Más fresco para ti, mejor precio para ambos, justo para todos.</p>
+                </div>
+                
+                <div class="group p-8 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        🌿
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Producción Limpia</h3>
+                    <p class="text-gray-600 leading-relaxed">Registro detallado de todas las aplicaciones. Transparencia total en el proceso de cultivo.</p>
+                </div>
+                
+                <div class="group p-8 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        💚
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Sostenibilidad</h3>
+                    <p class="text-gray-600 leading-relaxed">Menos transporte, menos desperdicio, más eficiencia. Agricultura que cuida el planeta.</p>
+                </div>
+                
+                <div class="group p-8 rounded-2xl border border-gray-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        📱
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Tech + Campo</h3>
+                    <p class="text-gray-600 leading-relaxed">Innovación tecnológica al servicio de la tradición agrícola colombiana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">¿Para quién es <span class="gradient-text">mihuerto.co</span>?</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-4xl mb-4">🏪</div>
+                    <h3 class="text-xl font-bold mb-2">Restaurantes</h3>
+                    <p class="text-gray-600">Productos con historia verificable que elevan tu propuesta de valor</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-4xl mb-4">👨‍👩‍👧</div>
+                    <h3 class="text-xl font-bold mb-2">Familias</h3>
+                    <p class="text-gray-600">Alimentación saludable y confiable para quienes más amas</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-4xl mb-4">🏢</div>
+                    <h3 class="text-xl font-bold mb-2">Empresas</h3>
+                    <p class="text-gray-600">Proveeduría directa para comedores corporativos</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="text-4xl mb-4">👨‍🌾</div>
+                    <h3 class="text-xl font-bold mb-2">Agricultores</h3>
+                    <p class="text-gray-600">Únete a la red y vende sin intermediarios</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Carlos -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-gradient-to-br from-emerald-50 to-green-50 rounded-3xl p-8 md:p-12 border border-emerald-100">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-shrink-0">
+                        <div class="w-24 h-24 bg-emerald-600 rounded-full flex items-center justify-center text-4xl">
+                            👨‍🌾
+                        </div>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="text-3xl font-bold mb-2">Carlos Ospina</h3>
+                        <p class="text-emerald-600 font-semibold mb-4">Agricultor & Desarrollador de Software</p>
+                        <p class="text-gray-700 leading-relaxed">
+                            Nací en el campo, crecí entre cultivos y tecnología. mihuerto.co es mi forma de unir estas dos pasiones: 
+                            crear un puente directo entre quien cultiva y quien consume, usando la tecnología para devolver 
+                            la dignidad al trabajo agrícola y la confianza a tu mesa.
                         </p>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold">
-                                15+ años en campo
-                            </div>
-                            <div class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
-                                15,847 líneas de código
-                            </div>
-                            <div class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold">
-                                12 sensores programados por mí
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="border-t border-gray-300 pt-6">
-                    <p class="text-gray-600 italic text-center">
-                        "La tecnología no debe ser marketing. Debe ser la herramienta que hace posible cultivar sin químicos de forma rentable y escalable."
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Para quién -->
-    <section class="py-20 bg-gradient-to-b from-slate-50 to-white">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">
-                Ideal para quienes valoran la ciencia en su comida
-            </h2>
-            <p class="text-center text-gray-600 mb-12 text-lg">
-                Datos reales, no solo palabras bonitas
-            </p>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="text-5xl">🏠</div>
-                        <h3 class="text-2xl font-bold">Familias tech-conscious</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Que quieren alimentarse con ciencia, no con fe. Ver datos reales de cómo creció su comida.</p>
-                    <div class="text-sm text-blue-700 font-semibold">→ Acceso a dashboard de sensores</div>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="text-5xl">🍽️</div>
-                        <h3 class="text-2xl font-bold">Restaurantes premium</h3>
-                    </div>
-                    <p class="text-gray-600 mb-4">Que pueden mostrar a sus clientes datos verificables en tiempo real de cada ingrediente.</p>
-                    <div class="text-sm text-green-700 font-semibold">→ Marketing con evidencia científica</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Final -->
-    <section class="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-green-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-20 left-20 w-64 h-64 border border-white rounded-full pulse-slow"></div>
-            <div class="absolute bottom-20 right-20 w-48 h-48 border border-white rounded-full pulse-slow" style="animation-delay: 1s;"></div>
-        </div>
-        
-        <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
-            <div class="inline-block bg-white/10 backdrop-blur px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <span class="w-2 h-2 bg-green-400 rounded-full inline-block mr-2 pulse-slow"></span>
-                Sensores transmitiendo ahora
-            </div>
-            
-            <h2 class="text-4xl md:text-6xl font-bold mb-6">
-                Conoce el sistema completo
-            </h2>
-            <p class="text-xl md:text-2xl mb-10 opacity-95">
-                Escríbeme y te muestro en vivo cómo funcionan los sensores, qué datos capturan y cómo garantizan tu salud
+    <section class="py-20 px-4 bg-gradient-to-br from-emerald-600 to-green-600 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">¿Listo para probar la diferencia?</h2>
+            <p class="text-xl md:text-2xl mb-12 opacity-95">
+                Un mensaje de WhatsApp te conecta con alimentos reales, frescos y con historia
             </p>
             
-            <a href="https://wa.me/573147978583?text=Hola%20Carlos,%20quiero%20ver%20cómo%20funciona%20tu%20sistema%20de%20sensores" 
-               target="_blank" 
-               class="inline-flex items-center gap-3 bg-white text-slate-900 px-12 py-6 rounded-full text-2xl font-bold hover:bg-gray-100 transition-all shadow-2xl hover:scale-105">
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            <a href="https://wa.me/573147978583?text=Hola%20Carlos!%20Vi%20mihuerto.co%20y%20quiero%20saber%20más%20🌱" 
+               target="_blank"
+               class="inline-flex items-center gap-3 bg-white text-emerald-600 px-10 py-5 rounded-full font-bold text-xl hover:bg-gray-50 transition-all duration-300 shadow-2xl hover:scale-105 pulse-scale">
+                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 32 32">
+                    <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-4.713 1.262 1.262-4.669-0.292-0.508c-1.207-2.100-1.847-4.507-1.847-6.978 0-7.51 6.11-13.62 13.62-13.62 7.51 0 13.62 6.11 13.62 13.62s-6.557 13.055-14.073 13.055zM21.305 19.26c-0.346-0.174-2.049-1.007-2.366-1.123-0.316-0.117-0.547-0.174-0.776 0.174s-0.892 1.123-1.094 1.347c-0.201 0.224-0.402 0.251-0.748 0.076-0.346-0.174-1.461-0.539-2.785-1.722-1.031-0.922-1.726-2.061-1.928-2.407-0.201-0.346-0.022-0.533 0.152-0.707 0.156-0.155 0.346-0.402 0.518-0.603 0.174-0.201 0.231-0.346 0.346-0.571 0.117-0.224 0.058-0.427-0.029-0.603s-0.776-1.87-1.063-2.565c-0.28-0.672-0.56-0.58-0.776-0.591-0.201-0.010-0.431-0.012-0.662-0.012s-0.603 0.085-0.92 0.427c-0.316 0.346-1.206 1.179-1.206 2.873s1.235 3.333 1.406 3.561c0.174 0.224 2.425 3.732 5.872 5.234 0.821 0.354 1.462 0.566 1.962 0.724 0.825 0.262 1.577 0.225 2.168 0.137 0.662-0.099 2.049-0.835 2.335-1.642 0.288-0.807 0.288-1.501 0.201-1.642-0.086-0.14-0.316-0.224-0.662-0.398z"/>
                 </svg>
-                Ver los sensores en acción
+                Contactar por WhatsApp
             </a>
             
-            <p class="mt-8 text-blue-200 text-lg">
-                📱 314 797 8583 • Puedo mostrarte el código y los datos en tiempo real
+            <div class="mt-8">
+                <p class="text-2xl font-bold mb-2">📱 314 797 8583</p>
+                <p class="text-lg opacity-90">Respondo personalmente</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="text-3xl font-bold mb-4 gradient-text" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                🌱 mihuerto.co
+            </div>
+            <p class="text-gray-400 mb-6">Agricultura con propósito. Tecnología con corazón.</p>
+            <p class="text-sm text-gray-500">Sonsón, Antioquia - Medellín, Colombia</p>
+            <p class="text-sm text-gray-600 mt-4">2024 © Desarrollado con 💚 por Carlos Ospina</p>
+        </div>
+    </footer>
+
+</body>
+</html>
