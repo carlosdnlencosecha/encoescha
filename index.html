@@ -1,391 +1,1596 @@
-<!DOCTYPE html>
-<html lang="es">
+
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mihuerto.co - Del Campo con Amor 🌱</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        @keyframes sway {
-            0%, 100% { transform: translateX(0px); }
-            50% { transform: translateX(10px); }
-        }
-        @keyframes grow {
-            0% { transform: scale(0) translateY(20px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
-        .float { animation: float 4s ease-in-out infinite; }
-        .sway { animation: sway 3s ease-in-out infinite; }
-        .grow { animation: grow 0.6s ease-out forwards; }
-        .bounce { animation: bounce 2s ease-in-out infinite; }
-        .wiggle { animation: wiggle 1s ease-in-out infinite; }
-        
-        .leaf-bg {
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(132, 204, 22, 0.1) 0%, transparent 50%);
-        }
-        
-        .dirt-texture {
-            background: linear-gradient(180deg, #78350f 0%, #92400e 100%);
-            position: relative;
-        }
-        
-        .dirt-texture::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: 
-                repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,0.1) 1px, transparent 2px),
-                repeating-linear-gradient(0deg, transparent 0px, rgba(0,0,0,0.05) 1px, transparent 2px);
-            background-size: 20px 20px;
-        }
-        
-        .plant-card {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            border: 3px solid #86efac;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .plant-card::before {
-            content: '🌱';
-            position: absolute;
-            font-size: 100px;
-            opacity: 0.05;
-            right: -20px;
-            bottom: -20px;
-            transform: rotate(-15deg);
-        }
-        
-        @keyframes rain {
-            0% { transform: translateY(-100vh); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-        
-        .rain {
-            position: absolute;
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(transparent, rgba(100, 200, 255, 0.5));
-            animation: rain 2s linear infinite;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mihuerto.co — MVP: Del surco al fogón, con historia y trazabilidad</title>
+  <meta property="og:title" content="mihuerto.co — MVP: Del surco al fogón, con historia y trazabilidad">
+  <meta name="description" content="MVP de plataforma para conectar agricultores con consumidores finales. Trazabilidad real con sensores IoT, QR por producto y logística directa." />
+  <meta property="og:image" content="https://tuservidor.com/preview.jpg">
+  <meta property="og:url" content="https://mihuerto.co">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { 
+      --brand: #1f8a4c; 
+      --brand-ink: #0d5130; 
+      --brand-soft: #e8f5ee;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+    }
+    body{ 
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, var(--brand-soft) 0%, #f0fdf4 50%, var(--accent-soft) 100%);
+    }
+    .mvp-badge {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+       
+  </style>
 </head>
-<body class="bg-gradient-to-b from-sky-100 via-green-50 to-amber-50">
-    
-    <!-- Animated Sky & Clouds -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="absolute top-20 left-10 text-6xl float" style="animation-delay: 0s;">☁️</div>
-        <div class="absolute top-32 right-20 text-7xl float" style="animation-delay: 1s;">☁️</div>
-        <div class="absolute top-48 left-1/3 text-5xl float" style="animation-delay: 2s;">☁️</div>
-        <div class="absolute top-10 right-1/4 text-4xl">☀️</div>
+ 
+<body class="bg-stone-50 text-stone-800">
+
+  <!-- Top Bar -->
+  <div class="bg-gradient-to-r from-[var(--brand-soft)] to-[var(--accent-soft)] text-[var(--brand-ink)]">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 text-sm flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="mvp-badge inline-flex px-2 py-1 rounded-full bg-[var(--accent)] text-white font-semibold text-xs">MVP</span>
+        <p>Del surco al fogón, con historia y trazabilidad real.</p>
+      </div>
+      <a href="#contacto" class="underline underline-offset-4 hover:text-[var(--brand)]">Únete al piloto</a>
     </div>
+  </div>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative px-4 pt-20 pb-32">
-        <div class="max-w-6xl mx-auto text-center relative z-10">
-            
-            <!-- Animated Plants -->
-            <div class="flex justify-center gap-4 mb-8">
-                <span class="text-6xl sway grow" style="animation-delay: 0s;">🌾</span>
-                <span class="text-7xl grow" style="animation-delay: 0.2s;">🌱</span>
-                <span class="text-6xl sway grow" style="animation-delay: 0.4s;">🌿</span>
-            </div>
-            
-            <div class="inline-flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-full text-sm font-bold mb-6 bounce shadow-lg">
-                <span>🚜</span>
-                <span>Directo del Campo Colombiano</span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-black mb-6 text-green-900 leading-tight">
-                mihuerto.co
-                <br/>
-                <span class="text-4xl md:text-6xl bg-gradient-to-r from-green-600 to-lime-500 bg-clip-text text-transparent">
-                    ¡De la tierra a tu cocina! 🥕
-                </span>
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-green-800 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
-                Alimentos frescos, cultivados con amor y tecnología 💚<br/>
-                <span class="text-lg">Sin intermediarios • Con historia • 100% Trazable</span>
-            </p>
-            
-            <!-- Animated Veggies -->
-            <div class="flex justify-center gap-3 mb-10 text-5xl">
-                <span class="bounce" style="animation-delay: 0s;">🍅</span>
-                <span class="bounce" style="animation-delay: 0.3s;">🥬</span>
-                <span class="bounce" style="animation-delay: 0.6s;">🥕</span>
-                <span class="bounce" style="animation-delay: 0.9s;">🌽</span>
-                <span class="bounce" style="animation-delay: 1.2s;">🫑</span>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <a href="https://wa.me/573147978583?text=Hola%20Carlos!%20🌱%20Quiero%20alimentos%20frescos%20del%20campo" 
-                   target="_blank"
-                   class="group bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-full font-bold text-xl transition-all duration-300 flex items-center gap-3 shadow-2xl hover:shadow-green-500/50 hover:scale-110 wiggle">
-                    <span class="text-2xl">📱</span>
-                    ¡Escríbeme por WhatsApp!
-                </a>
-            </div>
-            
-            <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-xl border-4 border-green-600 inline-block">
-                <p class="text-2xl font-black text-green-700 mb-2">📞 314 797 8583</p>
-                <p class="text-green-600 font-semibold">Carlos Ospina - Agricultor de Corazón 💚</p>
-            </div>
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/80 bg-white/95 border-b border-stone-200">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="#" class="flex items-center gap-2">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--brand)] text-white font-bold text-sm">en</span>
+        <span class="font-semibold">mihuerto<span class="text-[var(--brand)]">.com</span></span>
+      </a>
+      <ul class="hidden md:flex items-center gap-6 text-sm">
+        <li><a class="hover:text-[var(--brand)] transition" href="#quien-soy">Quién soy</a></li>
+        <li><a class="hover:text-[var(--brand)] transition" href="#mvp">MVP</a></li>
+        <li><a class="hover:text-[var(--brand)] transition" href="#productos">Mis cultivos</a></li>
+        <li><a class="hover:text-[var(--brand)] transition" href="#trazabilidad">Trazabilidad</a></li>
+        <li><a class="hover:text-[var(--brand)] transition" href="#agricultores">Futuros agricultores</a></li>
+        <li><a class="hover:text-[var(--brand)] transition" href="#tiendas">Aliados</a></li>
+      </ul>
+      <a href="#contacto" class="hidden md:inline-flex items-center gap-2 rounded-2xl border border-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white transition">Contactar</a>
+    </nav>
+  </header>
 
-            <!-- Stats Garden Style -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-12">
-                <div class="plant-card rounded-2xl p-6 shadow-lg transform hover:scale-105 transition-transform">
-                    <div class="text-4xl mb-2">🌱</div>
-                    <div class="text-3xl font-black text-green-700">100%</div>
-                    <div class="text-sm font-bold text-green-600">Trazable</div>
-                </div>
-                <div class="plant-card rounded-2xl p-6 shadow-lg transform hover:scale-105 transition-transform">
-                    <div class="text-4xl mb-2">🚫</div>
-                    <div class="text-3xl font-black text-green-700">0</div>
-                    <div class="text-sm font-bold text-green-600">Intermediarios</div>
-                </div>
-                <div class="plant-card rounded-2xl p-6 shadow-lg transform hover:scale-105 transition-transform">
-                    <div class="text-4xl mb-2">⚡</div>
-                    <div class="text-3xl font-black text-green-700">24h</div>
-                    <div class="text-sm font-bold text-green-600">Ultra Fresco</div>
-                </div>
-                <div class="plant-card rounded-2xl p-6 shadow-lg transform hover:scale-105 transition-transform">
-                    <div class="text-4xl mb-2">💚</div>
-                    <div class="text-3xl font-black text-green-700">IoT</div>
-                    <div class="text-sm font-bold text-green-600">Tech Campo</div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Dirt Divider -->
-    <div class="dirt-texture h-24 relative">
-        <div class="absolute inset-x-0 -top-12 text-center text-6xl">
-            <span class="inline-block sway">🌾</span>
-            <span class="inline-block sway" style="animation-delay: 0.5s;">🌻</span>
-            <span class="inline-block sway" style="animation-delay: 1s;">🌾</span>
-        </div>
+  <!-- Hero -->
+  <section class="relative overflow-hidden gradient-bg">
+    <div aria-hidden class="absolute inset-0 pointer-events-none">
+      <svg class="absolute -top-24 -right-24 w-[38rem] opacity-15" viewBox="0 0 400 400" fill="none">
+        <circle cx="200" cy="200" r="200" fill="url(#g)"/>
+        <defs>
+          <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 200) rotate(90) scale(200)">
+            <stop stop-color="#9ae6b4"/>
+            <stop offset="1" stop-color="#1f8a4c"/>
+          </radialGradient>
+        </defs>
+      </svg>
     </div>
-
-    <!-- Features Section con tema agrícola -->
-    <section class="py-20 px-4 bg-gradient-to-b from-green-50 to-lime-50 relative">
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="text-center mb-16">
-                <div class="text-6xl mb-4">🌾</div>
-                <h2 class="text-4xl md:text-5xl font-black text-green-900 mb-4">
-                    ¿Qué hace especial a mihuerto.co? 🤔
-                </h2>
-                <p class="text-xl text-green-700 font-semibold">¡Agricultura del futuro con sabor tradicional! 🚜💻</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-white rounded-3xl p-8 shadow-xl border-4 border-green-400 hover:border-green-600 transition-all transform hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="text-6xl mb-4 wiggle">📖</div>
-                    <h3 class="text-2xl font-black text-green-800 mb-3">Historia Completa</h3>
-                    <p class="text-green-700 leading-relaxed font-medium">
-                        Escanea el QR y conoce: ¿Cuándo se sembró? ¿Qué se aplicó? ¿Cuándo se cosechó? 
-                        <span class="font-bold">¡Todo registrado!</span> 📱✨
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white rounded-3xl p-8 shadow-xl border-4 border-lime-400 hover:border-lime-600 transition-all transform hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="text-6xl mb-4 wiggle" style="animation-delay: 0.2s;">🤖</div>
-                    <h3 class="text-2xl font-black text-green-800 mb-3">Sensores IoT</h3>
-                    <p class="text-green-700 leading-relaxed font-medium">
-                        Tecnología monitoreando humedad, temperatura y nutrientes. 
-                        <span class="font-bold">¡El campo 4.0!</span> 💡🌡️
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white rounded-3xl p-8 shadow-xl border-4 border-yellow-400 hover:border-yellow-600 transition-all transform hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="text-6xl mb-4 wiggle" style="animation-delay: 0.4s;">🤝</div>
-                    <h3 class="text-2xl font-black text-green-800 mb-3">Compra Directa</h3>
-                    <p class="text-green-700 leading-relaxed font-medium">
-                        Del agricultor a tu cocina. Sin vueltas, sin engaños. 
-                        <span class="font-bold">¡Justo para todos!</span> 💪😊
-                    </p>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-white rounded-3xl p-8 shadow-xl border-4 border-emerald-400 hover:border-emerald-600 transition-all transform hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="text-6xl mb-4 wiggle" style="animation-delay: 0.6s;">🌿</div>
-                    <h3 class="text-2xl font-black text-green-800 mb-3">Limpio & Seguro</h3>
-                    <p class="text-green-700 leading-relaxed font-medium">
-                        Cada aplicación registrada con fecha y cantidad. 
-                        <span class="font-bold">¡Transparencia total!</span> ✅🔍
-                    </p>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="bg-white rounded-3xl p-8 shadow-xl border-4 border-teal-400 hover:border-teal-600 transition-all transform hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="text-6xl mb-4 wiggle" style="animation-delay: 0.8s;">⚡</div>
-                    <h3 class="text-2xl font-black text-green-800 mb-3">Super Fresco</h3>
-                    <p class="text-green-700 leading-relaxed font-medium">
-                        De la cosecha a tu mesa en menos de 24 horas. 
-                        <span class="font-bold">¡Frescura garantizada!</span> 🏃‍♂️💨
-                    </p>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="bg-white rounded-3xl p-8 shadow-xl border-4 border-green-400 hover:border-green-600 transition-all transform hover:-translate-y-2 hover:shadow-2xl">
-                    <div class="text-6xl mb-4 wiggle" style="animation-delay: 1s;">🌍</div>
-                    <h3 class="text-2xl font-black text-green-800 mb-3">Eco-Amigable</h3>
-                    <p class="text-green-700 leading-relaxed font-medium">
-                        Menos transporte, menos desperdicio. 
-                        <span class="font-bold">¡Cuidamos el planeta!</span> 🌎♻️
-                    </p>
-                </div>
-            </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="inline-flex px-3 py-1 rounded-full bg-white/80 text-[var(--brand-ink)] font-medium text-sm">🚀 MVP en desarrollo</span>
         </div>
-    </section>
-
-    <!-- Who is it for -->
-    <section class="py-20 px-4 bg-gradient-to-b from-amber-50 to-yellow-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="text-6xl mb-4">🎯</div>
-                <h2 class="text-4xl md:text-5xl font-black text-green-900 mb-4">
-                    ¿Para quién cultivo? 👥
-                </h2>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-white rounded-2xl p-8 shadow-lg border-4 border-orange-300 hover:scale-105 transition-transform">
-                    <div class="text-7xl mb-4">🍽️</div>
-                    <h3 class="text-2xl font-black text-orange-700 mb-3">Restaurantes</h3>
-                    <p class="text-gray-700 font-medium">Productos con historia que hacen tu menú único</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg border-4 border-pink-300 hover:scale-105 transition-transform">
-                    <div class="text-7xl mb-4">👨‍👩‍👧‍👦</div>
-                    <h3 class="text-2xl font-black text-pink-700 mb-3">Familias</h3>
-                    <p class="text-gray-700 font-medium">Alimenta a los tuyos con lo mejor del campo</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg border-4 border-blue-300 hover:scale-105 transition-transform">
-                    <div class="text-7xl mb-4">🏢</div>
-                    <h3 class="text-2xl font-black text-blue-700 mb-3">Empresas</h3>
-                    <p class="text-gray-700 font-medium">Proveeduría directa para comedores</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg border-4 border-green-300 hover:scale-105 transition-transform">
-                    <div class="text-7xl mb-4">👨‍🌾</div>
-                    <h3 class="text-2xl font-black text-green-700 mb-3">Agricultores</h3>
-                    <p class="text-gray-700 font-medium">Únete y vende sin intermediarios</p>
-                </div>
-            </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-stone-900">Soy <span class="text-[var(--brand)]">Carlos Ospina</span>: agricultor construyendo el futuro de la alimentación.</h1>
+        <p class="mt-6 text-lg text-stone-700 max-w-xl">Estoy desarrollando <strong>mihuerto.co</strong>, un MVP que conecta directamente mis cultivos con tu mesa. Cada alimento cuenta su historia real: sensores en campo, trazabilidad transparente y venta sin intermediarios.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#productos" class="inline-flex items-center justify-center rounded-2xl bg-[var(--brand)] px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition">Ver mis cultivos actuales</a>
+          <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl border-2 border-stone-300 px-6 py-3 font-medium hover:border-[var(--brand)] hover:text-[var(--brand)] transition">Unirme al piloto</a>
         </div>
-    </section>
-
-    <!-- About Carlos con tema campo -->
-    <section class="py-20 px-4 bg-gradient-to-br from-green-100 to-lime-100">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border-8 border-green-600 relative overflow-hidden">
-                <div class="absolute top-0 right-0 text-9xl opacity-5">🌱</div>
-                <div class="absolute bottom-0 left-0 text-9xl opacity-5">🚜</div>
-                
-                <div class="relative z-10">
-                    <div class="text-center mb-8">
-                        <div class="text-8xl mb-4">👨‍🌾</div>
-                        <h3 class="text-4xl font-black text-green-800 mb-2">Carlos Ospina</h3>
-                        <div class="flex items-center justify-center gap-3 text-xl font-bold text-green-600 mb-6">
-                            <span>🌾 Agricultor</span>
-                            <span>•</span>
-                            <span>💻 Developer</span>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-green-50 rounded-2xl p-6 border-4 border-green-300">
-                        <p class="text-xl text-green-900 leading-relaxed text-center font-medium">
-                            Nací entre surcos y crecí con tierra bajo las uñas 🌱 
-                            Pero también aprendí a programar 💻 
-                            <br/><br/>
-                            <span class="text-2xl font-black text-green-700">
-                                mihuerto.co es mi sueño: 
-                            </span>
-                            <br/>
-                            Unir el campo con la tecnología para que TODOS vivamos mejor del agro. 
-                            Sin intermediarios, con transparencia y mucho amor por la tierra 💚🇨🇴
-                        </p>
-                    </div>
-                </div>
+        <div class="mt-8 p-4 rounded-2xl bg-white/70 border border-white/50">
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-soft)]">📊</span>
+            <div>
+              <p class="text-sm font-semibold">Estado actual del MVP</p>
+              <p class="text-xs text-stone-600">3 lotes activos • 12 sensores IoT • 1 agricultor (yo) • Buscando primeros aliados</p>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+      <div class="relative">
+        <div class="rounded-3xl border border-white/30 bg-white/90 backdrop-blur p-6 shadow-xl">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-2xl bg-[var(--brand-soft)] p-4">
+              <p class="text-xs uppercase tracking-wide text-[var(--brand-ink)] mb-2">Sensor IoT — Humedad</p>
+              <p class="text-2xl font-bold">67<span class="text-sm font-medium">%</span></p>
+              <p class="text-xs text-stone-500 mt-1">Lote Frijol-A • Hoy 09:30</p>
+              <div class="mt-2 w-full bg-stone-200 rounded-full h-1">
+                <div class="bg-[var(--brand)] h-1 rounded-full" style="width: 67%"></div>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-[var(--accent-soft)] p-4">
+              <p class="text-xs uppercase tracking-wide text-amber-800 mb-2">Sensor IoT — Temperatura</p>
+              <p class="text-2xl font-bold">22<span class="text-sm font-medium">°C</span></p>
+              <p class="text-xs text-stone-500 mt-1">Ambiente • Hoy 09:30</p>
+              <div class="mt-2 w-full bg-stone-200 rounded-full h-1">
+                <div class="bg-[var(--accent)] h-1 rounded-full" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="col-span-2 rounded-2xl border border-dashed border-stone-300 p-4">
+              <p class="text-xs uppercase tracking-wide text-stone-500 mb-3">Demo de QR por producto</p>
+              <div class="flex items-center gap-4">
+                <div class="aspect-square w-28 rounded bg-white grid place-content-center border border-stone-200 shadow-sm">
+                  <svg viewBox="0 0 80 80" class="w-20 h-20">
+                    <rect width="80" height="80" fill="#fff"/>
+                    <rect x="4" y="4" width="20" height="20" fill="#000"/>
+                    <rect x="56" y="4" width="20" height="20" fill="#000"/>
+                    <rect x="4" y="56" width="20" height="20" fill="#000"/>
+                    <rect x="32" y="32" width="16" height="16" fill="#000"/>
+                    <rect x="56" y="56" width="20" height="20" fill="#000"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold">Historia del lote Frijol-A</p>
+                  <p class="text-sm text-stone-600">Escanea para ver: origen en Sonsón, Antioquia; prácticas de cultivo; fechas de siembra y cosecha; y el camino hasta tu cocina.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA Final Super Animado -->
-    <section class="py-20 px-4 bg-gradient-to-br from-green-600 via-green-700 to-lime-600 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="text-9xl absolute top-10 left-10 float">🌾</div>
-            <div class="text-9xl absolute bottom-10 right-10 float" style="animation-delay: 1s;">🥕</div>
-            <div class="text-9xl absolute top-1/2 left-1/2 float" style="animation-delay: 2s;">🍅</div>
+  <!-- Quién soy -->
+  <section id="quien-soy" class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-start">
+      <div class="space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-bold">Quién soy</h2>
+        <p class="text-lg">Soy <strong>Carlos Ospina</strong>, agricultor de tercera generación de Sonsón, Antioquia, y desarrollador de software autodidacta. Después de ver cómo los intermediarios desconectan el campo de la ciudad, decidí construir la tecnología que necesitamos para vender directo y con transparencia total.</p>
+        <p class="text-base text-stone-600">Actualmente cultivo en 2.3 hectáreas familiares, usando sensores IoT que yo mismo programo y calibro. Este es mi laboratorio para probar que es posible combinar tradición agrícola con tecnología moderna.</p>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-stone-200 p-4 bg-white card-hover">
+            <p class="text-sm">👨‍🌾 15+ años cultivando</p>
+          </div>
+          <div class="rounded-2xl border border-stone-200 p-4 bg-white card-hover">
+            <p class="text-sm">💻 Programo mis sensores</p>
+          </div>
+          <div class="rounded-2xl border border-stone-200 p-4 bg-white card-hover">
+            <p class="text-sm">🔗 Trazabilidad transparente</p>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg">
+        <h3 class="font-semibold mb-4 text-[var(--brand)]">Mi manifiesto personal</h3>
+        <blockquote class="text-stone-700 italic mb-4">
+          "Cada producto debe contar su historia real, no inventada. La tecnología no reemplaza la sabiduría del campo, la amplifica. La confianza se cultiva con transparencia: datos reales, prácticas responsables y relaciones directas entre quien siembra y quien se alimenta."
+        </blockquote>
+        <div class="border-t pt-4">
+          <p class="text-sm text-stone-600">
+            <strong>Mi compromiso:</strong> Todo sensor, todo dato, toda práctica de cultivo será visible y auditable. Sin marketing verde, solo realidad documentada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MVP Status -->
+  <section id="mvp" class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold">Estado actual del MVP</h2>
+        <p class="mt-4 text-lg text-stone-600">mihuerto.co está en desarrollo activo. Aquí puedes ver exactamente dónde estamos:</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div class="rounded-2xl p-6 border border-stone-200 bg-gradient-to-br from-[var(--brand-soft)] to-white">
+          <div class="text-2xl mb-2">🌾</div>
+          <h3 class="font-semibold text-lg">Cultivos activos</h3>
+          <p class="text-3xl font-bold text-[var(--brand)] mt-1">3</p>
+          <p class="text-sm text-stone-600 mt-1">Frijol, maíz y Cebolla puerro</p>
         </div>
         
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <div class="text-7xl mb-6 bounce">📱</div>
-            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                ¿Listo para comer REAL? 🥗
-            </h2>
-            <p class="text-2xl md:text-3xl text-green-100 mb-12 font-bold">
-                ¡Un mensaje y conectamos tu cocina con mi huerta! 🌱➡️🏠
-            </p>
-            
-            <a href="https://wa.me/573147978583?text=Hola%20Carlos!%20🌱%20Vi%20mihuerto.co%20y%20quiero%20productos%20frescos%20del%20campo" 
-               target="_blank"
-               class="inline-flex items-center gap-4 bg-white text-green-600 px-12 py-6 rounded-full font-black text-2xl hover:bg-green-50 transition-all duration-300 shadow-2xl hover:scale-110 group">
-                <svg class="w-10 h-10 group-hover:wiggle" fill="currentColor" viewBox="0 0 32 32">
-                    <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-4.713 1.262 1.262-4.669-0.292-0.508c-1.207-2.100-1.847-4.507-1.847-6.978 0-7.51 6.11-13.62 13.62-13.62 7.51 0 13.62 6.11 13.62 13.62s-6.557 13.055-14.073 13.055zM21.305 19.26c-0.346-0.174-2.049-1.007-2.366-1.123-0.316-0.117-0.547-0.174-0.776 0.174s-0.892 1.123-1.094 1.347c-0.201 0.224-0.402 0.251-0.748 0.076-0.346-0.174-1.461-0.539-2.785-1.722-1.031-0.922-1.726-2.061-1.928-2.407-0.201-0.346-0.022-0.533 0.152-0.707 0.156-0.155 0.346-0.402 0.518-0.603 0.174-0.201 0.231-0.346 0.346-0.571 0.117-0.224 0.058-0.427-0.029-0.603s-0.776-1.87-1.063-2.565c-0.28-0.672-0.56-0.58-0.776-0.591-0.201-0.010-0.431-0.012-0.662-0.012s-0.603 0.085-0.92 0.427c-0.316 0.346-1.206 1.179-1.206 2.873s1.235 3.333 1.406 3.561c0.174 0.224 2.425 3.732 5.872 5.234 0.821 0.354 1.462 0.566 1.962 0.724 0.825 0.262 1.577 0.225 2.168 0.137 0.662-0.099 2.049-0.835 2.335-1.642 0.288-0.807 0.288-1.501 0.201-1.642-0.086-0.14-0.316-0.224-0.662-0.398z"/>
-                </svg>
-                ¡ESCRÍBEME AHORA!
-            </a>
-            
-            <div class="mt-10 bg-white/20 backdrop-blur-sm rounded-3xl p-8 border-4 border-white/40">
-                <p class="text-4xl font-black text-white mb-3">📞 314 797 8583</p>
-                <p class="text-2xl text-green-100 font-bold">¡Te respondo yo mismo! 🤙</p>
-                <div class="flex justify-center gap-4 mt-6 text-4xl">
-                    <span class="bounce">🌱</span>
-                    <span class="bounce" style="animation-delay: 0.2s;">❤️</span>
-                    <span class="bounce" style="animation-delay: 0.4s;">🇨🇴</span>
+        <div class="rounded-2xl p-6 border border-stone-200 bg-gradient-to-br from-[var(--accent-soft)] to-white">
+          <div class="text-2xl mb-2">📡</div>
+          <h3 class="font-semibold text-lg">Sensores IoT</h3>
+          <p class="text-3xl font-bold text-[var(--accent)] mt-1">12</p>
+          <p class="text-sm text-stone-600 mt-1">Humedad, temperatura, pH del suelo</p>
+        </div>
+        
+        <div class="rounded-2xl p-6 border border-stone-200 bg-gradient-to-br from-blue-100 to-white">
+          <div class="text-2xl mb-2">👥</div>
+          <h3 class="font-semibold text-lg">Agricultores</h3>
+          <p class="text-3xl font-bold text-blue-600 mt-1">1</p>
+          <p class="text-sm text-stone-600 mt-1">Yo (Carlos) - Buscando socios</p>
+        </div>
+        
+        <div class="rounded-2xl p-6 border border-stone-200 bg-gradient-to-br from-purple-100 to-white">
+          <div class="text-2xl mb-2">🏪</div>
+          <h3 class="font-semibold text-lg">Aliados</h3>
+          <p class="text-3xl font-bold text-purple-600 mt-1">0</p>
+          <p class="text-sm text-stone-600 mt-1">Buscando tiendas de barrio</p>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-dashed border-stone-300 p-8 bg-stone-50">
+        <h3 class="font-semibold text-lg mb-4">Roadmap técnico próximos 6 meses</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-medium text-[var(--brand)] mb-2">✅ Ya funcionando</h4>
+            <ul class="space-y-1 text-sm text-stone-600">
+              <li>• Sensores IoT enviando datos cada hora</li>
+              <li>• Dashboard web para monitoreo en tiempo real</li>
+              <li>• Generación de QR por lote</li>
+              <li>• Registro manual de prácticas de cultivo</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium text-[var(--accent)] mb-2">🚧 En desarrollo</h4>
+            <ul class="space-y-1 text-sm text-stone-600">
+              <li>• API para tiendas de barrio</li>
+              <li>• Sistema de pedidos y logística</li>
+              <li>• App móvil para agricultores</li>
+              <li>• Automatización de alertas de cultivo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Productos demo con datos reales -->
+  <section id="productos" class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold">Mis cultivos actuales</h2>
+        <p class="mt-3 text-lg text-stone-700 max-w-2xl mx-auto">Estos son los productos que estoy cultivando ahora en mi finca en Sonsón, Antioquia. Cada uno tiene sensores reales y trazabilidad completa.</p>
+        <div class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--brand-soft)] text-[var(--brand-ink)] text-sm">
+          <span>📍</span> Finca familiar • Sonsón, Antioquia • 2.3 hectáreas
+        </div>
+      </div>
+      
+      <div class="grid sm:grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Producto 1 - Datos más reales -->
+        <button data-product='{"id":"FRIJOL-A-2025","name":"Frijol cargamanto rojo","siembra":"2025-03-15","cosecha":"2025-07-10","practicas":"Riego por goteo con sensores de humedad, fertilización orgánica cada 20 días, control biológico de plagas","ubicacion":"Lote A • Sonsón, Antioquia","hectareas":"0.8","sensores":"4 sensores IoT activos","status":"En floración • 75% del ciclo","img":"https://i.ibb.co/BKVwqJk8/Whats-App-Image-2025-09-20-at-7-51-36-PM.jpg"}' class="product-card rounded-3xl border border-stone-200 bg-white p-6 shadow-lg text-left hover:shadow-xl focus:outline-none card-hover">
+          <div class="relative">
+            <img src="https://i.ibb.co/BKVwqJk8/Whats-App-Image-2025-09-20-at-7-51-36-PM.jpg" alt="Frijol cargamanto" class="rounded-xl mb-4 w-full h-48 object-cover" />
+            <div class="absolute top-3 right-3 bg-[var(--brand)] text-white px-2 py-1 rounded-full text-xs font-medium">
+              En vivo
+            </div>
+          </div>
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="font-semibold text-lg">Frijol cargamanto rojo</h3>
+            <div class="text-right text-xs text-stone-500">
+              <p>0.8 ha</p>
+              <p>4 sensores</p>
+            </div>
+          </div>
+          <p class="text-sm text-stone-600 mb-2">Lote A • Sonsón, Antioquia</p>
+          <p class="text-sm text-stone-700 mb-3">Riego inteligente con sensores de humedad, fertilización orgánica y control biológico. Sin químicos sintéticos.</p>
+          
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="text-xs">
+              <span class="text-stone-500">Sembrado:</span>
+              <p class="font-medium">15 mar 2025</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Cosecha est.:</span>
+              <p class="font-medium">10 jul 2025</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Humedad suelo:</span>
+              <p class="font-medium text-[var(--brand)]">67%</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Estado:</span>
+              <p class="font-medium text-[var(--accent)]">Floración</p>
+            </div>
+          </div>
+          
+          <span class="inline-flex items-center rounded-full bg-[var(--brand-soft)] px-3 py-1 text-xs font-medium text-[var(--brand-ink)]">
+            75% del ciclo • Cosecha en 45 días
+          </span>
+        </button>
+
+        <!-- Producto 2 -->
+        <button data-product='{"id":"MAIZ-B-2025","name":"Cebollin","siembra":"2025-02-20","cosecha":"2025-06-15","practicas":"Rotación con leguminosas, abono orgánico, monitoreo IoT de temperatura y humedad","ubicacion":"Lote B • Sonsón, Antioquia","hectareas":"1.0","sensores":"5 sensores IoT activos","status":"Llenado de grano • 85% del ciclo","img":"https://i.ibb.co/fVm75jjR/Whats-App-Image-2025-09-20-at-7-51-37-PM-1.jpg"}' class="product-card rounded-3xl border border-stone-200 bg-white p-6 shadow-lg text-left hover:shadow-xl focus:outline-none card-hover">
+          <div class="relative">
+            <img src="https://i.ibb.co/fVm75jjR/Whats-App-Image-2025-09-20-at-7-51-37-PM-1.jpg" alt="Maíz amarillo" class="rounded-xl mb-4 w-full h-48 object-cover" />
+            <div class="absolute top-3 right-3 bg-[var(--accent)] text-white px-2 py-1 rounded-full text-xs font-medium">
+              Próxima cosecha
+            </div>
+          </div>
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="font-semibold text-lg">Cebollin</h3>
+            <div class="text-right text-xs text-stone-500">
+              <p>1.0 ha</p>
+              <p>5 sensores</p>
+            </div>
+          </div>
+          <p class="text-sm text-stone-600 mb-2">Lote B • Sonsón, Antioquia</p>
+          <p class="text-sm text-stone-700 mb-3">Variedad criolla adaptada al clima local. Rotación con leguminosas para mantener la fertilidad del suelo.</p>
+          
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="text-xs">
+              <span class="text-stone-500">Sembrado:</span>
+              <p class="font-medium">20 feb 2025</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Cosecha est.:</span>
+              <p class="font-medium">15 jun 2025</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Temperatura:</span>
+              <p class="font-medium text-[var(--accent)]">22°C</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Estado:</span>
+              <p class="font-medium text-green-600">Llenado grano</p>
+            </div>
+          </div>
+          
+          <span class="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-medium text-amber-800">
+            85% del ciclo • Cosecha en 20 días
+          </span>
+        </button>
+
+        <!-- Producto 3 -->
+          <div class="relative">
+        <button data-product='{"id":"HORTALIZAS-C-2025","name":"Cebolla puerro","siembra":"2025-04-01","cosecha":"2025-06-01","practicas":"Cultivo en bancales elevados, riego por aspersión, cosecha escalonada cada 15 días","ubicacion":"Lote C • Sonsón, Antioquia","hectareas":"0.5","sensores":"3 sensores IoT activos","status":"Cosecha continua • Ciclo renovable","img":"https://i.ibb.co/0R25zRBP/Whats-App-Image-2025-09-20-at-7-53-54-PM.jpg"}' class="product-card rounded-3xl border border-stone-200 bg-white p-6 shadow-lg text-left hover:shadow-xl focus:outline-none card-hover">
+          <div class="relative">
+            <img src="https://i.ibb.co/0R25zRBP/Whats-App-Image-2025-09-20-at-7-53-54-PM.jpg" alt="Cebolla puerro" class="rounded-xl mb-4 w-full h-48 object-cover" />
+            <div class="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+              Disponible ya
+            </div>
+          </div>
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="font-semibold text-lg">Cebolla puerro</h3>
+            <div class="text-right text-xs text-stone-500">
+              <p>0.5 ha</p>
+              <p>3 sensores</p>
+            </div>
+          </div>
+          <p class="text-sm text-stone-600 mb-2">Lote C • Sonsón, Antioquia</p>
+          <p class="text-sm text-stone-700 mb-3">Lechuga, espinaca, acelga y cilantro. Cosecha escalonada para suministro continuo de hojas frescas.</p>
+          
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="text-xs">
+              <span class="text-stone-500">Sembrado:</span>
+              <p class="font-medium">1 abr 2025</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Cosecha:</span>
+              <p class="font-medium">Continua</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">pH suelo:</span>
+              <p class="font-medium text-green-600">6.5</p>
+            </div>
+            <div class="text-xs">
+              <span class="text-stone-500">Estado:</span>
+              <p class="font-medium text-green-600">Listo</p>
+            </div>
+          </div>
+          
+          <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
+            Disponible • Canastillas de 500g
+          </span>
+        </button>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <p class="text-sm text-stone-500 mb-4">Haz clic en cualquier cultivo para ver su ficha de trazabilidad completa.</p>
+        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white border border-stone-200">
+          <span class="text-sm text-stone-600">Estado de la finca:</span>
+          <div class="flex items-center gap-4 text-sm">
+            <span class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div> 2.3 ha cultivadas</span>
+            <span class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-[var(--accent)]"></div> 12 sensores activos</span>
+            <span class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-green-500"></div> 0 químicos sintéticos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tecnología -->
+  <section id="tecnologia" class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between gap-6 mb-10">
+        <h2 class="text-3xl sm:text-4xl font-bold">Tecnología que estoy construyendo</h2>
+        <span class="text-xs text-stone-500 bg-stone-100 px-3 py-1 rounded-full">MVP • IoT + Web + QR</span>
+      </div>
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg card-hover">
+          <div class="text-3xl mb-4">📡</div>
+          <h3 class="text-xl font-semibold mb-3">Sensores IoT propios</h3>
+          <p class="text-stone-700 mb-4">Programo y calibro mis propios sensores: humedad del suelo, temperatura ambiente, conductividad eléctrica, pH y pluviómetro. Datos cada hora, 24/7.</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span>Sensores activos:</span><strong>12</strong></div>
+            <div class="flex justify-between"><span>Frecuencia datos:</span><strong>Cada hora</strong></div>
+            <div class="flex justify-between"><span>Precisión:</span><strong>±2%</strong></div>
+          </div>
+        </div>
+        
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg card-hover">
+          <div class="text-3xl mb-4">💻</div>
+          <h3 class="text-xl font-semibold mb-3">Plataforma web propia</h3>
+          <p class="text-stone-700 mb-4">Dashboard que desarrollo yo mismo para monitorear cultivos en tiempo real, registrar prácticas agrícolas y generar la trazabilidad de cada producto.</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span>Código:</span><strong>100% propio</strong></div>
+            <div class="flex justify-between"><span>Actualizaciones:</span><strong>En vivo</strong></div>
+            <div class="flex justify-between"><span>Datos históricos:</span><strong>6 meses</strong></div>
+          </div>
+        </div>
+        
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg card-hover">
+          <div class="text-3xl mb-4">🔐</div>
+          <h3 class="text-xl font-semibold mb-3">Trazabilidad inmutable</h3>
+          <p class="text-stone-700 mb-4">Cada evento se registra con timestamp y no se puede modificar: siembra, riegos, aplicaciones orgánicas, cosecha. QR por producto con enlace permanente.</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span>Eventos registrados:</span><strong>450+</strong></div>
+            <div class="flex justify-between"><span>QRs generados:</span><strong>78</strong></div>
+            <div class="flex justify-between"><span>Modificables:</span><strong>Nunca</strong></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-8 rounded-3xl border border-dashed border-stone-300 p-8 bg-gradient-to-r from-stone-50 to-[var(--brand-soft)]">
+        <h3 class="font-semibold text-lg mb-4 text-[var(--brand-ink)]">🛠️ Stack técnico actual</h3>
+        <div class="grid md:grid-cols-3 gap-6 text-sm">
+          <div>
+            <h4 class="font-medium mb-2">Hardware IoT</h4>
+            <ul class="space-y-1 text-stone-600">
+              <li>• Arduino ESP32 con conectividad WiFi</li>
+              <li>• Sensores de humedad capacitivos</li>
+              <li>• DS18B20 para temperatura</li>
+              <li>• Sonda de pH y conductividad</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium mb-2">Backend & API</h4>
+            <ul class="space-y-1 text-stone-600">
+              <li>• Node.js + Express</li>
+              <li>• PostgreSQL para datos de sensores</li>
+              <li>• Redis para cache en tiempo real</li>
+              <li>• API REST + WebSockets</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium mb-2">Frontend</h4>
+            <ul class="space-y-1 text-stone-600">
+              <li>• React + TypeScript</li>
+              <li>• TailwindCSS para styling</li>
+              <li>• Recharts para visualización</li>
+              <li>• PWA para uso móvil</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flujo / Trazabilidad -->
+  <section id="trazabilidad" class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4">Así documento cada producto</h2>
+      <p class="text-lg text-stone-600 text-center mb-12 max-w-3xl mx-auto">Desde que planto la semilla hasta que llega a tu mesa, cada paso queda registrado de forma permanente e inmutable. Esta es la verdadera trazabilidad.</p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 text-center card-hover">
+          <div class="w-16 h-16 rounded-full bg-[var(--brand-soft)] flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🌱</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">1. Siembra registrada</h3>
+          <p class="text-sm text-stone-700">Creo el lote digital con coordenadas GPS, variedad de semilla, fecha exacta y condiciones iniciales del suelo.</p>
+          <div class="mt-4 text-xs text-stone-500 bg-stone-50 rounded-lg p-2">
+            Ej: "Frijol-A-2025 creado el 15/03/2025 a las 08:30"
+          </div>
+        </div>
+        
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 text-center card-hover">
+          <div class="w-16 h-16 rounded-full bg-[var(--accent-soft)] flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">📊</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">2. Monitoreo IoT</h3>
+          <p class="text-sm text-stone-700">Los sensores reportan cada hora automáticamente. Registro manual cada práctica: riego, fertilización orgánica, podas.</p>
+          <div class="mt-4 text-xs text-stone-500 bg-stone-50 rounded-lg p-2">
+            12 sensores × 24 horas = 288 mediciones/día
+          </div>
+        </div>
+        
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 text-center card-hover">
+          <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🏷️</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">3. QR por unidad</h3>
+          <p class="text-sm text-stone-700">Genero QR único por producto con enlace permanente a toda su historia: desde siembra hasta el momento del escaneo.</p>
+          <div class="mt-4 text-xs text-stone-500 bg-stone-50 rounded-lg p-2">
+            URL: mihuerto.co/producto/FRIJOL-A-2025
+          </div>
+        </div>
+        
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 text-center card-hover">
+          <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🚚</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">4. Entrega directa</h3>
+          <p class="text-sm text-stone-700">Venta sin intermediarios a tiendas de barrio y consumidores finales. La trazabilidad sigue activa después de la venta.</p>
+          <div class="mt-4 text-xs text-stone-500 bg-stone-50 rounded-lg p-2">
+            De mi finca a tu mesa en menos de 24h
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 rounded-3xl border border-stone-200 bg-white p-8">
+        <h3 class="font-semibold text-lg mb-4 text-center">🔍 Ejemplo de trazabilidad real</h3>
+        <div class="max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="font-medium text-[var(--brand)] mb-3">Lo que ve el consumidor al escanear:</h4>
+              <div class="space-y-3 text-sm">
+                <div class="p-3 rounded-lg bg-stone-50 border-l-4 border-[var(--brand)]">
+                  <strong>Origen:</strong> Lote Frijol-A • Sonsón, Antioquia<br>
+                  <strong>Sembrado:</strong> 15 marzo 2025, 8:30 AM<br>
+                  <strong>Variedad:</strong> Cargamanto rojo criollo
                 </div>
+                <div class="p-3 rounded-lg bg-stone-50 border-l-4 border-[var(--accent)]">
+                  <strong>Prácticas:</strong> Riego por goteo inteligente<br>
+                  <strong>Fertilización:</strong> Solo abono orgánico<br>
+                  <strong>Control plagas:</strong> Métodos biológicos
+                </div>
+                <div class="p-3 rounded-lg bg-stone-50 border-l-4 border-green-500">
+                  <strong>Última medición:</strong> Hoy 9:30 AM<br>
+                  <strong>Humedad suelo:</strong> 67% (óptimo)<br>
+                  <strong>Temperatura:</strong> 22°C (ideal)
+                </div>
+              </div>
             </div>
+            <div>
+              <h4 class="font-medium text-[var(--brand)] mb-3">Datos técnicos completos:</h4>
+              <div class="space-y-2 text-sm text-stone-600">
+                <div class="flex justify-between border-b border-stone-100 pb-1">
+                  <span>Total riegos aplicados:</span>
+                  <strong>23</strong>
+                </div>
+                <div class="flex justify-between border-b border-stone-100 pb-1">
+                  <span>Aplicaciones orgánicas:</span>
+                  <strong>4</strong>
+                </div>
+                <div class="flex justify-between border-b border-stone-100 pb-1">
+                  <span>Días desde siembra:</span>
+                  <strong>125</strong>
+                </div>
+                <div class="flex justify-between border-b border-stone-100 pb-1">
+                  <span>Mediciones registradas:</span>
+                  <strong>3,600</strong>
+                </div>
+                <div class="flex justify-between border-b border-stone-100 pb-1">
+                  <span>Químicos sintéticos:</span>
+                  <strong class="text-green-600">0</strong>
+                </div>
+                <div class="flex justify-between">
+                  <span>Estado actual:</span>
+                  <strong class="text-[var(--brand)]">Floración avanzada</strong>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer con tema tierra -->
-    <footer class="dirt-texture py-12 px-4 relative">
-        <div class="max-w-6xl mx-auto text-center relative z-10">
-            <div class="text-5xl font-black mb-4 text-amber-200">
-                🌱 mihuerto.co
+  <!-- Futuros Agricultores -->
+  <section id="agricultores" class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold">Historias de nuestros futuros agricultores</h2>
+        <p class="mt-4 text-lg text-stone-600 max-w-3xl mx-auto">Por ahora soy solo yo, pero la visión es clara: una red de agricultores comprometidos con la transparencia y la producción responsable. Aquí estarán sus historias.</p>
+      </div>
+
+      <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Carlos (actual) -->
+        <div class="rounded-3xl border-2 border-[var(--brand)] bg-gradient-to-br from-[var(--brand-soft)] to-white p-8 card-hover relative">
+          <div class="absolute -top-3 left-6 bg-[var(--brand)] text-white px-4 py-1 rounded-full text-sm font-medium">
+            Fundador • Activo
+          </div>
+          <div class="w-20 h-20 rounded-full bg-[var(--brand)] flex items-center justify-center mx-auto mb-6 text-white text-2xl font-bold">
+            CO
+          </div>
+          <h3 class="text-xl font-semibold text-center mb-2">Carlos Ospina</h3>
+          <p class="text-sm text-stone-600 text-center mb-4">Sonsón, Antioquia • 3ra generación</p>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between">
+              <span>Hectáreas:</span>
+              <strong>2.3 ha</strong>
             </div>
-            <p class="text-amber-100 text-lg mb-4 font-bold">Del campo con amor 💚 Tecnología con propósito 💻</p>
-            <div class="flex justify-center gap-3 text-3xl mb-4">
-                <span>🌾</span>
-                <span>🥕</span>
-                <span>🍅</span>
-                <span>🌽</span>
-                <span>🥬</span>
+            <div class="flex justify-between">
+              <span>Cultivos activos:</span>
+              <strong>3</strong>
             </div>
-            <p class="text-amber-200 text-sm font-semibold">Sonsón, Antioquia - Medellín, Colombia 🇨🇴</p>
-            <p class="text-amber-300 text-sm mt-3">2024 © Cultivado con 💚 por Carlos Ospina</p>
+            <div class="flex justify-between">
+              <span>Sensores IoT:</span>
+              <strong>12</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>En mihuerto desde:</span>
+              <strong>Fundador</strong>
+            </div>
+          </div>
+          <div class="mt-6 p-4 rounded-2xl bg-white/70 border border-white/50">
+            <p class="text-sm italic text-stone-700">
+              "Combino la sabiduría que aprendí de mi abuelo con sensores IoT que programo yo mismo. Cada dato es real, cada práctica es documentada."
+            </p>
+          </div>
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            <span class="text-xs text-green-600 font-medium">Activo • Cultivos monitoreados 24/7</span>
+          </div>
         </div>
-    </footer>
 
+        <!-- Futuro agricultor 1 -->
+        <div class="rounded-3xl border border-dashed border-stone-300 bg-stone-50 p-8 card-hover relative">
+          <div class="absolute -top-3 left-6 bg-stone-400 text-white px-4 py-1 rounded-full text-sm font-medium">
+            Próximo • En conversaciones
+          </div>
+          <div class="w-20 h-20 rounded-full bg-stone-200 flex items-center justify-center mx-auto mb-6 text-stone-400 text-3xl">
+            👨‍🌾
+          </div>
+          <h3 class="text-xl font-semibold text-center mb-2 text-stone-500">Agricultor en conversación</h3>
+          <p class="text-sm text-stone-400 text-center mb-4">Región por definir • Experiencia por conocer</p>
+          <div class="space-y-3 text-sm text-stone-400">
+            <div class="flex justify-between">
+              <span>Especialidad:</span>
+              <strong>Por definir</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Hectáreas:</span>
+              <strong>--</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Enfoque:</span>
+              <strong>Sostenibilidad</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Unión estimada:</span>
+              <strong>Q3 2025</strong>
+            </div>
+          </div>
+          <div class="mt-6 p-4 rounded-2xl bg-white border border-stone-200">
+            <p class="text-sm italic text-stone-500">
+              "Aquí aparecerá la historia del próximo agricultor que se una a la red mihuerto.co con compromiso de transparencia total."
+            </p>
+          </div>
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-stone-300"></span>
+            <span class="text-xs text-stone-400 font-medium">En conversaciones</span>
+          </div>
+        </div>
+
+        <!-- Futuro agricultor 2 -->
+        <div class="rounded-3xl border border-dashed border-stone-300 bg-stone-50 p-8 card-hover relative">
+          <div class="absolute -top-3 left-6 bg-stone-400 text-white px-4 py-1 rounded-full text-sm font-medium">
+            Buscando • Q4 2025
+          </div>
+          <div class="w-20 h-20 rounded-full bg-stone-200 flex items-center justify-center mx-auto mb-6 text-stone-400 text-3xl">
+            👩‍🌾
+          </div>
+          <h3 class="text-xl font-semibold text-center mb-2 text-stone-500">Agricultor buscado</h3>
+          <p class="text-sm text-stone-400 text-center mb-4">Preferible Antioquia • Con visión tecnológica</p>
+          <div class="space-y-3 text-sm text-stone-400">
+            <div class="flex justify-between">
+              <span>Perfil ideal:</span>
+              <strong>Hortalizas/Frutas</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Hectáreas mín:</span>
+              <strong>1+ ha</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Requisito:</span>
+              <strong>Sin químicos</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Meta:</span>
+              <strong>Fin 2025</strong>
+            </div>
+          </div>
+          <div class="mt-6 p-4 rounded-2xl bg-white border border-stone-200">
+            <p class="text-sm italic text-stone-500">
+              "¿Eres agricultor y te interesa la trazabilidad real? Hablemos. Busco socios comprometidos con la transparencia."
+            </p>
+          </div>
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+            <span class="text-xs text-[var(--accent)] font-medium">¡Contáctame!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <div class="rounded-3xl border border-dashed border-[var(--brand)] bg-[var(--brand-soft)] p-8">
+          <h3 class="font-semibold text-lg text-[var(--brand-ink)] mb-4">🤝 ¿Quieres ser parte de la red?</h3>
+          <p class="text-stone-700 mb-6 max-w-2xl mx-auto">
+            Busco agricultores comprometidos con la producción responsable y la transparencia total. No importa si tienes 1 hectárea o 100, lo importante es compartir la visión de conectar directamente el campo con el consumidor final.
+          </p>
+          <div class="grid md:grid-cols-3 gap-4 mb-6 text-sm">
+            <div class="bg-white rounded-2xl p-4 border">
+              <strong class="text-[var(--brand)]">Requisitos básicos:</strong>
+              <ul class="mt-2 space-y-1 text-stone-600">
+                <li>• Producción sin químicos sintéticos</li>
+                <li>• Disposición a documentar prácticas</li>
+                <li>• Interés en tecnología IoT básica</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border">
+              <strong class="text-[var(--brand)]">Lo que ofrezco:</strong>
+              <ul class="mt-2 space-y-1 text-stone-600">
+                <li>• Sensores IoT gratis (programo yo)</li>
+                <li>• Plataforma de trazabilidad</li>
+                <li>• Canal de venta directo</li>
+              </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border">
+              <strong class="text-[var(--brand)]">Compromiso mutuo:</strong>
+              <ul class="mt-2 space-y-1 text-stone-600">
+                <li>• Transparencia absoluta</li>
+                <li>• Calidad garantizada</li>
+                <li>• Precios justos para ambos</li>
+              </ul>
+            </div>
+          </div>
+          <a href="#contacto" class="inline-flex items-center gap-2 rounded-2xl bg-[var(--brand)] px-6 py-3 text-white font-semibold hover:shadow-lg transition">
+            Quiero unirme a la red
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Sección Donaciones -->
+<section class="py-20 bg-gradient-to-br from-green-50 to-stone-50 relative overflow-hidden">
+  <div aria-hidden="true" class="absolute inset-0 pointer-events-none opacity-10">
+    <svg class="absolute top-10 left-10 w-24 h-24 text-green-400" viewBox="0 0 100 100" fill="currentColor">
+      <path d="M50 10 C30 10 10 30 10 50 C10 70 30 90 50 90 C70 90 90 70 90 50 C90 30 70 10 50 10 Z M50 20 C60 25 65 35 65 45 C65 50 60 55 50 55 C40 55 35 50 35 45 C35 35 40 25 50 20 Z"/>
+    </svg>
+    <svg class="absolute bottom-16 right-16 w-32 h-32 text-amber-300" viewBox="0 0 100 100" fill="currentColor">
+      <path d="M30 80 Q40 70 50 80 Q60 70 70 80 L70 85 Q60 75 50 85 Q40 75 30 85 Z M25 60 Q35 50 50 65 Q65 50 75 60 L50 85 Z M20 40 Q30 30 50 50 Q70 30 80 40 L50 85 Z"/>
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 text-green-700 font-medium text-sm mb-4">
+        🌱 Siembra tecnológica
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ayuda a hacer crecer esta plataforma</h2>
+      <p class="text-lg text-stone-700 max-w-3xl mx-auto">
+        Cada donación es como plantar una semilla: me ayuda a comprar más sensores IoT, mejorar la tecnología y expandir la red de agricultores transparentes. Tu aporte construye el futuro de la alimentación consciente.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <!-- Información de donación -->
+      <div class="space-y-8">
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg">
+          <h3 class="font-semibold text-xl text-green-700 mb-6 flex items-center gap-3">
+            <span class="text-2xl">💚</span>
+            Donación vía Nequi
+          </h3>
+ <form action="https://www.paypal.com/donate" method="post" target="_top">
+<input type="hidden" name="campaign_id" value="MKSVUAWB6CVFA" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form>
+          <div class="flex items-center justify-center mb-8">
+            <div class="rounded-2xl bg-white p-4 border-2 border-green-200 shadow-sm">
+              <div class="w-48 h-48 bg-gray-100 rounded-xl flex items-center justify-center">
+                <!-- QR Code placeholder - aquí pondrías tu QR real de Nequi -->
+                <svg viewBox="0 0 120 120" class="w-44 h-44">
+                  <rect width="120" height="120" fill="#fff"/>
+                  <!-- Esquinas QR -->
+                  <rect x="8" y="8" width="24" height="24" fill="#000"/>
+                  <rect x="88" y="8" width="24" height="24" fill="#000"/>
+                  <rect x="8" y="88" width="24" height="24" fill="#000"/>
+                  <!-- Centro QR -->
+                  <rect x="48" y="48" width="24" height="24" fill="#000"/>
+                  <!-- Puntos aleatorios para simular QR -->
+                  <rect x="40" y="16" width="8" height="8" fill="#000"/>
+                  <rect x="64" y="24" width="8" height="8" fill="#000"/>
+                  <rect x="24" y="40" width="8" height="8" fill="#000"/>
+                  <rect x="72" y="40" width="8" height="8" fill="#000"/>
+                  <rect x="32" y="64" width="8" height="8" fill="#000"/>
+                  <rect x="80" y="64" width="8" height="8" fill="#000"/>
+                  <rect x="16" y="72" width="8" height="8" fill="#000"/>
+                  <rect x="96" y="72" width="8" height="8" fill="#000"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center space-y-4">
+            <div class="bg-green-50 rounded-2xl p-4 border border-green-200">
+              <p class="text-sm text-green-800 font-medium mb-2">Mi número Nequi:</p>
+              <p class="text-2xl font-bold text-green-700">314 797 8583</p>
+              <p class="text-xs text-green-600 mt-1">Carlos Ospina • mihuerto.co</p>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-3 text-sm">
+              <button class="donation-amount bg-amber-100 text-amber-800 border-2 border-amber-200 rounded-2xl py-3 px-4 font-semibold hover:bg-amber-200 transition" data-amount="5000">
+                🌱 $5,000<br>
+                <span class="text-xs font-normal">Una semilla</span>
+              </button>
+              <button class="donation-amount bg-green-100 text-green-800 border-2 border-green-200 rounded-2xl py-3 px-4 font-semibold hover:bg-green-200 transition" data-amount="15000">
+                🌿 $15,000<br>
+                <span class="text-xs font-normal">Una plántula</span>
+              </button>
+              <button class="donation-amount bg-emerald-100 text-emerald-800 border-2 border-emerald-200 rounded-2xl py-3 px-4 font-semibold hover:bg-emerald-200 transition" data-amount="30000">
+                🌳 $30,000<br>
+                <span class="text-xs font-normal">Un árbol</span>
+              </button>
+            </div>
+
+            <p class="text-xs text-stone-500">
+              O dona la cantidad que consideres. Cada peso ayuda a crecer la plataforma.
+            </p>
+          </div>
+        </div>
+
+        <!-- Transparencia -->
+        <div class="rounded-3xl border border-stone-200 bg-white p-6 shadow-lg">
+          <h4 class="font-semibold text-green-700 mb-4 flex items-center gap-2">
+            <span class="text-xl">🔍</span>
+            Transparencia total en el uso de fondos
+          </h4>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center justify-between py-2 border-b border-stone-100">
+              <span class="text-stone-600">Sensores IoT adicionales:</span>
+              <span class="font-semibold text-stone-800">40%</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-stone-100">
+              <span class="text-stone-600">Desarrollo de software:</span>
+              <span class="font-semibold text-stone-800">25%</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-stone-100">
+              <span class="text-stone-600">Hosting y servidores:</span>
+              <span class="font-semibold text-stone-800">20%</span>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-stone-100">
+              <span class="text-stone-600">Materiales de cultivo:</span>
+              <span class="font-semibold text-stone-800">10%</span>
+            </div>
+            <div class="flex items-center justify-between py-2">
+              <span class="text-stone-600">Logística y transporte:</span>
+              <span class="font-semibold text-stone-800">5%</span>
+            </div>
+          </div>
+          <div class="mt-4 p-3 bg-green-50 rounded-2xl border border-green-200">
+            <p class="text-xs text-green-700">
+              <strong>Mi compromiso:</strong> Publicaré mensualmente un reporte detallado de cómo se invierte cada peso donado, con fotos de los equipos comprados y el progreso del desarrollo.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impacto de las donaciones -->
+      <div class="space-y-6">
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg">
+          <h3 class="font-semibold text-xl mb-6">Lo que lograremos juntos</h3>
+          
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-xl">📡</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-stone-800 mb-2">Más sensores = Más precisión</h4>
+                <p class="text-sm text-stone-600 mb-2">
+                  Con $50,000 puedo comprar 5 sensores IoT más para monitorear pH, conductividad eléctrica y niveles de nutrientes en tiempo real.
+                </p>
+                <div class="w-full bg-stone-200 rounded-full h-2">
+                  <div class="bg-amber-500 h-2 rounded-full" style="width: 60%"></div>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Meta: 20 sensores • Actual: 12</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-xl">💻</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-stone-800 mb-2">App móvil para agricultores</h4>
+                <p class="text-sm text-stone-600 mb-2">
+                  Con $100,000 puedo dedicar tiempo completo a desarrollar la aplicación móvil que permitirá a las familias hacer pedidos y ver la trazabilidad en vivo.
+                </p>
+                <div class="w-full bg-stone-200 rounded-full h-2">
+                  <div class="bg-green-500 h-2 rounded-full" style="width: 30%"></div>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Meta: App completa • Actual: Prototipo</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-xl">🌾</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-stone-800 mb-2">Semillas y nuevos cultivos</h4>
+                <p class="text-sm text-stone-600 mb-2">
+                  Con $120,000 puedo sembrar nuevos lotes experimentales, probar variedades criollas y expandir la diversidad de productos con trazabilidad completa.
+                </p>
+                <div class="w-full bg-stone-200 rounded-full h-2">
+                  <div class="bg-emerald-500 h-2 rounded-full" style="width: 35%"></div>
+                </div>
+                <p class="text-xs text-stone-500 mt-1">Meta: 5 lotes • Actual: 3 lotes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-gradient-to-br from-green-700 to-emerald-800 text-white p-8">
+          <h3 class="font-semibold text-lg mb-4">Mi promesa como fundador</h3>
+          <blockquote class="italic mb-4">
+            "Cada peso donado se invertirá en hacer más transparente, más eficiente y más escalable esta plataforma. No hay salarios, no hay gastos personales. Solo tecnología, sensores y desarrollo para conectar mejor el campo con tu mesa."
+          </blockquote>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-xl">
+              👨‍🌾
+            </div>
+            <div>
+              <p class="font-semibold">Carlos Ospina</p>
+              <p class="text-sm text-green-200">Fundador • Agricultor • Desarrollador</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-dashed border-green-300 bg-green-50 p-6 text-center">
+          <h4 class="font-semibold text-green-800 mb-2">¿Prefieres otra forma de ayudar?</h4>
+          <p class="text-sm text-green-700 mb-4">
+            También puedes apoyar compartiendo el proyecto, conectándome con tiendas de barrio, o visitando la finca para validar que todo es real.
+          </p>
+          <a href="#contacto" class="inline-flex items-center gap-2 rounded-2xl bg-green-700 text-white px-4 py-2 text-sm font-semibold hover:bg-green-800 transition">
+            Otras formas de ayudar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estadísticas de impacto -->
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="text-center p-6 rounded-3xl bg-white border border-stone-200">
+        <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4 text-2xl">
+          🌱
+        </div>
+        <p class="text-2xl font-bold text-amber-600">$0</p>
+        <p class="text-sm text-stone-600">Donaciones recibidas</p>
+        <p class="text-xs text-stone-500 mt-1">¡Sé el primero en sembrar!</p>
+      </div>
+
+      <div class="text-center p-6 rounded-3xl bg-white border border-stone-200">
+        <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4 text-2xl">
+          📡
+        </div>
+        <p class="text-2xl font-bold text-green-600">12</p>
+        <p class="text-sm text-stone-600">Sensores actuales</p>
+        <p class="text-xs text-stone-500 mt-1">Meta: 20 sensores</p>
+      </div>
+
+      <div class="text-center p-6 rounded-3xl bg-white border border-stone-200">
+        <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4 text-2xl">
+          💻
+        </div>
+        <p class="text-2xl font-bold text-blue-600">15,847</p>
+        <p class="text-sm text-stone-600">Líneas de código</p>
+        <p class="text-xs text-stone-500 mt-1">Escritas a mano por mí</p>
+      </div>
+
+      <div class="text-center p-6 rounded-3xl bg-white border border-stone-200">
+        <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4 text-2xl">
+          🎯
+        </div>
+        <p class="text-2xl font-bold text-purple-600">100%</p>
+        <p class="text-sm text-stone-600">Transparencia</p>
+        <p class="text-xs text-stone-500 mt-1">En uso de fondos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Funcionalidad para los botones de donación sugerida
+  document.querySelectorAll('.donation-amount').forEach(button => {
+    button.addEventListener('click', function() {
+      const amount = this.getAttribute('data-amount');
+      const formattedAmount = new Intl.NumberFormat('es-CO').format(amount);
+      
+      // Remover selección previa
+      document.querySelectorAll('.donation-amount').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-green-500');
+      });
+      
+      // Seleccionar este botón
+      this.classList.add('ring-2', 'ring-green-500');
+      
+      // Mostrar mensaje
+      const message = `Has seleccionado donar $${formattedAmount}. Transfiere este monto al número Nequi 314 797 8583 (Carlos Ospina).`;
+      
+      // Crear notificación temporal
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-2xl shadow-lg z-50 animate-pulse';
+      notification.textContent = `¡Gracias! Monto seleccionado: $${formattedAmount}`;
+      document.body.appendChild(notification);
+      
+      // Remover notificación después de 3 segundos
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    });
+  });
+</script>
+  <!-- Tiendas de barrio -->
+  <section id="tiendas" class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold">Aliados que buscamos</h2>
+          <p class="mt-4 text-lg">Mi visión es llegar directamente a tiendas de barrio, restaurantes conscientes y familias que valoran saber de dónde viene su comida. Sin intermediarios, con precios justos y trazabilidad real.</p>
+          
+          <div class="mt-8 grid sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl border border-stone-200 bg-white">
+              <h4 class="font-semibold text-[var(--brand)] mb-2">🏪 Tiendas de barrio</h4>
+              <p class="text-sm text-stone-600">Quiero que ofrezcan productos con historia verificable a sus clientes.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-stone-200 bg-white">
+              <h4 class="font-semibold text-[var(--brand)] mb-2">🍽️ Restaurantes</h4>
+              <p class="text-sm text-stone-600">Que puedan mostrar a sus comensales exactamente de dónde viene cada ingrediente.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-stone-200 bg-white">
+              <h4 class="font-semibold text-[var(--brand)] mb-2">👨‍👩‍👧‍👦 Familias directas</h4>
+              <p class="text-sm text-stone-600">Pedidos semanales con entrega a domicilio y trazabilidad completa.</p>
+            </div>
+            <div class="p-4 rounded-2xl border border-stone-200 bg-white">
+              <h4 class="font-semibold text-[var(--brand)] mb-2">🚚 Logística local</h4>
+              <p class="text-sm text-stone-600">Socios para la última milla con vehículos refrigerados.</p>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-semibold mb-4">✅ Lo que garantizo a mis aliados:</h4>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Productos frescos máximo 24h después de cosecha</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Trazabilidad completa verificable por QR</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Precios estables sin intermediarios</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> Abastecimiento programado según cosechas</li>
+              <li class="flex items-start gap-2"><span class="text-green-500 mt-0.5">✓</span> API para integrar con su sistema de inventario</li>
+            </ul>
+          </div>
+          
+          <a href="#contacto" class="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[var(--brand)] px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition">Quiero ser aliado</a>
+        </div>
+        
+        <div class="rounded-3xl border border-stone-200 bg-white p-8 shadow-lg">
+          <h3 class="font-semibold text-lg mb-4">Panel demo para aliados</h3>
+          <div class="mb-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-stone-500">Estado actual</span>
+              <span class="text-xs bg-[var(--accent-soft)] text-amber-800 px-2 py-1 rounded-full">MVP • Solo demos</span>
+            </div>
+          </div>
+          
+          <div class="overflow-hidden rounded-2xl border border-stone-200">
+            <table class="w-full text-sm">
+              <thead class="bg-stone-50">
+                <tr class="text-left text-stone-600">
+                  <th class="py-3 px-4 font-medium">Producto</th>
+                  <th class="py-3 px-4 font-medium">Disponible</th>
+                  <th class="py-3 px-4 font-medium">Precio/kg</th>
+                  <th class="py-3 px-4 font-medium">QR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t">
+                  <td class="py-3 px-4">
+                    <div>
+                      <div class="font-medium">Frijol cargamanto</div>
+                      <div class="text-xs text-stone-500">Lote Frijol-A-2025</div>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="text-[var(--accent)] font-medium">En 45 días</span>
+                  </td>
+                  <td class="py-3 px-4">$8,500</td>
+                  <td class="py-3 px-4">
+                    <button class="text-xs bg-[var(--brand-soft)] text-[var(--brand-ink)] px-2 py-1 rounded">Ver historia</button>
+                  </td>
+                </tr>
+                <tr class="border-t">
+                  <td class="py-3 px-4">
+                    <div>
+                      <div class="font-medium">Maíz amarillo</div>
+                      <div class="text-xs text-stone-500">Lote Maiz-B-2025</div>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="text-[var(--accent)] font-medium">En 20 días</span>
+                  </td>
+                  <td class="py-3 px-4">$3,200</td>
+                  <td class="py-3 px-4">
+                    <button class="text-xs bg-[var(--brand-soft)] text-[var(--brand-ink)] px-2 py-1 rounded">Ver historia</button>
+                  </td>
+                </tr>
+                <tr class="border-t">
+                  <td class="py-3 px-4">
+                    <div>
+                      <div class="font-medium">Cebolla puerro</div>
+                      <div class="text-xs text-stone-500">Lote Hortalizas-C-2025</div>
+                    </div>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="text-green-600 font-medium">150 canastillas</span>
+                  </td>
+                  <td class="py-3 px-4">$4,800</td>
+                  <td class="py-3 px-4">
+                    <button class="text-xs bg-[var(--brand-soft)] text-[var(--brand-ink)] px-2 py-1 rounded">Ver historia</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="mt-6 p-4 rounded-2xl bg-[var(--brand-soft)] border border-[var(--brand)]/20">
+            <h4 class="font-medium text-[var(--brand-ink)] mb-2">🚀 Próximas funcionalidades</h4>
+            <ul class="text-sm text-[var(--brand-ink)] space-y-1">
+              <li>• Pedidos automáticos según demanda</li>
+              <li>• Notificaciones de cosecha por WhatsApp</li>
+              <li>• Facturación electrónica integrada</li>
+              <li>• Reportes de ventas y trazabilidad</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-gradient-to-br from-[var(--brand-ink)] to-[var(--brand)] text-white relative overflow-hidden">
+    <div aria-hidden class="absolute inset-0 opacity-10">
+      <svg class="absolute -bottom-16 -right-16 w-[32rem]" viewBox="0 0 400 400" fill="none">
+        <circle cx="200" cy="200" r="200" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative">
+      <div class="mb-6">
+        <span class="inline-flex px-4 py-2 rounded-full bg-white/20 text-white/90 font-medium text-sm">
+          MVP • Fase piloto abierta
+        </span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">¿Te unes al futuro de la alimentación?</h2>
+      <p class="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
+        Estoy construyendo mihuerto.co desde cero, combinando mi experiencia como agricultor con código que escribo yo mismo. Busco aliados que crean en la transparencia total y la conexión directa campo-mesa.
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+          <h3 class="font-semibold mb-2">🏪 Tiendas de barrio</h3>
+          <p class="text-sm text-white/80">Productos con historia real para tus clientes más conscientes</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+          <h3 class="font-semibold mb-2">👨‍🌾 Agricultores</h3>
+          <p class="text-sm text-white/80">Únete a la red con sensores IoT gratis y canal de venta directo</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+          <h3 class="font-semibold mb-2">👨‍👩‍👧‍👦 Familias</h3>
+          <p class="text-sm text-white/80">Suscripción semanal de productos frescos con trazabilidad completa</p>
+        </div>
+      </div>
+      
+      <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl bg-white text-[var(--brand-ink)] px-8 py-4 font-semibold text-lg shadow-xl hover:shadow-2xl transition">
+        Participar en el piloto
+      </a>
+      
+      <p class="mt-6 text-sm text-white/70">
+        Solo acepto aliados comprometidos con la transparencia real • Sin químicos sintéticos • Sin mentiras verdes
+      </p>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-12">
+        <div class="lg:col-span-2">
+          <h2 class="text-3xl font-bold mb-4">Hablemos directamente</h2>
+          <p class="text-stone-700 mb-6">¿Quieres sumarte como aliado, agricultor socio, o simplemente conocer más sobre cómo estoy construyendo esta plataforma? Escríbeme y coordinamos una llamada.</p>
+          
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-[var(--brand-soft)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-[var(--brand-ink)] text-sm">📱</span>
+              </div>
+              <div>
+                <p class="font-medium">WhatsApp directo</p>
+                <p class="text-sm text-stone-600">Prefiero WhatsApp para coordinar visitas a la finca</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-[var(--brand-soft)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-[var(--brand-ink)] text-sm">🌾</span>
+              </div>
+              <div>
+                <p class="font-medium">Visitas a la finca</p>
+                <p class="text-sm text-stone-600">Ven a ver los sensores funcionando y los cultivos reales</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-[var(--brand-soft)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-[var(--brand-ink)] text-sm">💻</span>
+              </div>
+              <div>
+                <p class="font-medium">Demo técnico</p>
+                <p class="text-sm text-stone-600">Puedo mostrarte el código y la arquitectura completa</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="rounded-2xl bg-[var(--brand-soft)] p-6 border border-[var(--brand)]/20">
+            <h3 class="font-semibold text-[var(--brand-ink)] mb-2">🎯 Estado actual del MVP</h3>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p class="text-stone-600">Sensores activos:</p>
+                <p class="font-bold text-[var(--brand)]">12/12</p>
+              </div>
+              <div>
+                <p class="text-stone-600">Cultivos monitoreados:</p>
+                <p class="font-bold text-[var(--brand)]">3/3</p>
+              </div>
+              <div>
+                <p class="text-stone-600">Aliados confirmados:</p>
+                <p class="font-bold text-[var(--accent)]">0 (¡Sé el primero!)</p>
+              </div>
+              <div>
+                <p class="text-stone-600">Líneas de código:</p>
+                <p class="font-bold text-[var(--brand)]">15,847</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <form id="contactForm" class="lg:col-span-3 space-y-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-stone-700 mb-2">Nombre completo</label>
+            <input name="fullName" type="text" required placeholder="Tu nombre"
+              class="w-full rounded-2xl border border-stone-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-stone-700 mb-2">Teléfono (WhatsApp)</label>
+            <input name="phone" type="tel" required placeholder="+57 314 797 8583"
+              class="w-full rounded-2xl border border-stone-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-stone-700 mb-2">Email</label>
+          <input name="email" type="email" required placeholder="tucorreo@ejemplo.com"
+            class="w-full rounded-2xl border border-stone-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-stone-700 mb-2">¿Cómo te interesa participar?</label>
+          <select name="interest" required
+            class="w-full rounded-2xl border border-stone-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent">
+            <option value="">Selecciona una opción</option>
+            <option value="Tienda de barrio">Tienda de barrio - Quiero vender productos trazables</option>
+            <option value="Restaurante">Restaurante - Necesito ingredientes con historia</option>
+            <option value="Agricultor">Agricultor - Me interesa unirme a la red</option>
+            <option value="Familia">Familia - Suscripción semanal de productos frescos</option>
+            <option value="Inversor/Socio">Inversor/Socio - Me interesa el proyecto</option>
+            <option value="Desarrollador">Desarrollador - Quiero colaborar técnicamente</option>
+            <option value="Curiosidad">Solo curiosidad - Cuéntame más</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-stone-700 mb-2">Cuéntame más</label>
+          <textarea name="message" rows="4"
+            placeholder="Describe tu interés, ubicación, dudas técnicas..."
+            class="w-full rounded-2xl border border-stone-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:border-transparent resize-none"></textarea>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <input type="checkbox" id="visit" name="visitFarm"
+            class="mt-1 w-4 h-4 text-[var(--brand)] border-stone-300 rounded focus:ring-[var(--brand)]" />
+          <label for="visit" class="text-sm text-stone-600">
+            Me gustaría visitar la finca para ver los sensores y cultivos en funcionamiento (Sonsón, Antioquia)
+          </label>
+        </div>
+
+        <button type="submit"
+          class="w-full rounded-2xl bg-[var(--brand)] px-6 py-4 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition hover:bg-[var(--brand-ink)]">
+          Enviar mensaje
+        </button>
+
+        <p class="text-xs text-stone-500 text-center">
+          Al enviar, acepto ser contactado para coordinar participación en el piloto de mihuerto.co. Respondo personalmente en máximo 24 horas.
+        </p>
+      </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-stone-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div class="md:col-span-2">
+          <a href="#" class="flex items-center gap-2 mb-4">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand)] text-white font-bold">en</span>
+            <span class="font-semibold text-lg">mihuerto<span class="text-[var(--brand)]">.com</span></span>
+          </a>
+          <p class="text-stone-600 mb-4 max-w-md">
+            MVP construido por Carlos Ospina, agricultor de tercera generación y desarrollador autodidacta. Del surco al fogón, con historia y trazabilidad real.
+          </p>
+          <div class="flex items-center gap-4 text-sm text-stone-500">
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              MVP activo
+            </span>
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-[var(--brand)]"></span>
+              12 sensores en línea
+            </span>
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+              Fase piloto
+            </span>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">MVP Actual</h4>
+          <ul class="space-y-2 text-sm text-stone-600">
+            <li><a href="#productos" class="hover:text-[var(--brand)] transition">Mis 3 cultivos</a></li>
+            <li><a href="#tecnologia" class="hover:text-[var(--brand)] transition">Tecnología IoT</a></li>
+            <li><a href="#trazabilidad" class="hover:text-[var(--brand)] transition">Cómo funciona</a></li>
+            <li><a href="#agricultores" class="hover:text-[var(--brand)] transition">Futuros socios</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-semibold mb-4">Unirse</h4>
+          <ul class="space-y-2 text-sm text-stone-600">
+            <li><a href="#contacto" class="hover:text-[var(--brand)] transition">Ser agricultor socio</a></li>
+            <li><a href="#contacto" class="hover:text-[var(--brand)] transition">Tienda aliada</a></li>
+            <li><a href="#contacto" class="hover:text-[var(--brand)] transition">Cliente directo</a></li>
+            <li><a href="#contacto" class="hover:text-[var(--brand)] transition">Visitar la finca</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-stone-200 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-stone-500">
+          © <span id="year"></span> mihuerto.co — Carlos Ospina, Sonsón, Antioquia
+        </p>
+        <div class="text-sm flex items-center gap-6">
+          <a href="#" class="hover:text-[var(--brand)] transition text-stone-500">Código abierto</a>
+          <a href="#" class="hover:text-[var(--brand)] transition text-stone-500">Datos de sensores</a>
+          <a href="#contacto" class="hover:text-[var(--brand)] transition text-stone-500">Contacto directo</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Product modal (mejorado) -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div class="relative max-w-4xl w-full rounded-3xl bg-white shadow-2xl overflow-hidden">
+      <div class="flex items-start gap-6 p-8">
+        <img id="modalImg" src="https://via.placeholder.com/800x500.png?text=Producto" alt="" class="w-48 h-32 object-cover rounded-2xl shadow-md" />
+        <div class="flex-1">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h3 id="modalName" class="text-2xl font-bold text-stone-900">Producto</h3>
+              <p id="modalLot" class="text-stone-600 mt-1">Lote · Ubicación</p>
+              <p id="modalHectareas" class="text-sm text-stone-500 mt-1">hectáreas • sensores</p>
+            </div>
+            <button data-action="close" class="text-stone-400 hover:text-stone-600 text-2xl leading-none">×</button>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <div>
+              <h4 class="font-medium text-[var(--brand)] mb-3">📅 Cronología del cultivo</h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-stone-500">Siembra:</span>
+                  <span id="modalSiembra" class="font-medium">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-stone-500">Cosecha estimada:</span>
+                  <span id="modalCosecha" class="font-medium">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-stone-500">Estado actual:</span>
+                  <span id="modalStatus" class="font-medium text-[var(--brand)]">-</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="font-medium text-[var(--brand)] mb-3">🌱 Prácticas de cultivo</h4>
+              <p id="modalPracticas" class="text-sm text-stone-600 leading-relaxed">-</p>
+            </div>
+          </div>
+          
+          <div class="border-t border-stone-200 pt-6">
+            <div class="flex items-center gap-6">
+              <div class="aspect-square w-32 rounded-2xl bg-stone-50 grid place-content-center border-2 border-stone-200 shadow-sm">
+                <svg id="modalQR" viewBox="0 0 80 80" class="w-24 h-24">
+                  <rect width="80" height="80" fill="#fff"/>
+                  <rect x="4" y="4" width="20" height="20" fill="#000"/>
+                  <rect x="56" y="4" width="20" height="20" fill="#000"/>
+                  <rect x="4" y="56" width="20" height="20" fill="#000"/>
+                  <rect x="32" y="32" width="16" height="16" fill="#000"/>
+                  <rect x="56" y="56" width="20" height="20" fill="#000"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Escanea para ver la historia completa</h4>
+                <p class="text-sm text-stone-600 mb-2">Cada sensor, cada riego, cada aplicación orgánica está documentado en tiempo real.</p>
+                <p id="modalUrl" class="text-xs text-stone-400 font-mono bg-stone-50 px-2 py-1 rounded">https://mihuerto.co/producto/demo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t bg-stone-50 px-8 py-4 flex items-center justify-between">
+        <div class="text-sm text-stone-600">
+          <span class="font-medium">Datos en tiempo real</span> • Última actualización: Hoy 9:30 AM
+        </div>
+        <div class="flex gap-3">
+          <button data-action="close" class="rounded-2xl border border-stone-300 px-4 py-2 hover:border-stone-400 transition">Cerrar</button>
+          <a id="modalOrder" href="#contacto" class="rounded-2xl bg-[var(--brand)] px-4 py-2 text-white hover:bg-[var(--brand-ink)] transition">
+            Solicitar información
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+      fullName: form.fullName.value,
+      phone: form.phone.value,
+      email: form.email.value,
+      interest: form.interest.value,
+      message: form.message.value,
+      visitFarm: form.visitFarm.checked,
+    };
+
+    try {
+      const res = await fetch("https://mihuerto-backend-1-0-lq9a.onrender.com/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        alert("Error al enviar: " + (err.message || res.statusText));
+        return;
+      }
+
+      const result = await res.json();
+      alert("✅ Mensaje enviado con éxito. ID: " + result.id);
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("❌ Error de conexión con el servidor.");
+    }
+  });
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Modal logic mejorada
+    const modal = document.getElementById('productModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalName = document.getElementById('modalName');
+    const modalLot = document.getElementById('modalLot');
+    const modalHectareas = document.getElementById('modalHectareas');
+    const modalSiembra = document.getElementById('modalSiembra');
+    const modalCosecha = document.getElementById('modalCosecha');
+    const modalStatus = document.getElementById('modalStatus');
+    const modalPracticas = document.getElementById('modalPracticas');
+    const modalUrl = document.getElementById('modalUrl');
+    const modalOrder = document.getElementById('modalOrder');
+
+    function openModal(data){
+      modalImg.src = data.img || 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=800&h=500&fit=crop';
+      modalName.textContent = data.name || '-';
+      modalLot.textContent = (data.ubicacion || 'Ubicación desconocida');
+      modalHectareas.textContent = (data.hectareas || '-') + ' • ' + (data.sensores || '-');
+      modalSiembra.textContent = data.siembra || '-';
+      modalCosecha.textContent = data.cosecha || '-';
+      modalStatus.textContent = data.status || '-';
+      modalPracticas.textContent = data.practicas || '-';
+      const url = 'https://mihuerto.co/producto/' + encodeURIComponent(data.id || 'demo');
+      modalUrl.textContent = url;
+      modalOrder.href = '#contacto';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Open product modal from cards
+    document.querySelectorAll('.product-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        try{
+          const data = JSON.parse(btn.getAttribute('data-product'));
+          openModal(data);
+        }catch(e){
+          console.error('Error parsing product data', e);
+        }
+      });
+    });
+
+    // Close handlers
+    document.querySelectorAll('[data-action="close"]').forEach(el => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+    // Smooth scroll para anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      const navbar = document.querySelector('header');
+      
+      if (currentScroll > 100) {
+        navbar.classList.add('shadow-md');
+      } else {
+        navbar.classList.remove('shadow-md');
+      }
+      
+      lastScroll = currentScroll;
+    });
+
+
+  </script>
 </body>
 </html>
