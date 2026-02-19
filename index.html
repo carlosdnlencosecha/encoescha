@@ -17,15 +17,10 @@ html { scroll-behavior:smooth; }
   --border:    rgba(74,222,128,0.12);
   --border2:   rgba(74,222,128,0.06);
   --green:     #4ade80;
-  --green2:    #22c55e;
-  --green-dim: rgba(74,222,128,0.4);
   --amber:     #f59e0b;
-  --red:       #f87171;
   --white:     #e8f5ec;
   --muted:     rgba(232,245,236,0.35);
   --muted2:    rgba(232,245,236,0.15);
-  --gold:      #d4a84b;
-  --dim:       rgba(232,245,236,0.08);
 }
 
 body {
@@ -33,7 +28,6 @@ body {
   color: var(--white);
   font-family: 'IBM Plex Mono', monospace;
   overflow-x: hidden;
-  cursor: crosshair;
 }
 
 body::after {
@@ -52,7 +46,7 @@ body::after {
   pointer-events:none; z-index:0;
 }
 
-/* ══ TOPBAR ══ */
+/* ── TOPBAR ── */
 .topbar {
   position:sticky; top:0; z-index:100;
   background:rgba(8,12,10,0.97);
@@ -61,7 +55,6 @@ body::after {
   display:flex; align-items:center; justify-content:space-between;
   padding:0 2.5rem; height:52px;
 }
-
 .logo {
   font-family:'Bebas Neue',sans-serif;
   font-size:1.4rem; letter-spacing:0.08em; color:var(--green);
@@ -73,654 +66,420 @@ body::after {
   text-transform:uppercase; border-left:1px solid var(--border);
   padding-left:0.75rem;
 }
-
-.topbar-right {
-  display:flex; align-items:center; gap:1.5rem;
-}
-
+.topbar-right { display:flex; align-items:center; gap:1.5rem; }
 .building-badge {
   display:flex; align-items:center; gap:0.5rem;
-  border:1px solid rgba(245,158,11,0.3);
-  padding:0.3rem 0.75rem;
+  border:1px solid rgba(245,158,11,0.3); padding:0.3rem 0.75rem;
 }
 .building-dot {
-  width:6px; height:6px; border-radius:50%;
-  background:var(--amber);
-  animation:amberPulse 2s infinite;
+  width:6px; height:6px; border-radius:50%; background:var(--amber);
+  animation:amberPulse 2s infinite; flex-shrink:0;
 }
-@keyframes amberPulse {
-  0%,100%{opacity:1;} 50%{opacity:0.3;}
-}
-.building-text {
-  font-size:0.5rem; letter-spacing:0.15em;
-  text-transform:uppercase; color:var(--amber);
-}
-
+@keyframes amberPulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.building-text { font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--amber); }
 .clock { font-size:0.7rem; font-weight:600; color:var(--white); letter-spacing:0.06em; }
 
-/* ══ HERO ══ */
+/* ── HERO ── */
 .hero {
   position:relative; z-index:1;
   min-height:92vh;
-  display:grid;
-  grid-template-columns:1fr 400px;
+  display:grid; grid-template-columns:1fr 400px;
   border-bottom:1px solid var(--border);
 }
-
 .hero-left {
   padding:5rem 4rem 4rem 5rem;
   display:flex; flex-direction:column; justify-content:center;
   border-right:1px solid var(--border);
   position:relative; overflow:hidden;
 }
-
 .hero-left::before {
-  content:'';
-  position:absolute; bottom:-8rem; left:-4rem;
+  content:''; position:absolute; bottom:-8rem; left:-4rem;
   width:35rem; height:35rem;
   background:radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 65%);
   pointer-events:none;
 }
-
 .day-zero {
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(8rem,16vw,14rem);
-  line-height:0.88;
+  font-size:clamp(5rem,14vw,14rem); line-height:0.88;
   color:rgba(74,222,128,0.05);
-  position:absolute;
-  right:-1rem; bottom:-2rem;
-  pointer-events:none; user-select:none;
-  letter-spacing:-0.02em;
+  position:absolute; right:-1rem; bottom:-2rem;
+  pointer-events:none; user-select:none; letter-spacing:-0.02em;
 }
-
 .hero-eyebrow {
   display:flex; align-items:center; gap:0.75rem;
   font-size:0.58rem; letter-spacing:0.22em;
-  text-transform:uppercase; color:var(--amber);
-  margin-bottom:2.5rem;
+  text-transform:uppercase; color:var(--amber); margin-bottom:2.5rem;
 }
 .hero-eyebrow::before { content:'//'; opacity:0.5; }
-
 .hero-title {
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(4.5rem, 9vw, 8rem);
-  line-height:0.92; letter-spacing:0.02em;
-  color:var(--white);
+  font-size:clamp(3rem,8vw,8rem); line-height:0.92; letter-spacing:0.02em; color:var(--white);
 }
 .hero-title .green { color:var(--green); }
-.hero-title .outline {
-  -webkit-text-stroke:1px rgba(232,245,236,0.2);
-  color:transparent;
-}
-
+.hero-title .outline { -webkit-text-stroke:1px rgba(232,245,236,0.2); color:transparent; }
 .hero-sub {
-  margin-top:2.5rem;
-  font-size:0.82rem; line-height:1.85;
-  color:var(--muted); font-weight:300;
-  font-style:italic; max-width:500px;
+  margin-top:2.5rem; font-size:0.82rem; line-height:1.85;
+  color:var(--muted); font-weight:300; font-style:italic; max-width:500px;
 }
 
-/* Real stats — honest */
 .honest-metrics {
   margin-top:3.5rem;
   display:grid; grid-template-columns:repeat(4,1fr);
   gap:0; border:1px solid var(--border);
 }
-
 .honest-metric {
-  padding:1.5rem 1.25rem;
-  border-right:1px solid var(--border);
-  position:relative;
+  padding:1.5rem 1.25rem; border-right:1px solid var(--border);
 }
 .honest-metric:last-child { border-right:none; }
-
 .metric-label {
   font-size:0.48rem; letter-spacing:0.18em;
-  text-transform:uppercase; color:var(--muted);
-  margin-bottom:0.75rem; line-height:1.4;
+  text-transform:uppercase; color:var(--muted); margin-bottom:0.75rem; line-height:1.4;
 }
-.metric-val {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2.2rem; line-height:1;
-  font-variant-numeric:tabular-nums;
-}
-.metric-unit {
-  font-size:0.5rem; letter-spacing:0.1em;
-  text-transform:uppercase; margin-top:0.35rem;
-}
-.metric-note {
-  font-size:0.48rem; color:var(--muted);
-  margin-top:0.5rem; line-height:1.5;
-  font-style:italic;
-}
-
+.metric-val { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; line-height:1; }
+.metric-unit { font-size:0.5rem; letter-spacing:0.1em; text-transform:uppercase; margin-top:0.35rem; }
+.metric-note { font-size:0.48rem; color:var(--muted); margin-top:0.5rem; line-height:1.5; font-style:italic; }
 .val-real { color:var(--green); }
 .val-zero { color:rgba(232,245,236,0.15); }
 .val-building { color:var(--amber); }
 
-.hero-ctas {
-  margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;
-}
+.hero-ctas { margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap; }
 .btn-ex {
   border:1px solid var(--green); color:var(--green);
-  padding:0.8rem 1.8rem;
-  font-family:'IBM Plex Mono',monospace;
+  padding:0.8rem 1.8rem; font-family:'IBM Plex Mono',monospace;
   font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase;
-  text-decoration:none; transition:all 0.2s;
-  background:transparent; cursor:pointer;
+  text-decoration:none; transition:all 0.2s; background:transparent; cursor:pointer;
 }
 .btn-ex:hover, .btn-ex.filled { background:var(--green); color:var(--bg); font-weight:700; }
 .btn-ex.secondary { border-color:var(--border); color:var(--muted); }
 .btn-ex.secondary:hover { border-color:var(--amber); color:var(--amber); background:transparent; }
 
-/* ══ HERO RIGHT — CARLOS PANEL ══ */
+/* ── CARLOS PANEL (desktop sidebar) ── */
 .carlos-panel {
-  background:var(--bg2);
-  display:flex; flex-direction:column;
-  padding:3rem 2rem;
-  position:relative; overflow:hidden;
+  background:var(--bg2); display:flex; flex-direction:column;
+  padding:3rem 2rem; position:relative; overflow:hidden;
 }
-
 .carlos-panel::before {
-  content:'';
-  position:absolute; top:-4rem; right:-4rem;
+  content:''; position:absolute; top:-4rem; right:-4rem;
   width:18rem; height:18rem;
   background:radial-gradient(circle, rgba(74,222,128,0.04) 0%, transparent 65%);
 }
-
-.cp-header {
-  display:flex; justify-content:space-between; align-items:center;
-  margin-bottom:2.5rem;
-}
-.cp-title {
-  font-size:0.52rem; letter-spacing:0.22em;
-  text-transform:uppercase; color:var(--green);
-}
-.cp-live {
-  display:flex; align-items:center; gap:0.4rem;
-  font-size:0.48rem; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--amber);
-}
-
+.cp-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem; }
+.cp-title { font-size:0.52rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--green); }
+.cp-live { display:flex; align-items:center; gap:0.4rem; font-size:0.48rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); }
 .producer-sole {
-  border:1px solid var(--green);
-  padding:1.75rem;
-  position:relative; margin-bottom:2rem;
-  background:rgba(74,222,128,0.03);
+  border:1px solid var(--green); padding:1.75rem;
+  position:relative; margin-bottom:2rem; background:rgba(74,222,128,0.03);
 }
-
 .producer-sole::before {
   content:'ÚNICO PRODUCTOR ACTIVO';
   position:absolute; top:-0.5rem; left:1rem;
-  font-size:0.42rem; letter-spacing:0.18em;
-  text-transform:uppercase; color:var(--green);
+  font-size:0.42rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--green);
   background:var(--bg2); padding:0 0.4rem;
 }
-
-.p-avatar {
-  font-size:3rem; margin-bottom:1rem; display:block;
-}
-.p-name-big {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.6rem; color:var(--white);
-  letter-spacing:0.04em; margin-bottom:0.3rem;
-}
-.p-role {
-  font-size:0.52rem; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--green);
-  margin-bottom:1.25rem;
-}
-
-.p-detail-row {
-  display:flex; justify-content:space-between;
-  font-size:0.58rem; padding:0.5rem 0;
-  border-bottom:1px solid var(--border2);
-}
+.p-avatar { font-size:3rem; margin-bottom:1rem; display:block; }
+.p-name-big { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--white); letter-spacing:0.04em; margin-bottom:0.3rem; }
+.p-role { font-size:0.52rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--green); margin-bottom:1.25rem; }
+.p-detail-row { display:flex; justify-content:space-between; font-size:0.58rem; padding:0.5rem 0; border-bottom:1px solid var(--border2); }
 .p-detail-row:last-child { border-bottom:none; }
 .p-detail-label { color:var(--muted); }
 .p-detail-val { font-weight:600; }
-
 .status-verified {
   display:inline-flex; align-items:center; gap:0.4rem;
-  border:1px solid rgba(74,222,128,0.3);
-  padding:0.2rem 0.5rem;
-  font-size:0.44rem; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--green);
-  margin-top:1.25rem;
+  border:1px solid rgba(74,222,128,0.3); padding:0.2rem 0.5rem;
+  font-size:0.44rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--green); margin-top:1.25rem;
 }
-
-/* Empty slots */
 .empty-slot {
-  border:1px dashed rgba(232,245,236,0.08);
-  padding:1.5rem;
-  margin-bottom:0.75rem;
-  display:flex; align-items:center; gap:1rem;
-  opacity:0.4;
+  border:1px dashed rgba(232,245,236,0.08); padding:1.5rem; margin-bottom:0.75rem;
+  display:flex; align-items:center; gap:1rem; opacity:0.4;
 }
-.empty-num {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2rem; color:rgba(232,245,236,0.1);
-  flex-shrink:0;
-}
+.empty-num { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:rgba(232,245,236,0.1); flex-shrink:0; }
 .empty-text { font-size:0.55rem; color:var(--muted2); letter-spacing:0.06em; }
-.empty-tag {
-  font-size:0.44rem; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--muted2);
-  margin-top:0.2rem;
-}
-
+.empty-tag { font-size:0.44rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted2); margin-top:0.2rem; }
 .join-cta {
-  margin-top:auto; border:1px solid var(--border);
-  padding:1.25rem; text-align:center;
-  transition:border-color 0.2s, background 0.2s;
-  cursor:pointer;
+  margin-top:auto; border:1px solid var(--border); padding:1.25rem; text-align:center;
+  transition:border-color 0.2s, background 0.2s; cursor:pointer;
 }
 .join-cta:hover { border-color:var(--green); background:rgba(74,222,128,0.04); }
-.join-cta-title {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1rem; color:var(--white); letter-spacing:0.06em;
-  margin-bottom:0.4rem;
-}
-.join-cta-sub {
-  font-size:0.5rem; color:var(--muted); letter-spacing:0.08em; line-height:1.6;
-}
+.join-cta-title { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--white); letter-spacing:0.06em; margin-bottom:0.4rem; }
+.join-cta-sub { font-size:0.5rem; color:var(--muted); letter-spacing:0.08em; line-height:1.6; }
 
-/* ══ MANIFESTO STRIP ══ */
+/* ── CARLOS MOBILE CARD (tablet/mobile) ── */
+.carlos-mobile {
+  display:none; position:relative; z-index:1;
+  background:var(--bg2); border-bottom:1px solid var(--border);
+  padding:2rem 3rem;
+}
+.carlos-mobile-card {
+  border:1px solid var(--green); padding:1.5rem;
+  background:rgba(74,222,128,0.03); position:relative;
+}
+.carlos-mobile-card::before {
+  content:'ÚNICO PRODUCTOR ACTIVO';
+  position:absolute; top:-0.5rem; left:1rem;
+  font-size:0.42rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--green);
+  background:var(--bg2); padding:0 0.4rem;
+}
+.cm-inner { display:flex; align-items:center; gap:1.25rem; margin-bottom:1rem; }
+.cm-avatar { font-size:2.5rem; flex-shrink:0; }
+.cm-name { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--white); letter-spacing:0.04em; }
+.cm-role { font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--green); margin-top:0.2rem; }
+.cm-details {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem 1.5rem;
+  font-size:0.55rem;
+}
+.cm-detail-label { color:var(--muted); display:block; margin-bottom:0.15rem; font-size:0.46rem; letter-spacing:0.1em; text-transform:uppercase; }
+
+/* ── MANIFESTO ── */
 .manifesto-strip {
-  position:relative; z-index:1;
-  border-bottom:1px solid var(--border);
-  padding:3rem 5rem;
-  background:var(--bg3);
+  position:relative; z-index:1; border-bottom:1px solid var(--border);
+  padding:3rem 5rem; background:var(--bg3);
   display:flex; align-items:center; gap:4rem;
 }
 .manifesto-quote {
   font-family:'DM Serif Display',serif;
-  font-size:clamp(1.3rem,2.2vw,1.8rem);
-  font-style:italic;
-  color:var(--white);
-  line-height:1.4; flex:1;
+  font-size:clamp(1rem,2.2vw,1.8rem); font-style:italic; color:var(--white); line-height:1.4; flex:1;
 }
 .manifesto-quote em { color:var(--green); font-style:normal; }
-.manifesto-author {
-  flex-shrink:0; text-align:right;
-}
-.manifesto-author-name {
-  font-size:0.65rem; font-weight:600;
-  letter-spacing:0.1em; color:var(--white);
-}
-.manifesto-author-role {
-  font-size:0.5rem; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--muted);
-  margin-top:0.3rem;
-}
+.manifesto-author { flex-shrink:0; text-align:right; }
+.manifesto-author-name { font-size:0.65rem; font-weight:600; letter-spacing:0.1em; color:var(--white); }
+.manifesto-author-role { font-size:0.5rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:0.3rem; }
 
-/* ══ MARKET TABLE — HONEST ══ */
-.market-section {
-  position:relative; z-index:1;
-  padding:4rem 5rem;
-  border-bottom:1px solid var(--border);
-}
-
+/* ── SECTION SHARED ── */
 .section-tag {
-  font-size:0.52rem; letter-spacing:0.25em;
-  text-transform:uppercase; color:var(--green);
-  margin-bottom:0.75rem;
-  display:flex; align-items:center; gap:0.5rem;
+  font-size:0.52rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--green);
+  margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;
 }
 .section-tag::before { content:'//'; opacity:0.4; }
-
 .section-title {
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.5rem,5vw,4rem);
-  letter-spacing:0.04em; color:var(--white); line-height:1;
-  margin-bottom:0.75rem;
+  font-size:clamp(1.8rem,5vw,4rem); letter-spacing:0.04em; color:var(--white); line-height:1; margin-bottom:0.75rem;
 }
+.section-note { font-size:0.62rem; color:var(--muted); font-style:italic; line-height:1.7; max-width:520px; margin-bottom:3rem; }
 
-.section-note {
-  font-size:0.62rem; color:var(--muted);
-  font-style:italic; line-height:1.7; max-width:520px;
-  margin-bottom:3rem;
-}
-
-.market-table {
-  width:100%; border-collapse:collapse;
-}
+/* ── MARKET TABLE ── */
+.market-section { position:relative; z-index:1; padding:4rem 5rem; border-bottom:1px solid var(--border); }
+.table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.market-table { width:100%; border-collapse:collapse; min-width:560px; }
 .market-table thead tr { border-bottom:1px solid var(--border); }
 .market-table th {
-  font-size:0.46rem; letter-spacing:0.2em;
-  text-transform:uppercase; color:var(--muted2);
-  padding:0.75rem 1rem; text-align:left; font-weight:400;
+  font-size:0.46rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted2);
+  padding:0.75rem 1rem; text-align:left; font-weight:400; white-space:nowrap;
 }
 .market-table th:not(:first-child) { text-align:right; }
-
-/* The ONE real row */
-.real-row {
-  border-bottom:1px solid rgba(74,222,128,0.15);
-  background:rgba(74,222,128,0.03);
-  cursor:pointer; transition:background 0.2s;
-}
+.real-row { border-bottom:1px solid rgba(74,222,128,0.15); background:rgba(74,222,128,0.03); cursor:pointer; transition:background 0.2s; }
 .real-row:hover { background:rgba(74,222,128,0.07); }
-
-/* Ghost rows — future */
-.ghost-row {
-  border-bottom:1px solid var(--border2);
-  opacity:0.2;
-}
-.ghost-row td {
-  padding:0.85rem 1rem; font-size:0.62rem;
-  color:var(--muted2);
-}
-
-.market-table td { padding:1rem 1rem; font-size:0.65rem; font-variant-numeric:tabular-nums; }
+.ghost-row { border-bottom:1px solid var(--border2); opacity:0.2; }
+.ghost-row td { padding:0.85rem 1rem; font-size:0.62rem; color:var(--muted2); }
+.market-table td { padding:1rem; font-size:0.65rem; }
 .market-table td:not(:first-child) { text-align:right; }
-
 .prod-cell { display:flex; align-items:center; gap:0.75rem; }
-.prod-icon { font-size:1.4rem; }
-.prod-name { font-weight:600; font-size:0.68rem; letter-spacing:0.02em; }
+.prod-icon { font-size:1.4rem; flex-shrink:0; }
+.prod-name { font-weight:600; font-size:0.68rem; letter-spacing:0.02em; white-space:nowrap; }
 .prod-origin { font-size:0.5rem; color:var(--muted); margin-top:0.1rem; letter-spacing:0.08em; }
-
 .tag-real {
   font-size:0.42rem; letter-spacing:0.12em; text-transform:uppercase;
-  border:1px solid rgba(74,222,128,0.4); color:var(--green);
-  padding:0.15rem 0.4rem; display:inline-block;
+  border:1px solid rgba(74,222,128,0.4); color:var(--green); padding:0.15rem 0.4rem; display:inline-block; white-space:nowrap;
 }
 .tag-soon {
   font-size:0.42rem; letter-spacing:0.1em; text-transform:uppercase;
-  border:1px solid rgba(232,245,236,0.1); color:var(--muted2);
-  padding:0.15rem 0.4rem; display:inline-block;
+  border:1px solid rgba(232,245,236,0.1); color:var(--muted2); padding:0.15rem 0.4rem; display:inline-block;
 }
+.planting-badge { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.52rem; color:var(--amber); letter-spacing:0.06em; white-space:nowrap; }
 
-.planting-badge {
-  display:inline-flex; align-items:center; gap:0.4rem;
-  font-size:0.52rem; color:var(--amber); letter-spacing:0.06em;
-}
-
-/* ══ FLOW — honest empty ══ */
-.flow-section {
-  position:relative; z-index:1;
-  padding:4rem 5rem;
-  border-bottom:1px solid var(--border);
-  background:var(--bg2);
-}
-
-.flow-grid {
-  display:grid;
-  grid-template-columns:1fr 2fr 1fr;
-  gap:2rem; align-items:center; margin-top:3rem;
-}
-
-.flow-col-title {
-  font-size:0.52rem; letter-spacing:0.2em;
-  text-transform:uppercase; color:var(--green);
-  margin-bottom:1.5rem; text-align:center;
-}
-
-.producer-real {
-  border:1px solid var(--green);
-  padding:1.25rem 1.25rem;
-  background:rgba(74,222,128,0.04);
-  transition:background 0.2s;
-}
+/* ── FLOW ── */
+.flow-section { position:relative; z-index:1; padding:4rem 5rem; border-bottom:1px solid var(--border); background:var(--bg2); }
+.flow-grid { display:grid; grid-template-columns:1fr 2fr 1fr; gap:2rem; align-items:center; margin-top:3rem; }
+.flow-col-title { font-size:0.52rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); margin-bottom:1.5rem; text-align:center; }
+.producer-real { border:1px solid var(--green); padding:1.25rem; background:rgba(74,222,128,0.04); transition:background 0.2s; }
 .producer-real:hover { background:rgba(74,222,128,0.08); }
-
-.producer-empty {
-  border:1px dashed rgba(232,245,236,0.07);
-  padding:1.25rem;
-  margin-top:0.75rem;
-  display:flex; align-items:center; gap:0.75rem;
-  opacity:0.3;
-}
-
-.flow-center {
-  display:flex; flex-direction:column; align-items:center;
-}
-
+.producer-empty { border:1px dashed rgba(232,245,236,0.07); padding:1.25rem; margin-top:0.75rem; display:flex; align-items:center; gap:0.75rem; opacity:0.3; }
+.flow-center { display:flex; flex-direction:column; align-items:center; }
 .exchange-hub {
-  width:150px; height:150px;
-  border:1px solid rgba(74,222,128,0.4);
-  border-radius:50%;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  background:var(--bg);
-  animation:hubGlow 4s ease-in-out infinite;
+  width:150px; height:150px; border:1px solid rgba(74,222,128,0.4); border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:var(--bg); animation:hubGlow 4s ease-in-out infinite;
 }
 @keyframes hubGlow {
   0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.1),0 0 20px rgba(74,222,128,0.04);}
   50%{box-shadow:0 0 0 10px rgba(74,222,128,0),0 0 40px rgba(74,222,128,0.1);}
 }
-
-.hub-name {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.3rem; color:var(--green); letter-spacing:0.1em;
-}
+.hub-name { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--green); letter-spacing:0.1em; }
 .hub-sub { font-size:0.42rem; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; margin-top:0.2rem; }
 .hub-tons { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--amber); margin-top:0.5rem; }
 .hub-tons-label { font-size:0.38rem; color:var(--muted2); letter-spacing:0.1em; text-transform:uppercase; }
+.flow-note { margin-top:2rem; text-align:center; font-size:0.55rem; color:var(--muted); line-height:1.7; font-style:italic; max-width:260px; }
+.buyer-empty { border:1px dashed rgba(232,245,236,0.07); padding:1.25rem; margin-bottom:0.75rem; display:flex; align-items:center; gap:0.75rem; justify-content:flex-end; opacity:0.3; flex-direction:row-reverse; }
+.first-buyer { border:1px dashed rgba(245,158,11,0.3); padding:1.25rem; margin-bottom:0.75rem; display:flex; align-items:center; gap:0.75rem; justify-content:flex-end; flex-direction:row-reverse; opacity:0.6; }
 
-.flow-note {
-  margin-top:2rem; text-align:center;
-  font-size:0.55rem; color:var(--muted); line-height:1.7;
-  font-style:italic; max-width:260px;
-}
-
-.buyer-empty {
-  border:1px dashed rgba(232,245,236,0.07);
-  padding:1.25rem; margin-bottom:0.75rem;
-  display:flex; align-items:center; gap:0.75rem;
-  justify-content:flex-end;
-  opacity:0.3;
-  flex-direction:row-reverse;
-}
-
-.first-buyer {
-  border:1px dashed rgba(245,158,11,0.3);
-  padding:1.25rem;
-  margin-bottom:0.75rem;
-  display:flex; align-items:center; gap:0.75rem;
-  justify-content:flex-end;
-  flex-direction:row-reverse;
-  opacity:0.6;
-}
-
-/* ══ VISION ══ */
-.vision-section {
-  position:relative; z-index:1;
-  padding:4rem 5rem;
-  border-bottom:1px solid var(--border);
-}
-
-.vision-grid {
-  display:grid; grid-template-columns:repeat(3,1fr);
-  gap:1px; background:var(--border2); margin-top:3rem;
-}
-
-.vision-card {
-  background:var(--bg);
-  padding:2.5rem 2rem; position:relative; overflow:hidden;
-  transition:background 0.3s;
-}
+/* ── VISION ── */
+.vision-section { position:relative; z-index:1; padding:4rem 5rem; border-bottom:1px solid var(--border); }
+.vision-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border2); margin-top:3rem; }
+.vision-card { background:var(--bg); padding:2.5rem 2rem; position:relative; overflow:hidden; transition:background 0.3s; }
 .vision-card:hover { background:var(--bg3); }
-
-.vision-card::before {
-  content:'';
-  position:absolute; bottom:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg, var(--green), transparent);
-  opacity:0; transition:opacity 0.3s;
-}
+.vision-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--green), transparent); opacity:0; transition:opacity 0.3s; }
 .vision-card:hover::before { opacity:1; }
-
-.vision-phase {
-  font-size:0.48rem; letter-spacing:0.22em;
-  text-transform:uppercase; color:var(--muted2);
-  margin-bottom:0.75rem;
-  display:flex; align-items:center; gap:0.5rem;
-}
-
-.vision-num {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:4rem; color:rgba(74,222,128,0.06);
-  line-height:1; margin-bottom:0.75rem;
-}
-
+.vision-phase { font-size:0.48rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted2); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+.vision-num { font-family:'Bebas Neue',sans-serif; font-size:4rem; color:rgba(74,222,128,0.06); line-height:1; margin-bottom:0.75rem; }
 .vision-icon { font-size:1.75rem; margin-bottom:1rem; }
-
-.vision-title {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.4rem; color:var(--white);
-  letter-spacing:0.04em; margin-bottom:0.75rem;
-}
-
-.vision-body {
-  font-size:0.6rem; line-height:1.75;
-  color:var(--muted); font-weight:300;
-}
-
-.phase-now {
-  border:1px solid rgba(74,222,128,0.3);
-  background:rgba(74,222,128,0.03) !important;
-}
+.vision-title { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--white); letter-spacing:0.04em; margin-bottom:0.75rem; }
+.vision-body { font-size:0.6rem; line-height:1.75; color:var(--muted); font-weight:300; }
+.phase-now { border:1px solid rgba(74,222,128,0.3); background:rgba(74,222,128,0.03) !important; }
 .phase-now .vision-phase { color:var(--green); }
+.phase-tag-now { display:inline-flex; align-items:center; gap:0.4rem; border:1px solid rgba(74,222,128,0.3); padding:0.2rem 0.5rem; margin-top:1rem; font-size:0.44rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--green); }
+.phase-tag-future { display:inline-block; border:1px solid rgba(232,245,236,0.1); padding:0.2rem 0.5rem; margin-top:1rem; font-size:0.44rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted2); }
 
-.phase-tag-now {
-  display:inline-flex; align-items:center; gap:0.4rem;
-  border:1px solid rgba(74,222,128,0.3);
-  padding:0.2rem 0.5rem; margin-top:1rem;
-  font-size:0.44rem; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--green);
-}
-.phase-tag-future {
-  display:inline-block;
-  border:1px solid rgba(232,245,236,0.1);
-  padding:0.2rem 0.5rem; margin-top:1rem;
-  font-size:0.44rem; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--muted2);
-}
-
-/* ══ JOIN ══ */
+/* ── JOIN ── */
 .join-section {
-  position:relative; z-index:1;
-  padding:5rem;
+  position:relative; z-index:1; padding:5rem;
   display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center;
   border-bottom:1px solid var(--border);
 }
-
-.join-left .section-title { font-size:clamp(2.5rem,5vw,4.5rem); }
-
-.join-sub {
-  margin-top:1.5rem; font-size:0.78rem; line-height:1.85;
-  color:var(--muted); font-weight:300; font-style:italic;
-  max-width:420px;
-}
-
-.join-right {
-  border:1px solid var(--border);
-  padding:2.5rem; background:var(--bg2);
-}
-
+.join-sub { margin-top:1.5rem; font-size:0.78rem; line-height:1.85; color:var(--muted); font-weight:300; font-style:italic; max-width:420px; }
+.join-right { border:1px solid var(--border); padding:2.5rem; background:var(--bg2); }
 .form-block { margin-bottom:1.5rem; }
-.form-label {
-  font-size:0.48rem; letter-spacing:0.18em;
-  text-transform:uppercase; color:var(--muted);
-  display:block; margin-bottom:0.5rem;
-}
-.form-input {
-  width:100%;
-  border:1px solid var(--border);
-  background:transparent;
-  padding:0.85rem 1rem;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:0.72rem; color:var(--white);
-  outline:none; transition:border-color 0.2s;
-}
+.form-label { font-size:0.48rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:0.5rem; }
+.form-input { width:100%; border:1px solid var(--border); background:transparent; padding:0.85rem 1rem; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--white); outline:none; transition:border-color 0.2s; }
 .form-input:focus { border-color:var(--green); }
 .form-input::placeholder { color:var(--muted2); }
-
-.form-select {
-  width:100%; border:1px solid var(--border);
-  background:var(--bg); padding:0.85rem 1rem;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:0.72rem; color:var(--white);
-  outline:none; appearance:none; cursor:pointer;
-  transition:border-color 0.2s;
-}
+.form-select { width:100%; border:1px solid var(--border); background:var(--bg); padding:0.85rem 1rem; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--white); outline:none; appearance:none; cursor:pointer; transition:border-color 0.2s; }
 .form-select:focus { border-color:var(--green); }
-
-.form-textarea {
-  width:100%; border:1px solid var(--border);
-  background:transparent; padding:0.85rem 1rem;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:0.68rem; color:var(--white);
-  outline:none; resize:vertical; min-height:80px;
-  transition:border-color 0.2s; line-height:1.6;
-}
+.form-textarea { width:100%; border:1px solid var(--border); background:transparent; padding:0.85rem 1rem; font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--white); outline:none; resize:vertical; min-height:80px; transition:border-color 0.2s; line-height:1.6; }
 .form-textarea:focus { border-color:var(--green); }
 .form-textarea::placeholder { color:var(--muted2); }
-
-.submit-btn {
-  width:100%; border:1px solid var(--green);
-  background:var(--green); color:var(--bg);
-  padding:1rem; font-family:'IBM Plex Mono',monospace;
-  font-size:0.65rem; font-weight:700;
-  letter-spacing:0.18em; text-transform:uppercase;
-  cursor:pointer; transition:all 0.2s;
-}
+.submit-btn { width:100%; border:1px solid var(--green); background:var(--green); color:var(--bg); padding:1rem; font-family:'IBM Plex Mono',monospace; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
 .submit-btn:hover { background:transparent; color:var(--green); }
+.form-note { margin-top:1rem; font-size:0.46rem; letter-spacing:0.1em; color:var(--muted2); text-align:center; text-transform:uppercase; }
 
-.form-note {
-  margin-top:1rem; font-size:0.46rem;
-  letter-spacing:0.1em; color:var(--muted2);
-  text-align:center; text-transform:uppercase;
-}
-
-/* ══ FOOTER ══ */
-.ex-footer {
-  border-top:1px solid var(--border);
-  padding:3rem 5rem;
-  display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem;
-}
-.footer-logo {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.8rem; color:var(--green); letter-spacing:0.1em; margin-bottom:1rem;
-}
-.footer-tagline {
-  font-size:0.62rem; line-height:1.8; color:var(--muted);
-  font-style:italic; font-weight:300; max-width:280px;
-}
-.footer-col-title {
-  font-size:0.46rem; letter-spacing:0.25em;
-  text-transform:uppercase; color:var(--green); margin-bottom:1.25rem;
-}
-.footer-links a {
-  display:block; font-size:0.6rem;
-  color:var(--muted); text-decoration:none;
-  margin-bottom:0.6rem; transition:color 0.2s;
-}
+/* ── FOOTER ── */
+.ex-footer { border-top:1px solid var(--border); padding:3rem 5rem; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; }
+.footer-logo { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--green); letter-spacing:0.1em; margin-bottom:1rem; }
+.footer-tagline { font-size:0.62rem; line-height:1.8; color:var(--muted); font-style:italic; font-weight:300; max-width:280px; }
+.footer-col-title { font-size:0.46rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--green); margin-bottom:1.25rem; }
+.footer-links a { display:block; font-size:0.6rem; color:var(--muted); text-decoration:none; margin-bottom:0.6rem; transition:color 0.2s; }
 .footer-links a:hover { color:var(--green); }
+.footer-bottom { border-top:1px solid var(--border2); padding:1.25rem 5rem; display:flex; justify-content:space-between; align-items:center; }
+.footer-copy { font-size:0.48rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted2); }
 
-.footer-bottom {
-  border-top:1px solid var(--border2);
-  padding:1.25rem 5rem;
-  display:flex; justify-content:space-between; align-items:center;
-}
-.footer-copy {
-  font-size:0.48rem; letter-spacing:0.12em;
-  text-transform:uppercase; color:var(--muted2);
+/* ════════════════════════════════════════
+   TABLET  ≤ 1024px
+════════════════════════════════════════ */
+@media(max-width:1024px) {
+  /* Hero: stack vertically, hide sidebar */
+  .hero { grid-template-columns:1fr; min-height:auto; }
+  .hero-left { padding:5rem 3rem 3rem; border-right:none; border-bottom:1px solid var(--border); }
+  .carlos-panel { display:none; }
+  .carlos-mobile { display:block; padding:2.5rem 3rem; }
+
+  /* Metrics: 2 col */
+  .honest-metrics { grid-template-columns:1fr 1fr; }
+  .honest-metric:nth-child(2) { border-right:none; }
+  .honest-metric:nth-child(1),
+  .honest-metric:nth-child(2) { border-bottom:1px solid var(--border); }
+
+  .manifesto-strip { padding:2.5rem 3rem; gap:2rem; }
+  .market-section,
+  .flow-section,
+  .vision-section { padding:3.5rem 3rem; }
+  .flow-grid { grid-template-columns:1fr 1.4fr 1fr; gap:1.5rem; }
+  .vision-grid { grid-template-columns:1fr 1fr; }
+  .join-section { padding:3.5rem 3rem; gap:3rem; }
+  .ex-footer { padding:3rem; grid-template-columns:1fr 1fr; gap:2.5rem; }
+  .footer-bottom { padding:1.25rem 3rem; }
 }
 
-/* ══ RESPONSIVE ══ */
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;}
-  .carlos-panel{display:none;}
-  .hero-left{padding:4rem 1.5rem 3rem;}
-  .honest-metrics{grid-template-columns:1fr 1fr;}
-  .manifesto-strip{padding:2.5rem 1.5rem;flex-direction:column;gap:1.5rem;}
-  .manifesto-author{text-align:left;}
-  .market-section,.flow-section,.vision-section,.join-section,.ex-footer{padding:3rem 1.5rem;}
-  .vision-grid{grid-template-columns:1fr;}
-  .flow-grid{grid-template-columns:1fr;}
-  .join-section{grid-template-columns:1fr;}
-  .ex-footer{grid-template-columns:1fr;}
-  .footer-bottom{padding:1.25rem 1.5rem;flex-direction:column;gap:0.5rem;}
+/* ════════════════════════════════════════
+   MOBILE  ≤ 640px
+════════════════════════════════════════ */
+@media(max-width:640px) {
+  /* Topbar */
+  .topbar { padding:0 1.25rem; }
+  .logo-sub { display:none; }
+  .building-text { display:none; }
+
+  /* Hero */
+  .hero-left { padding:4.5rem 1.25rem 2.5rem; }
+  .hero-eyebrow { font-size:0.5rem; margin-bottom:1.75rem; }
+  .hero-sub { font-size:0.75rem; margin-top:1.5rem; }
+  .day-zero { font-size:28vw; right:-0.25rem; bottom:-1rem; }
+
+  /* Metrics: 2x2 */
+  .honest-metrics { grid-template-columns:1fr 1fr; }
+  .honest-metric { padding:1rem 0.85rem; }
+  .metric-val { font-size:1.75rem; }
+  .metric-note { display:none; }
+
+  /* Buttons: full width */
+  .hero-ctas { flex-direction:column; }
+  .btn-ex { width:100%; text-align:center; padding:0.9rem 1rem; }
+
+  /* Carlos mobile */
+  .carlos-mobile { padding:1.5rem 1.25rem; }
+  .cm-inner { flex-direction:row; }
+  .cm-details { grid-template-columns:1fr 1fr; }
+
+  /* Manifesto */
+  .manifesto-strip { padding:2rem 1.25rem; flex-direction:column; gap:1.25rem; }
+  .manifesto-author { text-align:left; }
+
+  /* Sections */
+  .market-section,
+  .flow-section,
+  .vision-section { padding:2.5rem 1.25rem; }
+  .section-note { margin-bottom:1.5rem; font-size:0.58rem; }
+
+  /* Table: horizontal scroll */
+  .table-scroll { margin:0 -1.25rem; padding:0 1.25rem; }
+
+  /* Flow: stack */
+  .flow-grid { grid-template-columns:1fr; gap:2rem; }
+  .flow-col-title { text-align:left; }
+
+  /* Hub on mobile: smaller, left aligned */
+  .flow-center { align-items:flex-start; }
+  .flow-center > div:first-child { height:auto !important; position:relative !important; justify-content:flex-start !important; padding:1.5rem 0; }
+  .flow-center svg { display:none; }
+  .exchange-hub { width:110px; height:110px; }
+  .flow-note { text-align:left; max-width:100%; }
+
+  /* Buyers: left aligned on mobile */
+  .buyer-empty,
+  .first-buyer { flex-direction:row; justify-content:flex-start; }
+  .first-buyer > div { text-align:left; }
+
+  /* Vision: 1 col */
+  .vision-grid { grid-template-columns:1fr; }
+  .vision-card { padding:2rem 1.5rem; }
+
+  /* Join: 1 col */
+  .join-section { padding:2.5rem 1.25rem; grid-template-columns:1fr; gap:2rem; }
+  .join-right { padding:1.75rem 1.25rem; }
+  .form-input, .form-select, .form-textarea { font-size:0.8rem; }
+
+  /* Footer */
+  .ex-footer { padding:2.5rem 1.25rem; grid-template-columns:1fr; gap:2rem; }
+  .footer-bottom { padding:1.25rem; flex-direction:column; gap:0.5rem; text-align:center; }
+
+  /* Amber notice */
+  .amber-notice { flex-direction:column !important; align-items:flex-start !important; gap:0.6rem !important; }
+}
+
+/* ════════════════════════════════════════
+   TINY  ≤ 380px
+════════════════════════════════════════ */
+@media(max-width:380px) {
+  .topbar { padding:0 1rem; }
+  .hero-left { padding:4rem 1rem 2rem; }
+  .honest-metric { padding:0.75rem; }
+  .metric-val { font-size:1.5rem; }
+  .market-section,
+  .flow-section,
+  .vision-section,
+  .join-section { padding:2rem 1rem; }
+  .ex-footer { padding:2rem 1rem; }
+  .footer-bottom { padding:1rem; }
+  .carlos-mobile { padding:1.25rem 1rem; }
+  .manifesto-strip { padding:1.75rem 1rem; }
+  .cm-details { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -747,19 +506,15 @@ body::after {
 <div class="hero">
   <div class="hero-left">
     <span class="day-zero">DÍA 0</span>
-
     <div class="hero-eyebrow">Colombia · Exchange agrícola · Construyendo desde cero</div>
-
     <h1 class="hero-title">
       <span class="green">CAMPO</span><br/>
       <span class="outline">MERCADO</span><br/>
       DIRECTO
     </h1>
-
     <p class="hero-sub">
       Esto no es aún un mercado con cientos de toneladas. Es el día en que alguien decidió construirlo. Un agricultor, dos hectáreas, y la tecnología para demostrar que puede funcionar.
     </p>
-
     <div class="honest-metrics">
       <div class="honest-metric">
         <div class="metric-label">Productores activos</div>
@@ -786,77 +541,83 @@ body::after {
         <div class="metric-note">Beta en construcción</div>
       </div>
     </div>
-
     <div class="hero-ctas">
       <button class="btn-ex filled">Quiero ser productor</button>
       <button class="btn-ex secondary">Quiero comprar aquí</button>
     </div>
   </div>
 
-  <!-- CARLOS PANEL -->
+  <!-- CARLOS PANEL — desktop only -->
   <div class="carlos-panel">
     <div class="cp-header">
       <div class="cp-title">// Productores registrados</div>
-      <div class="cp-live">
-        <div class="building-dot"></div>
-        1 de 1
-      </div>
+      <div class="cp-live"><div class="building-dot"></div>1 de 1</div>
     </div>
-
     <div class="producer-sole">
       <span class="p-avatar">👨‍🌾</span>
       <div class="p-name-big">Carlos Ospina</div>
       <div class="p-role">Fundador · Agricultor · Dev</div>
-
-      <div class="p-detail-row">
-        <span class="p-detail-label">Ubicación</span>
-        <span class="p-detail-val">Sonsón, Antioquia</span>
-      </div>
-      <div class="p-detail-row">
-        <span class="p-detail-label">Área</span>
-        <span class="p-detail-val" style="color:var(--green);">2 hectáreas</span>
-      </div>
-      <div class="p-detail-row">
-        <span class="p-detail-label">Estado</span>
-        <span class="p-detail-val" style="color:var(--amber);">⟳ Sembrando</span>
-      </div>
-      <div class="p-detail-row">
-        <span class="p-detail-label">App instalada</span>
-        <span class="p-detail-val" style="color:var(--green);">✓ Sí</span>
-      </div>
-      <div class="p-detail-row">
-        <span class="p-detail-label">Trazabilidad</span>
-        <span class="p-detail-val" style="color:var(--green);">✓ Activa</span>
-      </div>
-      <div class="p-detail-row" style="border:none;">
-        <span class="p-detail-label">Primera cosecha</span>
-        <span class="p-detail-val" style="color:var(--amber);">Próximamente</span>
-      </div>
-
+      <div class="p-detail-row"><span class="p-detail-label">Ubicación</span><span class="p-detail-val">Sonsón, Antioquia</span></div>
+      <div class="p-detail-row"><span class="p-detail-label">Área</span><span class="p-detail-val" style="color:var(--green);">2 hectáreas</span></div>
+      <div class="p-detail-row"><span class="p-detail-label">Estado</span><span class="p-detail-val" style="color:var(--amber);">⟳ Sembrando</span></div>
+      <div class="p-detail-row"><span class="p-detail-label">App instalada</span><span class="p-detail-val" style="color:var(--green);">✓ Sí</span></div>
+      <div class="p-detail-row"><span class="p-detail-label">Trazabilidad</span><span class="p-detail-val" style="color:var(--green);">✓ Activa</span></div>
+      <div class="p-detail-row" style="border:none;"><span class="p-detail-label">Primera cosecha</span><span class="p-detail-val" style="color:var(--amber);">Próximamente</span></div>
       <div class="status-verified">
         <div style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:amberPulse 2s infinite;"></div>
         Productor verificado
       </div>
     </div>
-
     <div class="empty-slot">
       <div class="empty-num">02</div>
-      <div>
-        <div class="empty-text">Próximo agricultor verificado</div>
-        <div class="empty-tag">Esperando solicitudes</div>
-      </div>
+      <div><div class="empty-text">Próximo agricultor verificado</div><div class="empty-tag">Esperando solicitudes</div></div>
     </div>
     <div class="empty-slot">
       <div class="empty-num">03</div>
-      <div>
-        <div class="empty-text">Próximo agricultor verificado</div>
-        <div class="empty-tag">Esperando solicitudes</div>
-      </div>
+      <div><div class="empty-text">Próximo agricultor verificado</div><div class="empty-tag">Esperando solicitudes</div></div>
     </div>
-
     <div class="join-cta" onclick="document.getElementById('unete').scrollIntoView({behavior:'smooth'})">
       <div class="join-cta-title">¿Eres agricultor? → Aplica aquí</div>
       <div class="join-cta-sub">Descarga la app · Registra tus siembras · Entra al mercado</div>
+    </div>
+  </div>
+</div>
+
+<!-- CARLOS MOBILE — tablet/mobile only -->
+<div class="carlos-mobile">
+  <div class="carlos-mobile-card">
+    <div class="cm-inner">
+      <div class="cm-avatar">👨‍🌾</div>
+      <div>
+        <div class="cm-name">Carlos Ospina</div>
+        <div class="cm-role">Fundador · Agricultor · Dev</div>
+      </div>
+    </div>
+    <div class="cm-details">
+      <div>
+        <span class="cm-detail-label">Ubicación</span>
+        <span style="font-size:0.58rem;color:var(--white);">Sonsón, ANT</span>
+      </div>
+      <div>
+        <span class="cm-detail-label">Área</span>
+        <span style="font-size:0.58rem;color:var(--green);">2 hectáreas</span>
+      </div>
+      <div>
+        <span class="cm-detail-label">Estado</span>
+        <span style="font-size:0.58rem;color:var(--amber);">⟳ Sembrando</span>
+      </div>
+      <div>
+        <span class="cm-detail-label">App</span>
+        <span style="font-size:0.58rem;color:var(--green);">✓ Instalada</span>
+      </div>
+      <div>
+        <span class="cm-detail-label">Trazabilidad</span>
+        <span style="font-size:0.58rem;color:var(--green);">✓ Activa</span>
+      </div>
+      <div>
+        <span class="cm-detail-label">1ª cosecha</span>
+        <span style="font-size:0.58rem;color:var(--amber);">Pronto</span>
+      </div>
     </div>
   </div>
 </div>
@@ -872,86 +633,72 @@ body::after {
   </div>
 </div>
 
-<!-- MARKET TABLE — HONEST -->
+<!-- MARKET TABLE -->
 <div class="market-section">
   <div class="section-tag">Estado del mercado</div>
   <div class="section-title">LO QUE HAY</div>
   <p class="section-note">
     Esto es lo que existe hoy. No hay más productos listados porque no hay más productores verificados todavía. Así funciona mihuerto: solo entra lo real.
   </p>
-
-  <table class="market-table">
-    <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Disponible</th>
-        <th>Volumen</th>
-        <th>Origen</th>
-        <th>Estado</th>
-        <th>Trazabilidad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- THE ONE REAL ROW -->
-      <tr class="real-row">
-        <td>
-          <div class="prod-cell">
-            <span class="prod-icon">🌱</span>
-            <div>
-              <div class="prod-name">PRIMERA COSECHA</div>
-              <div class="prod-origin">Carlos Ospina · Sonsón, Antioquia</div>
+  <div class="table-scroll">
+    <table class="market-table">
+      <thead>
+        <tr>
+          <th>Producto</th><th>Precio</th><th>Disponible</th><th>Volumen</th><th>Origen</th><th>Estado</th><th>Trazabilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="real-row">
+          <td>
+            <div class="prod-cell">
+              <span class="prod-icon">🌱</span>
+              <div>
+                <div class="prod-name">PRIMERA COSECHA</div>
+                <div class="prod-origin">Carlos Ospina · Sonsón, Antioquia</div>
+              </div>
             </div>
-          </div>
-        </td>
-        <td style="color:var(--amber);">Por definir</td>
-        <td><span class="planting-badge">⟳ Sembrando...</span></td>
-        <td style="color:var(--muted);font-size:0.6rem;">2 ha activas</td>
-        <td style="color:var(--muted);font-size:0.58rem;">ANTIOQUIA</td>
-        <td style="color:var(--amber);font-size:0.6rem;">En campo</td>
-        <td><span class="tag-real">✓ ACTIVA</span></td>
-      </tr>
-
-      <!-- GHOST ROWS — future -->
-      <tr class="ghost-row">
-        <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #02 — pendiente</div></div></div></td>
-        <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-        <td><span class="tag-soon">PENDIENTE</span></td>
-      </tr>
-      <tr class="ghost-row">
-        <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #03 — pendiente</div></div></div></td>
-        <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-        <td><span class="tag-soon">PENDIENTE</span></td>
-      </tr>
-      <tr class="ghost-row">
-        <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #04 — pendiente</div></div></div></td>
-        <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-        <td><span class="tag-soon">PENDIENTE</span></td>
-      </tr>
-      <tr class="ghost-row">
-        <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #05 — pendiente</div></div></div></td>
-        <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-        <td><span class="tag-soon">PENDIENTE</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid rgba(245,158,11,0.2);display:inline-flex;align-items:center;gap:0.75rem;">
+          </td>
+          <td style="color:var(--amber);">Por definir</td>
+          <td><span class="planting-badge">⟳ Sembrando...</span></td>
+          <td style="color:var(--muted);font-size:0.6rem;">2 ha activas</td>
+          <td style="color:var(--muted);font-size:0.58rem;">ANTIOQUIA</td>
+          <td style="color:var(--amber);font-size:0.6rem;">En campo</td>
+          <td><span class="tag-real">✓ ACTIVA</span></td>
+        </tr>
+        <tr class="ghost-row">
+          <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #02 — pendiente</div></div></div></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="tag-soon">PENDIENTE</span></td>
+        </tr>
+        <tr class="ghost-row">
+          <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #03 — pendiente</div></div></div></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="tag-soon">PENDIENTE</span></td>
+        </tr>
+        <tr class="ghost-row">
+          <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #04 — pendiente</div></div></div></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="tag-soon">PENDIENTE</span></td>
+        </tr>
+        <tr class="ghost-row">
+          <td><div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span><div><div style="font-size:0.62rem;letter-spacing:0.06em;">Agricultor #05 — pendiente</div></div></div></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="tag-soon">PENDIENTE</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="amber-notice" style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid rgba(245,158,11,0.2);display:inline-flex;align-items:center;gap:0.75rem;">
     <div class="building-dot"></div>
     <span style="font-size:0.52rem;letter-spacing:0.1em;color:var(--amber);">Los espacios vacíos se llenan con cada agricultor que completa el proceso de verificación.</span>
   </div>
 </div>
 
-<!-- FLOW — honest -->
+<!-- FLOW -->
 <div class="flow-section">
   <div class="section-tag">Flujo de productos</div>
   <div class="section-title">EL FLUJO HOY</div>
-  <p class="section-note" style="max-width:520px;font-size:0.62rem;color:var(--muted);font-style:italic;line-height:1.7;margin-top:0.5rem;">
+  <p class="section-note" style="margin-bottom:0;">
     Un solo productor, cero centrales abiertas, cero compradores conectados. Pero la infraestructura está lista. Así se ve el día 0.
   </p>
-
   <div class="flow-grid">
-    <!-- PRODUCERS SIDE -->
+    <!-- PRODUCERS -->
     <div>
       <div class="flow-col-title">// Productores</div>
       <div class="producer-real">
@@ -962,43 +709,32 @@ body::after {
       </div>
       <div class="producer-empty">
         <span style="font-size:1.2rem;opacity:0.3;">＋</span>
-        <div>
-          <div style="font-size:0.58rem;color:var(--muted2);">Próximo productor</div>
-          <div style="font-size:0.46rem;color:var(--muted2);margin-top:0.15rem;letter-spacing:0.08em;">Esperando aplicación</div>
-        </div>
+        <div><div style="font-size:0.58rem;color:var(--muted2);">Próximo productor</div><div style="font-size:0.46rem;color:var(--muted2);margin-top:0.15rem;letter-spacing:0.08em;">Esperando aplicación</div></div>
       </div>
       <div class="producer-empty">
         <span style="font-size:1.2rem;opacity:0.3;">＋</span>
-        <div>
-          <div style="font-size:0.58rem;color:var(--muted2);">Próximo productor</div>
-          <div style="font-size:0.46rem;color:var(--muted2);margin-top:0.15rem;letter-spacing:0.08em;">Esperando aplicación</div>
-        </div>
+        <div><div style="font-size:0.58rem;color:var(--muted2);">Próximo productor</div><div style="font-size:0.46rem;color:var(--muted2);margin-top:0.15rem;letter-spacing:0.08em;">Esperando aplicación</div></div>
       </div>
     </div>
 
-    <!-- HUB CENTER -->
+    <!-- HUB -->
     <div class="flow-center">
       <div style="position:relative;width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
         <svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;">
-          <!-- one active line from left -->
           <line x1="0" y1="60" x2="50%" y2="50%" stroke="rgba(74,222,128,0.25)" stroke-width="1" stroke-dasharray="5,5">
             <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1.5s" repeatCount="indefinite"/>
           </line>
-          <!-- ghost lines left -->
           <line x1="0" y1="140" x2="50%" y2="50%" stroke="rgba(232,245,236,0.04)" stroke-width="1" stroke-dasharray="4,8"/>
           <line x1="0" y1="210" x2="50%" y2="50%" stroke="rgba(232,245,236,0.04)" stroke-width="1" stroke-dasharray="4,8"/>
-          <!-- ghost lines right (no buyers yet) -->
           <line x1="50%" y1="50%" x2="100%" y2="80" stroke="rgba(232,245,236,0.04)" stroke-width="1" stroke-dasharray="4,8"/>
           <line x1="50%" y1="50%" x2="100%" y2="150" stroke="rgba(232,245,236,0.04)" stroke-width="1" stroke-dasharray="4,8"/>
           <line x1="50%" y1="50%" x2="100%" y2="220" stroke="rgba(232,245,236,0.04)" stroke-width="1" stroke-dasharray="4,8"/>
-          <!-- single moving dot -->
           <circle r="4" fill="var(--green)" opacity="0.7">
             <animateMotion dur="3s" repeatCount="indefinite">
               <mpath><path d="M 0 60 L 50% 50%"/></mpath>
             </animateMotion>
           </circle>
         </svg>
-
         <div class="exchange-hub">
           <div class="hub-name">MH·EX</div>
           <div class="hub-sub">Exchange</div>
@@ -1006,13 +742,10 @@ body::after {
           <div class="hub-tons-label">Construyendo</div>
         </div>
       </div>
-
-      <div class="flow-note">
-        La infraestructura existe. El flujo empieza cuando el primer agricultor llega con su primera cosecha.
-      </div>
+      <div class="flow-note">La infraestructura existe. El flujo empieza cuando el primer agricultor llega con su primera cosecha.</div>
     </div>
 
-    <!-- BUYERS SIDE — empty -->
+    <!-- BUYERS -->
     <div>
       <div class="flow-col-title">// Puntos de abasto</div>
       <div class="first-buyer">
@@ -1023,67 +756,43 @@ body::after {
           <div style="font-size:0.5rem;color:var(--amber);margin-top:0.25rem;">Apertura con 1ª cosecha</div>
         </div>
       </div>
-      <div class="buyer-empty">
-        <span style="font-size:1.2rem;opacity:0.3;">▒</span>
-        <div style="text-align:right;">
-          <div style="font-size:0.56rem;color:var(--muted2);">Bogotá · Pendiente</div>
-        </div>
-      </div>
-      <div class="buyer-empty">
-        <span style="font-size:1.2rem;opacity:0.3;">▒</span>
-        <div style="text-align:right;">
-          <div style="font-size:0.56rem;color:var(--muted2);">Cali · Pendiente</div>
-        </div>
-      </div>
-      <div class="buyer-empty">
-        <span style="font-size:1.2rem;opacity:0.3;">▒</span>
-        <div style="text-align:right;">
-          <div style="font-size:0.56rem;color:var(--muted2);">Barranquilla · Pendiente</div>
-        </div>
-      </div>
+      <div class="buyer-empty"><span style="font-size:1.2rem;opacity:0.3;">▒</span><div style="text-align:right;"><div style="font-size:0.56rem;color:var(--muted2);">Bogotá · Pendiente</div></div></div>
+      <div class="buyer-empty"><span style="font-size:1.2rem;opacity:0.3;">▒</span><div style="text-align:right;"><div style="font-size:0.56rem;color:var(--muted2);">Cali · Pendiente</div></div></div>
+      <div class="buyer-empty"><span style="font-size:1.2rem;opacity:0.3;">▒</span><div style="text-align:right;"><div style="font-size:0.56rem;color:var(--muted2);">Barranquilla · Pendiente</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- VISION — roadmap -->
+<!-- VISION -->
 <div class="vision-section">
   <div class="section-tag">Hoja de ruta</div>
   <div class="section-title">LO QUE VIENE</div>
-
   <div class="vision-grid">
     <div class="vision-card phase-now">
       <div class="vision-phase">Fase actual</div>
       <div class="vision-num">01</div>
       <div class="vision-icon">🌱</div>
       <div class="vision-title">SEMBRANDO</div>
-      <p class="vision-body">
-        Carlos siembra en sus 2 hectáreas. La app de gestión registra cada práctica. La trazabilidad comienza. Se construye la plataforma y se diseña el proceso de verificación de productores.
-      </p>
+      <p class="vision-body">Carlos siembra en sus 2 hectáreas. La app de gestión registra cada práctica. La trazabilidad comienza. Se construye la plataforma y se diseña el proceso de verificación de productores.</p>
       <div class="phase-tag-now">
         <div style="width:5px;height:5px;border-radius:50%;background:var(--green);animation:amberPulse 2s infinite;"></div>
         Ahora mismo
       </div>
     </div>
-
     <div class="vision-card">
       <div class="vision-phase">Fase 2</div>
       <div class="vision-num">02</div>
       <div class="vision-icon">🏪</div>
       <div class="vision-title">PRIMERA VENTA</div>
-      <p class="vision-body">
-        La primera cosecha llega a la primera minicentral de abasto. El primer comprador ve la historia detrás del producto. El modelo se prueba en la realidad. Cero desperdicio como meta.
-      </p>
+      <p class="vision-body">La primera cosecha llega a la primera minicentral de abasto. El primer comprador ve la historia detrás del producto. El modelo se prueba en la realidad. Cero desperdicio como meta.</p>
       <div class="phase-tag-future">Próximamente</div>
     </div>
-
     <div class="vision-card">
       <div class="vision-phase">Fase 3</div>
       <div class="vision-num">03</div>
       <div class="vision-icon">🌐</div>
       <div class="vision-title">ESCALAR</div>
-      <p class="vision-body">
-        Más agricultores verificados. Más centrales. Precios en tiempo real. Big data, IoT, IA predictiva. Toneladas moviéndose. El campo colombiano en una pantalla, sin intermediarios.
-      </p>
+      <p class="vision-body">Más agricultores verificados. Más centrales. Precios en tiempo real. Big data, IoT, IA predictiva. Toneladas moviéndose. El campo colombiano en una pantalla, sin intermediarios.</p>
       <div class="phase-tag-future">El futuro</div>
     </div>
   </div>
@@ -1094,9 +803,7 @@ body::after {
   <div class="join-left">
     <div class="section-tag">Únete ahora</div>
     <div class="section-title">SÉ PARTE<br/><span style="color:var(--green);">DESDE EL</span><br/>INICIO</div>
-    <p class="join-sub">
-      Los que entran primero ayudan a construir cómo funciona esto. Si eres agricultor, tu retroalimentación define el proceso. Si quieres comprar, tu demanda define los productos.
-    </p>
+    <p class="join-sub">Los que entran primero ayudan a construir cómo funciona esto. Si eres agricultor, tu retroalimentación define el proceso. Si quieres comprar, tu demanda define los productos.</p>
     <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:1.25rem;">
       <div style="display:flex;align-items:flex-start;gap:1rem;">
         <span style="font-size:1.3rem;flex-shrink:0;">🌱</span>
@@ -1119,17 +826,14 @@ body::after {
     <div style="font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:2rem;display:flex;align-items:center;gap:0.5rem;">
       <span style="opacity:0.5;">//</span> Registro de interés
     </div>
-
     <div class="form-block">
       <label class="form-label">Nombre completo</label>
       <input type="text" class="form-input" placeholder="Tu nombre">
     </div>
-
     <div class="form-block">
       <label class="form-label">Correo electrónico</label>
       <input type="email" class="form-input" placeholder="tu@correo.co">
     </div>
-
     <div class="form-block">
       <label class="form-label">Soy...</label>
       <select class="form-select">
@@ -1141,12 +845,10 @@ body::after {
         <option>Otro</option>
       </select>
     </div>
-
     <div class="form-block">
       <label class="form-label">¿Qué produces o necesitas? (opcional)</label>
       <textarea class="form-textarea" placeholder="Ej: tengo 3 hectáreas de maíz en Córdoba..."></textarea>
     </div>
-
     <button class="submit-btn" onclick="handleJoin(this)">Registrar interés →</button>
     <p class="form-note">Sin spam · Solo novedades reales de mihuerto.co</p>
   </div>
@@ -1156,9 +858,7 @@ body::after {
 <div class="ex-footer">
   <div>
     <div class="footer-logo">MH·EXCHANGE</div>
-    <p class="footer-tagline">
-      El primer exchange agrícola colombiano con trazabilidad total. Fundado por Carlos Ospina desde Sonsón, Antioquia. Día 0. En construcción. Con convicción.
-    </p>
+    <p class="footer-tagline">El primer exchange agrícola colombiano con trazabilidad total. Fundado por Carlos Ospina desde Sonsón, Antioquia. Día 0. En construcción. Con convicción.</p>
     <div style="margin-top:2rem;display:inline-flex;align-items:center;gap:0.5rem;border:1px solid rgba(245,158,11,0.2);padding:0.4rem 0.75rem;">
       <div class="building-dot"></div>
       <span style="font-size:0.46rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);">Beta en construcción</span>
@@ -1167,27 +867,22 @@ body::after {
   <div>
     <div class="footer-col-title">Plataforma</div>
     <div class="footer-links">
-      <a href="#">Exchange</a>
-      <a href="#">App agricultores</a>
-      <a href="#">Centrales de abasto</a>
-      <a href="#">Trazabilidad</a>
+      <a href="#">Exchange</a><a href="#">App agricultores</a>
+      <a href="#">Centrales de abasto</a><a href="#">Trazabilidad</a>
     </div>
   </div>
   <div>
     <div class="footer-col-title">Tecnología</div>
     <div class="footer-links">
-      <a href="#">Big Data</a>
-      <a href="#">IoT Agrícola</a>
-      <a href="#">IA Predictiva</a>
-      <a href="#">Gestión agrícola</a>
+      <a href="#">Big Data</a><a href="#">IoT Agrícola</a>
+      <a href="#">IA Predictiva</a><a href="#">Gestión agrícola</a>
     </div>
   </div>
   <div>
     <div class="footer-col-title">Contacto</div>
     <div class="footer-links">
       <a href="mailto:hola@mihuerto.co">hola@mihuerto.co</a>
-      <a href="#">Instagram</a>
-      <a href="#">LinkedIn</a>
+      <a href="#">Instagram</a><a href="#">LinkedIn</a>
     </div>
     <div style="margin-top:1.5rem;">
       <div class="footer-col-title">Fundador</div>
@@ -1205,7 +900,6 @@ body::after {
 </div>
 
 <script>
-// Clock
 function tick() {
   const now = new Date();
   const pad = n => String(n).padStart(2,'0');
@@ -1214,21 +908,12 @@ function tick() {
 }
 setInterval(tick, 1000); tick();
 
-// Form submit
 function handleJoin(btn) {
   btn.textContent = '✓ Registrado — gracias, te avisamos pronto.';
   btn.style.background = 'transparent';
   btn.style.color = 'var(--green)';
   btn.disabled = true;
 }
-
-// Filter tabs (noop placeholder)
-document.querySelectorAll('.filter-tab').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.filter-tab').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-  });
-});
 </script>
 </body>
 </html>
