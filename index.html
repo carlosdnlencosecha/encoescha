@@ -1,2695 +1,685 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mihuerto Exchange — Día 0</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --bg: #080c0a;
-            --bg2: #0d1410;
-            --bg3: #111a14;
-            --border: rgba(74, 222, 128, 0.12);
-            --border2: rgba(74, 222, 128, 0.06);
-            --green: #4ade80;
-            --amber: #f59e0b;
-            --white: #f0f9f3;
-            --muted: rgba(240, 249, 243, 0.55);
-            --muted2: rgba(240, 249, 243, 0.25);
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
-            pointer-events: none;
-            z-index: 9998;
-        }
-
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(74, 222, 128, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74, 222, 128, 0.025) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ── TOPBAR ── */
-        .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(8, 12, 10, 0.97);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2.5rem;
-            height: 52px;
-        }
-
-        .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 0.08em;
-            color: var(--green);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .logo-sub {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            color: var(--muted);
-            text-transform: uppercase;
-            border-left: 1px solid var(--border);
-            padding-left: 0.75rem;
-            font-weight: 400;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .building-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 0.3rem 0.75rem;
-        }
-
-        .building-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--amber);
-            animation: amberPulse 2s infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes amberPulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.3;
-            }
-        }
-
-        .building-text {
-            font-size: 0.65rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--amber);
-            font-weight: 500;
-        }
-
-        .clock {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--white);
-            letter-spacing: 0.06em;
-        }
-
-        /* ── HERO ── */
-        .hero {
-            position: relative;
-            z-index: 1;
-            min-height: 92vh;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero-left {
-            padding: 5rem 4rem 4rem 5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-left::before {
-            content: '';
-            position: absolute;
-            bottom: -8rem;
-            left: -4rem;
-            width: 35rem;
-            height: 35rem;
-            background: radial-gradient(circle, rgba(74, 222, 128, 0.04) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .day-zero {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(5rem, 14vw, 14rem);
-            line-height: 0.88;
-            color: rgba(74, 222, 128, 0.05);
-            position: absolute;
-            right: -1rem;
-            bottom: -2rem;
-            pointer-events: none;
-            user-select: none;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 2.5rem;
-            font-weight: 500;
-        }
-
-        .hero-eyebrow::before {
-            content: '//';
-            opacity: 0.5;
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .hero-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3rem, 8vw, 8rem);
-            line-height: 0.92;
-            letter-spacing: 0.02em;
-            color: var(--white);
-        }
-
-        .hero-title .green {
-            color: var(--green);
-        }
-
-        .hero-title .outline {
-            -webkit-text-stroke: 1px rgba(232, 245, 236, 0.2);
-            color: transparent;
-        }
-
-        .hero-sub {
-            margin-top: 2.5rem;
-            font-size: 1rem;
-            line-height: 1.75;
-            color: var(--muted);
-            font-weight: 300;
-            max-width: 500px;
-        }
-
-        .honest-metrics {
-            margin-top: 3.5rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-            border: 1px solid var(--border);
-        }
-
-        .honest-metric {
-            padding: 1.5rem 1.25rem;
-            border-right: 1px solid var(--border);
-        }
-
-        .honest-metric:last-child {
-            border-right: none;
-        }
-
-        .metric-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 0.75rem;
-            line-height: 1.4;
-            font-weight: 500;
-        }
-
-        .metric-val {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.2rem;
-            line-height: 1;
-        }
-
-        .metric-unit {
-            font-size: 0.6rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 0.35rem;
-            font-weight: 500;
-        }
-
-        .metric-note {
-            font-size: 0.62rem;
-            color: var(--muted);
-            margin-top: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .val-real {
-            color: var(--green);
-        }
-
-        .val-zero {
-            color: rgba(232, 245, 236, 0.15);
-        }
-
-        .val-building {
-            color: var(--amber);
-        }
-
-        .hero-ctas {
-            margin-top: 2.5rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-ex {
-            border: 1px solid var(--green);
-            color: var(--green);
-            padding: 0.85rem 1.8rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.2s;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn-ex:hover,
-        .btn-ex.filled {
-            background: var(--green);
-            color: var(--bg);
-            font-weight: 700;
-        }
-
-        .btn-ex.secondary {
-            border-color: var(--border);
-            color: var(--muted);
-        }
-
-        .btn-ex.secondary:hover {
-            border-color: var(--amber);
-            color: var(--amber);
-            background: transparent;
-        }
-
-        /* ── CARLOS PANEL ── */
-        .carlos-panel {
-            background: var(--bg2);
-            display: flex;
-            flex-direction: column;
-            padding: 3rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .carlos-panel::before {
-            content: '';
-            position: absolute;
-            top: -4rem;
-            right: -4rem;
-            width: 18rem;
-            height: 18rem;
-            background: radial-gradient(circle, rgba(74, 222, 128, 0.04) 0%, transparent 65%);
-        }
-
-        .cp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .cp-title {
-            font-size: 0.62rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--green);
-            font-weight: 600;
-        }
-
-        .cp-live {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--amber);
-            font-weight: 500;
-        }
-
-        .producer-sole {
-            border: 1px solid var(--green);
-            padding: 1.75rem;
-            position: relative;
-            margin-bottom: 2rem;
-            background: rgba(74, 222, 128, 0.03);
-        }
-
-        .producer-sole::before {
-            content: 'ÚNICO PRODUCTOR ACTIVO';
-            position: absolute;
-            top: -0.5rem;
-            left: 1rem;
-            font-size: 0.5rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--green);
-            background: var(--bg2);
-            padding: 0 0.4rem;
-            font-weight: 600;
-        }
-
-        .p-avatar {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .p-name-big {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            color: var(--white);
-            letter-spacing: 0.04em;
-            margin-bottom: 0.3rem;
-        }
-
-        .p-role {
-            font-size: 0.62rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-bottom: 1.25rem;
-            font-weight: 500;
-        }
-
-        .p-detail-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.7rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border2);
-        }
-
-        .p-detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .p-detail-label {
-            color: var(--muted);
-        }
-
-        .p-detail-val {
-            font-weight: 600;
-        }
-
-        .status-verified {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            padding: 0.2rem 0.5rem;
-            font-size: 0.55rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-top: 1.25rem;
-            font-weight: 500;
-        }
-
-        .empty-slot {
-            border: 1px dashed rgba(232, 245, 236, 0.08);
-            padding: 1.5rem;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            opacity: 0.4;
-        }
-
-        .empty-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            color: rgba(232, 245, 236, 0.1);
-            flex-shrink: 0;
-        }
-
-        .empty-text {
-            font-size: 0.68rem;
-            color: var(--muted2);
-            letter-spacing: 0.04em;
-        }
-
-        .empty-tag {
-            font-size: 0.55rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--muted2);
-            margin-top: 0.2rem;
-            font-weight: 500;
-        }
-
-        .join-cta {
-            margin-top: auto;
-            border: 1px solid var(--border);
-            padding: 1.25rem;
-            text-align: center;
-            transition: border-color 0.2s, background 0.2s;
-            cursor: pointer;
-        }
-
-        .join-cta:hover {
-            border-color: var(--green);
-            background: rgba(74, 222, 128, 0.04);
-        }
-
-        .join-cta-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            color: var(--white);
-            letter-spacing: 0.06em;
-            margin-bottom: 0.4rem;
-        }
-
-        .join-cta-sub {
-            font-size: 0.62rem;
-            color: var(--muted);
-            letter-spacing: 0.04em;
-            line-height: 1.6;
-        }
-
-        /* ── CARLOS MOBILE ── */
-        .carlos-mobile {
-            display: none;
-            position: relative;
-            z-index: 1;
-            background: var(--bg2);
-            border-bottom: 1px solid var(--border);
-            padding: 2rem 3rem;
-        }
-
-        .carlos-mobile-card {
-            border: 1px solid var(--green);
-            padding: 1.5rem;
-            background: rgba(74, 222, 128, 0.03);
-            position: relative;
-        }
-
-        .carlos-mobile-card::before {
-            content: 'ÚNICO PRODUCTOR ACTIVO';
-            position: absolute;
-            top: -0.5rem;
-            left: 1rem;
-            font-size: 0.5rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--green);
-            background: var(--bg2);
-            padding: 0 0.4rem;
-            font-weight: 600;
-        }
-
-        .cm-inner {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .cm-avatar {
-            font-size: 2.5rem;
-            flex-shrink: 0;
-        }
-
-        .cm-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            color: var(--white);
-            letter-spacing: 0.04em;
-        }
-
-        .cm-role {
-            font-size: 0.62rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-top: 0.2rem;
-            font-weight: 500;
-        }
-
-        .cm-details {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem 1.5rem;
-            font-size: 0.7rem;
-        }
-
-        .cm-detail-label {
-            color: var(--muted);
-            display: block;
-            margin-bottom: 0.15rem;
-            font-size: 0.58rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        /* ── VIDEO SECTION ── */
-        .video-section {
-            position: relative;
-            z-index: 1;
-            padding: 4rem 5rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg);
-        }
-
-        .video-inner {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            background: var(--bg2);
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            background: var(--bg2);
-            cursor: pointer;
-        }
-
-        .video-play-btn {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            border: 2px solid var(--green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(74, 222, 128, 0.1);
-            transition: all 0.2s;
-        }
-
-        .video-play-btn:hover {
-            background: rgba(74, 222, 128, 0.2);
-            transform: scale(1.05);
-        }
-
-        .video-play-icon {
-            width: 0;
-            height: 0;
-            border-top: 12px solid transparent;
-            border-bottom: 12px solid transparent;
-            border-left: 20px solid var(--green);
-            margin-left: 4px;
-        }
-
-        .video-overlay-text {
-            font-size: 0.65rem;
-            color: var(--muted);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .video-text-side {}
-
-        .video-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            padding: 0.3rem 0.75rem;
-            margin-bottom: 1.5rem;
-            background: rgba(255, 0, 0, 0.05);
-        }
-
-        .video-badge-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ff4444;
-            animation: amberPulse 1.5s infinite;
-        }
-
-        .video-badge-text {
-            font-size: 0.6rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: #ff7777;
-            font-weight: 600;
-        }
-
-        .video-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.8rem, 3.5vw, 3rem);
-            color: var(--white);
-            line-height: 1;
-            margin-bottom: 1rem;
-            letter-spacing: 0.02em;
-        }
-
-        .video-desc {
-            font-size: 0.9rem;
-            color: var(--muted);
-            line-height: 1.75;
-            margin-bottom: 2rem;
-        }
-
-        .video-stats {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .video-stat-label {
-            font-size: 0.6rem;
-            color: var(--muted2);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-        }
-
-        .video-stat-val {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            color: var(--green);
-        }
-
-        /* ── WHATSAPP ONBOARDING SECTION ── */
-        .whatsapp-section {
-            position: relative;
-            z-index: 1;
-            padding: 4rem 5rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg2);
-        }
-
-        .whatsapp-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .wa-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            margin-top: 2rem;
-            border: 1px solid var(--border);
-        }
-
-        .wa-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.25rem;
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            transition: background 0.2s;
-        }
-
-        .wa-step:last-child {
-            border-bottom: none;
-        }
-
-        .wa-step:hover {
-            background: rgba(74, 222, 128, 0.03);
-        }
-
-        .wa-step-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            color: rgba(74, 222, 128, 0.15);
-            line-height: 1;
-            flex-shrink: 0;
-            width: 2.5rem;
-        }
-
-        .wa-step-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-            margin-top: 0.1rem;
-        }
-
-        .wa-step-body {}
-
-        .wa-step-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 0.4rem;
-            letter-spacing: 0.01em;
-        }
-
-        .wa-step-desc {
-            font-size: 0.78rem;
-            color: var(--muted);
-            line-height: 1.65;
-        }
-
-        /* Whatsapp chat mockup */
-        .wa-chat-card {
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wa-chat-header {
-            background: rgba(74, 222, 128, 0.08);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-        }
-
-        .wa-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(74, 222, 128, 0.15);
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            flex-shrink: 0;
-        }
-
-        .wa-contact-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--white);
-        }
-
-        .wa-contact-status {
-            font-size: 0.62rem;
-            color: var(--green);
-            margin-top: 0.15rem;
-        }
-
-        .wa-messages {
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            min-height: 280px;
-        }
-
-        .wa-msg {
-            max-width: 82%;
-            padding: 0.75rem 1rem;
-            font-size: 0.78rem;
-            line-height: 1.55;
-            position: relative;
-        }
-
-        .wa-msg-bot {
-            background: rgba(74, 222, 128, 0.08);
-            border: 1px solid rgba(74, 222, 128, 0.15);
-            align-self: flex-start;
-            color: var(--white);
-        }
-
-        .wa-msg-user {
-            background: rgba(240, 249, 243, 0.06);
-            border: 1px solid rgba(240, 249, 243, 0.1);
-            align-self: flex-end;
-            color: var(--muted);
-        }
-
-        .wa-msg-time {
-            font-size: 0.52rem;
-            color: var(--muted2);
-            margin-top: 0.35rem;
-            text-align: right;
-        }
-
-        .wa-input-bar {
-            padding: 0.85rem 1.25rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .wa-input-fake {
-            flex: 1;
-            background: rgba(74, 222, 128, 0.05);
-            border: 1px solid var(--border);
-            padding: 0.6rem 1rem;
-            font-size: 0.7rem;
-            color: var(--muted2);
-            font-style: italic;
-        }
-
-        .wa-send-btn {
-            width: 36px;
-            height: 36px;
-            background: var(--green);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 1rem;
-            color: var(--bg);
-        }
-
-        .wa-cta-outer {
-            margin-top: 2rem;
-        }
-
-        .wa-cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: #25D366;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            padding: 1rem 2rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .wa-cta-btn:hover {
-            background: #1fb357;
-            transform: translateY(-1px);
-        }
-
-        .wa-cta-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-            flex-shrink: 0;
-        }
-
-        .wa-disclaimer {
-            margin-top: 0.85rem;
-            font-size: 0.62rem;
-            color: var(--muted2);
-            line-height: 1.5;
-        }
-
-        /* ── MANIFESTO ── */
-        .manifesto-strip {
-            position: relative;
-            z-index: 1;
-            border-bottom: 1px solid var(--border);
-            padding: 3rem 5rem;
-            background: var(--bg3);
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-        }
-
-        .manifesto-quote {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            font-style: italic;
-            color: var(--white);
-            line-height: 1.5;
-            flex: 1;
-        }
-
-        .manifesto-quote em {
-            color: var(--green);
-            font-style: normal;
-        }
-
-        .manifesto-author {
-            flex-shrink: 0;
-            text-align: right;
-        }
-
-        .manifesto-author-name {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: var(--white);
-        }
-
-        .manifesto-author-role {
-            font-size: 0.62rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 0.3rem;
-        }
-
-        /* ── SECTION SHARED ── */
-        .section-tag {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-        }
-
-        .section-tag::before {
-            content: '//';
-            opacity: 0.4;
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.8rem, 5vw, 4rem);
-            letter-spacing: 0.04em;
-            color: var(--white);
-            line-height: 1;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-note {
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.75;
-            max-width: 540px;
-            margin-bottom: 3rem;
-        }
-
-        /* ── MARKET TABLE ── */
-        .market-section {
-            position: relative;
-            z-index: 1;
-            padding: 4rem 5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .table-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .market-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 560px;
-        }
-
-        .market-table thead tr {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .market-table th {
-            font-size: 0.62rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted2);
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .market-table th:not(:first-child) {
-            text-align: right;
-        }
-
-        .real-row {
-            border-bottom: 1px solid rgba(74, 222, 128, 0.15);
-            background: rgba(74, 222, 128, 0.03);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .real-row:hover {
-            background: rgba(74, 222, 128, 0.07);
-        }
-
-        .ghost-row {
-            border-bottom: 1px solid var(--border2);
-            opacity: 0.2;
-        }
-
-        .ghost-row td {
-            padding: 0.85rem 1rem;
-            font-size: 0.7rem;
-            color: var(--muted2);
-        }
-
-        .market-table td {
-            padding: 1rem;
-            font-size: 0.75rem;
-        }
-
-        .market-table td:not(:first-child) {
-            text-align: right;
-        }
-
-        .prod-cell {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .prod-icon {
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-
-        .prod-name {
-            font-weight: 700;
-            font-size: 0.78rem;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-        }
-
-        .prod-origin {
-            font-size: 0.62rem;
-            color: var(--muted);
-            margin-top: 0.1rem;
-            letter-spacing: 0.04em;
-        }
-
-        .tag-real {
-            font-size: 0.55rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border: 1px solid rgba(74, 222, 128, 0.4);
-            color: var(--green);
-            padding: 0.2rem 0.5rem;
-            display: inline-block;
-            white-space: nowrap;
-            font-weight: 600;
-        }
-
-        .tag-soon {
-            font-size: 0.55rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            border: 1px solid rgba(232, 245, 236, 0.1);
-            color: var(--muted2);
-            padding: 0.2rem 0.5rem;
-            display: inline-block;
-        }
-
-        .planting-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.65rem;
-            color: var(--amber);
-            letter-spacing: 0.04em;
-            white-space: nowrap;
-            font-weight: 500;
-        }
-
-        /* ── FLOW ── */
-        .flow-section {
-            position: relative;
-            z-index: 1;
-            padding: 4rem 5rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg2);
-        }
-
-        .flow-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 2rem;
-            align-items: center;
-            margin-top: 3rem;
-        }
-
-        .flow-col-title {
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .producer-real {
-            border: 1px solid var(--green);
-            padding: 1.25rem;
-            background: rgba(74, 222, 128, 0.04);
-            transition: background 0.2s;
-        }
-
-        .producer-real:hover {
-            background: rgba(74, 222, 128, 0.08);
-        }
-
-        .producer-empty {
-            border: 1px dashed rgba(232, 245, 236, 0.07);
-            padding: 1.25rem;
-            margin-top: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            opacity: 0.3;
-        }
-
-        .flow-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .exchange-hub {
-            width: 150px;
-            height: 150px;
-            border: 1px solid rgba(74, 222, 128, 0.4);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg);
-            animation: hubGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes hubGlow {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.1), 0 0 20px rgba(74, 222, 128, 0.04);
-            }
-
-            50% {
-                box-shadow: 0 0 0 10px rgba(74, 222, 128, 0), 0 0 40px rgba(74, 222, 128, 0.1);
-            }
-        }
-
-        .hub-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3rem;
-            color: var(--green);
-            letter-spacing: 0.1em;
-        }
-
-        .hub-sub {
-            font-size: 0.55rem;
-            letter-spacing: 0.12em;
-            color: var(--muted);
-            text-transform: uppercase;
-            margin-top: 0.2rem;
-            font-weight: 500;
-        }
-
-        .hub-tons {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1rem;
-            color: var(--amber);
-            margin-top: 0.5rem;
-        }
-
-        .hub-tons-label {
-            font-size: 0.5rem;
-            color: var(--muted2);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .flow-note {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.72rem;
-            color: var(--muted);
-            line-height: 1.7;
-            max-width: 260px;
-        }
-
-        .buyer-empty {
-            border: 1px dashed rgba(232, 245, 236, 0.07);
-            padding: 1.25rem;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            justify-content: flex-end;
-            opacity: 0.3;
-            flex-direction: row-reverse;
-        }
-
-        .first-buyer {
-            border: 1px dashed rgba(245, 158, 11, 0.3);
-            padding: 1.25rem;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            justify-content: flex-end;
-            flex-direction: row-reverse;
-            opacity: 0.6;
-        }
-
-        /* ── VISION ── */
-        .vision-section {
-            position: relative;
-            z-index: 1;
-            padding: 4rem 5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .vision-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border2);
-            margin-top: 3rem;
-        }
-
-        .vision-card {
-            background: var(--bg);
-            padding: 2.5rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: background 0.3s;
-        }
-
-        .vision-card:hover {
-            background: var(--bg3);
-        }
-
-        .vision-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--green), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .vision-card:hover::before {
-            opacity: 1;
-        }
-
-        .vision-phase {
-            font-size: 0.6rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted2);
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-        }
-
-        .vision-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 4rem;
-            color: rgba(74, 222, 128, 0.06);
-            line-height: 1;
-            margin-bottom: 0.75rem;
-        }
-
-        .vision-icon {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .vision-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            color: var(--white);
-            letter-spacing: 0.04em;
-            margin-bottom: 0.75rem;
-        }
-
-        .vision-body {
-            font-size: 0.78rem;
-            line-height: 1.75;
-            color: var(--muted);
-            font-weight: 300;
-        }
-
-        .phase-now {
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            background: rgba(74, 222, 128, 0.03) !important;
-        }
-
-        .phase-now .vision-phase {
-            color: var(--green);
-        }
-
-        .phase-tag-now {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            padding: 0.2rem 0.5rem;
-            margin-top: 1rem;
-            font-size: 0.55rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--green);
-            font-weight: 600;
-        }
-
-        .phase-tag-future {
-            display: inline-block;
-            border: 1px solid rgba(232, 245, 236, 0.1);
-            padding: 0.2rem 0.5rem;
-            margin-top: 1rem;
-            font-size: 0.55rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted2);
-        }
-
-        /* ── JOIN ── */
-        .join-section {
-            position: relative;
-            z-index: 1;
-            padding: 5rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .join-sub {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            color: var(--muted);
-            max-width: 420px;
-        }
-
-        .join-right {
-            border: 1px solid var(--border);
-            padding: 2.5rem;
-            background: var(--bg2);
-        }
-
-        .form-block {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            font-size: 0.62rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-input {
-            width: 100%;
-            border: 1px solid var(--border);
-            background: transparent;
-            padding: 0.85rem 1rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            color: var(--white);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            border-color: var(--green);
-        }
-
-        .form-input::placeholder {
-            color: var(--muted2);
-        }
-
-        .form-select {
-            width: 100%;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            padding: 0.85rem 1rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            color: var(--white);
-            outline: none;
-            appearance: none;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .form-select:focus {
-            border-color: var(--green);
-        }
-
-        .form-textarea {
-            width: 100%;
-            border: 1px solid var(--border);
-            background: transparent;
-            padding: 0.85rem 1rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
-            color: var(--white);
-            outline: none;
-            resize: vertical;
-            min-height: 80px;
-            transition: border-color 0.2s;
-            line-height: 1.65;
-        }
-
-        .form-textarea:focus {
-            border-color: var(--green);
-        }
-
-        .form-textarea::placeholder {
-            color: var(--muted2);
-        }
-
-        .submit-btn {
-            width: 100%;
-            border: 1px solid var(--green);
-            background: var(--green);
-            color: var(--bg);
-            padding: 1rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .submit-btn:hover {
-            background: transparent;
-            color: var(--green);
-        }
-
-        .form-note {
-            margin-top: 1rem;
-            font-size: 0.58rem;
-            letter-spacing: 0.08em;
-            color: var(--muted2);
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        /* ── FOOTER ── */
-        .ex-footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 5rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .footer-logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            color: var(--green);
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        .footer-tagline {
-            font-size: 0.75rem;
-            line-height: 1.8;
-            color: var(--muted);
-            max-width: 280px;
-        }
-
-        .footer-col-title {
-            font-size: 0.58rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-bottom: 1.25rem;
-            font-weight: 600;
-        }
-
-        .footer-links a {
-            display: block;
-            font-size: 0.72rem;
-            color: var(--muted);
-            text-decoration: none;
-            margin-bottom: 0.6rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--green);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--border2);
-            padding: 1.25rem 5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-copy {
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--muted2);
-        }
-
-        /* ══ TABLET ══ */
-        @media(max-width:1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                min-height: auto;
-            }
-
-            .hero-left {
-                padding: 5rem 3rem 3rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .carlos-panel {
-                display: none;
-            }
-
-            .carlos-mobile {
-                display: block;
-                padding: 2.5rem 3rem;
-            }
-
-            .honest-metrics {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .honest-metric:nth-child(2) {
-                border-right: none;
-            }
-
-            .honest-metric:nth-child(1),
-            .honest-metric:nth-child(2) {
-                border-bottom: 1px solid var(--border);
-            }
-
-            .manifesto-strip {
-                padding: 2.5rem 3rem;
-                gap: 2rem;
-            }
-
-            .market-section,
-            .flow-section,
-            .vision-section {
-                padding: 3.5rem 3rem;
-            }
-
-            .video-section,
-            .whatsapp-section {
-                padding: 3.5rem 3rem;
-            }
-
-            .video-inner {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-
-            .whatsapp-inner {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .flow-grid {
-                grid-template-columns: 1fr 1.4fr 1fr;
-                gap: 1.5rem;
-            }
-
-            .vision-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .join-section {
-                padding: 3.5rem 3rem;
-                gap: 3rem;
-            }
-
-            .ex-footer {
-                padding: 3rem;
-                grid-template-columns: 1fr 1fr;
-                gap: 2.5rem;
-            }
-
-            .footer-bottom {
-                padding: 1.25rem 3rem;
-            }
-        }
-
-        /* ══ MOBILE ══ */
-        @media(max-width:640px) {
-            .topbar {
-                padding: 0 1.25rem;
-            }
-
-            .logo-sub {
-                display: none;
-            }
-
-            .building-text {
-                display: none;
-            }
-
-            .hero-left {
-                padding: 4.5rem 1.25rem 2.5rem;
-            }
-
-            .hero-eyebrow {
-                font-size: 0.6rem;
-                margin-bottom: 1.75rem;
-            }
-
-            .hero-sub {
-                font-size: 0.88rem;
-                margin-top: 1.5rem;
-            }
-
-            .day-zero {
-                font-size: 28vw;
-                right: -0.25rem;
-                bottom: -1rem;
-            }
-
-            .honest-metrics {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .honest-metric {
-                padding: 1rem 0.85rem;
-            }
-
-            .metric-val {
-                font-size: 1.75rem;
-            }
-
-            .metric-note {
-                display: none;
-            }
-
-            .hero-ctas {
-                flex-direction: column;
-            }
-
-            .btn-ex {
-                width: 100%;
-                text-align: center;
-                padding: 0.9rem 1rem;
-            }
-
-            .carlos-mobile {
-                padding: 1.5rem 1.25rem;
-            }
-
-            .cm-inner {
-                flex-direction: row;
-            }
-
-            .cm-details {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .manifesto-strip {
-                padding: 2rem 1.25rem;
-                flex-direction: column;
-                gap: 1.25rem;
-            }
-
-            .manifesto-author {
-                text-align: left;
-            }
-
-            .market-section,
-            .flow-section,
-            .vision-section {
-                padding: 2.5rem 1.25rem;
-            }
-
-            .video-section,
-            .whatsapp-section {
-                padding: 2.5rem 1.25rem;
-            }
-
-            .section-note {
-                margin-bottom: 1.5rem;
-                font-size: 0.78rem;
-            }
-
-            .table-scroll {
-                margin: 0 -1.25rem;
-                padding: 0 1.25rem;
-            }
-
-            .flow-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .flow-col-title {
-                text-align: left;
-            }
-
-            .flow-center {
-                align-items: flex-start;
-            }
-
-            .exchange-hub {
-                width: 110px;
-                height: 110px;
-            }
-
-            .flow-note {
-                text-align: left;
-                max-width: 100%;
-            }
-
-            .buyer-empty,
-            .first-buyer {
-                flex-direction: row;
-                justify-content: flex-start;
-            }
-
-            .vision-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .vision-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .join-section {
-                padding: 2.5rem 1.25rem;
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .join-right {
-                padding: 1.75rem 1.25rem;
-            }
-
-            .form-input,
-            .form-select,
-            .form-textarea {
-                font-size: 0.9rem;
-            }
-
-            .ex-footer {
-                padding: 2.5rem 1.25rem;
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .footer-bottom {
-                padding: 1.25rem;
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
-            }
-
-            .amber-notice {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 0.6rem !important;
-            }
-
-            .video-stats {
-                gap: 1.25rem;
-            }
-
-            .wa-messages {
-                min-height: 220px;
-            }
-        }
-
-        @media(max-width:380px) {
-            .topbar {
-                padding: 0 1rem;
-            }
-
-            .hero-left {
-                padding: 4rem 1rem 2rem;
-            }
-
-            .honest-metric {
-                padding: 0.75rem;
-            }
-
-            .metric-val {
-                font-size: 1.5rem;
-            }
-
-            .market-section,
-            .flow-section,
-            .vision-section,
-            .join-section {
-                padding: 2rem 1rem;
-            }
-
-            .video-section,
-            .whatsapp-section {
-                padding: 2rem 1rem;
-            }
-
-            .ex-footer {
-                padding: 2rem 1rem;
-            }
-
-            .footer-bottom {
-                padding: 1rem;
-            }
-
-            .carlos-mobile {
-                padding: 1.25rem 1rem;
-            }
-
-            .manifesto-strip {
-                padding: 1.75rem 1rem;
-            }
-
-            .cm-details {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mihuerto.co — Del campo al plato, con nombre propio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --tierra:  #2C1A0E; --tierra2: #4A2E18;
+    --hoja:    #3B6B35; --hoja2:   #5A9150; --hoja3: #8DC97F;
+    --sol:     #D4A017; --sol2:    #F2C94C;
+    --crema:   #F5EFE0; --crema2:  #EDE4CE; --blanco: #FDFAF4;
+    --gris:    #8A7F72;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans:  'DM Sans', sans-serif;
+    --mono:  'DM Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--blanco); color: var(--tierra); overflow-x: hidden; cursor: none; }
+  .cursor { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; width:12px; height:12px; background:var(--hoja); border-radius:50%; transform:translate(-50%,-50%); transition:transform .12s ease,background .2s; mix-blend-mode:multiply; }
+  .cursor.big { transform:translate(-50%,-50%) scale(4); background:var(--sol2); opacity:.4; }
+
+  nav { position:fixed; top:0; width:100%; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; mix-blend-mode:multiply; }
+  .nav-logo { font-family:var(--serif); font-size:1.4rem; color:var(--tierra); text-decoration:none; letter-spacing:-.5px; }
+  .nav-logo span { color:var(--hoja); }
+  nav ul { list-style:none; display:flex; gap:24px; }
+  nav ul a { font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tierra); text-decoration:none; opacity:.7; transition:opacity .2s; }
+  nav ul a:hover { opacity:1; }
+
+  .hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+  .hero-left { background:var(--crema); display:flex; flex-direction:column; justify-content:flex-end; padding:120px 64px 80px; position:relative; z-index:2; }
+  .hero-eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--hoja); margin-bottom:28px; display:flex; align-items:center; gap:10px; }
+  .hero-eyebrow::before { content:''; display:block; width:32px; height:1px; background:var(--hoja); }
+  .hero-title { font-family:var(--serif); font-size:clamp(3.2rem,5vw,5.5rem); line-height:1.0; color:var(--tierra); margin-bottom:32px; letter-spacing:-2px; }
+  .hero-title em { font-style:italic; color:var(--hoja); }
+  .hero-sub { font-size:1.05rem; line-height:1.7; color:var(--tierra2); max-width:380px; font-weight:300; margin-bottom:48px; }
+  .hero-cta { display:inline-flex; align-items:center; gap:12px; background:var(--tierra); color:var(--crema); font-family:var(--mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; padding:16px 28px; border-radius:2px; transition:background .25s,gap .25s; width:fit-content; }
+  .hero-cta:hover { background:var(--hoja); gap:20px; }
+  .hero-right { background:var(--hoja); position:relative; overflow:hidden; }
+  .hero-right::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px); background-size:28px 28px; animation:dotsMove 20s linear infinite; }
+  @keyframes dotsMove { to { background-position:28px 28px; } }
+  .hero-visual { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .campo-svg { width:80%; opacity:.9; animation:floatUp 6s ease-in-out infinite; }
+  @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .hero-badge { position:absolute; bottom:48px; right:48px; width:110px; height:110px; border-radius:50%; border:1.5px solid rgba(255,255,255,.4); display:flex; flex-direction:column; align-items:center; justify-content:center; animation:spin 20s linear infinite; }
+  .hero-badge-inner { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; animation:spinReverse 20s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  @keyframes spinReverse { to{transform:rotate(-360deg)} }
+  .hero-badge svg { width:110px; height:110px; position:absolute; }
+  .hero-badge-text { font-family:var(--serif); font-size:1.1rem; font-weight:700; color:white; line-height:1.1; text-align:center; }
+  .hero-badge-sub { font-family:var(--mono); font-size:.6rem; color:rgba(255,255,255,.7); letter-spacing:.1em; text-transform:uppercase; margin-top:4px; }
+
+  .ticker { background:var(--tierra); color:var(--crema2); padding:14px 0; overflow:hidden; white-space:nowrap; }
+  .ticker-inner { display:inline-flex; animation:ticker 32s linear infinite; }
+  @keyframes ticker { to{transform:translateX(-50%)} }
+  .ticker-item { font-family:var(--mono); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; padding:0 32px; opacity:.8; }
+  .ticker-item span { color:var(--sol2); margin-right:32px; }
+
+  .section-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gris); margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  .section-label::before { content:attr(data-num); color:var(--hoja2); font-weight:500; }
+  .section-title { font-family:var(--serif); font-size:clamp(2.2rem,3.5vw,3.4rem); line-height:1.1; letter-spacing:-1px; margin-bottom:28px; }
+  .section-body { font-size:1rem; line-height:1.75; color:var(--tierra2); font-weight:300; max-width:440px; }
+  .section-body p+p { margin-top:16px; }
+  .section-body strong { color:var(--hoja); font-weight:500; }
+
+  /* CARLOS */
+  .carlos { display:grid; grid-template-columns:1fr 1fr; min-height:80vh; }
+  .carlos-img { background:var(--crema2); position:relative; overflow:hidden; min-height:500px; }
+  .finca-pattern { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .carlos-texto { background:var(--blanco); padding:80px 72px; display:flex; flex-direction:column; justify-content:center; }
+  .firma { margin-top:40px; display:flex; align-items:center; gap:16px; padding-top:32px; border-top:1px solid var(--crema2); }
+  .firma-nombre { font-family:var(--serif); font-size:1.1rem; font-style:italic; color:var(--tierra); }
+  .firma-rol { font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); }
+
+  /* IMPACTO */
+  .impacto { background:var(--tierra); padding:120px 10%; }
+  .impacto .section-label { color:rgba(245,239,224,.5); }
+  .impacto .section-label::before { color:var(--sol2); }
+  .impacto .section-title { color:var(--crema); max-width:580px; }
+  .impacto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:64px; background:rgba(255,255,255,.06); }
+  .impacto-card { background:var(--tierra); padding:52px 40px; transition:background .25s; }
+  .impacto-card:hover { background:var(--tierra2); }
+  .impacto-icon { font-size:2.2rem; margin-bottom:22px; display:block; }
+  .impacto-title { font-family:var(--serif); font-size:1.5rem; color:var(--crema); margin-bottom:14px; line-height:1.2; }
+  .impacto-desc { font-size:.9rem; line-height:1.7; color:rgba(245,239,224,.6); font-weight:300; }
+  .impacto-tag { display:inline-block; margin-top:20px; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sol2); border:1px solid rgba(242,201,76,.3); padding:5px 12px; border-radius:2px; }
+
+  /* TECNOLOGÍA */
+  .tecnologia { display:grid; grid-template-columns:1fr 1fr; min-height:80vh; }
+  .tec-visual { background:var(--crema2); display:flex; align-items:center; justify-content:center; padding:80px; }
+  .tec-texto { background:var(--crema); padding:80px 72px; display:flex; flex-direction:column; justify-content:center; }
+  .tec-pills { display:flex; flex-wrap:wrap; gap:10px; margin-top:36px; }
+  .tec-pill { font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; background:var(--tierra); color:var(--crema); padding:8px 16px; border-radius:2px; }
+  .tec-pill.accent { background:var(--hoja); }
+
+  /* PLATAFORMA */
+  .que-es { background:var(--tierra); color:var(--crema); padding:120px 10%; }
+  .que-es .section-label { color:rgba(245,239,224,.5); }
+  .que-es .section-label::before { color:var(--sol2); }
+  .que-es .section-title { color:var(--crema); }
+  .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:64px; background:rgba(255,255,255,.08); }
+  .feature { background:var(--tierra); padding:48px 40px; transition:background .25s; }
+  .feature:hover { background:var(--tierra2); }
+  .feature-num { font-family:var(--mono); font-size:.7rem; color:var(--sol2); letter-spacing:.1em; margin-bottom:20px; opacity:.8; }
+  .feature-icon { font-size:1.8rem; margin-bottom:20px; display:block; }
+  .feature-title { font-family:var(--serif); font-size:1.4rem; margin-bottom:14px; color:var(--crema); line-height:1.2; }
+  .feature-desc { font-size:.9rem; line-height:1.7; color:rgba(245,239,224,.65); font-weight:300; }
+
+  /* CERTIFICADO */
+  .certificado { display:grid; grid-template-columns:1fr 1fr; min-height:70vh; }
+  .cert-visual { background:var(--hoja); display:flex; align-items:center; justify-content:center; padding:80px; position:relative; overflow:hidden; }
+  .cert-visual::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(-45deg,transparent,transparent 10px,rgba(0,0,0,.03) 10px,rgba(0,0,0,.03) 11px); }
+  .cert-card { background:white; border-radius:12px; padding:32px; width:100%; max-width:320px; position:relative; z-index:1; box-shadow:0 40px 80px rgba(0,0,0,.2); animation:tiltCard 8s ease-in-out infinite; }
+  @keyframes tiltCard { 0%,100%{transform:rotate(-1deg) translateY(0)} 50%{transform:rotate(1deg) translateY(-8px)} }
+  .cert-card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+  .cert-tag { background:var(--hoja); color:white; font-family:var(--mono); font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; padding:4px 10px; border-radius:2px; }
+  .cert-fecha { font-family:var(--mono); font-size:.68rem; color:var(--gris); }
+  .cert-producto { font-family:var(--serif); font-size:1.6rem; font-weight:700; color:var(--tierra); margin-bottom:4px; }
+  .cert-variedad { font-family:var(--mono); font-size:.72rem; color:var(--gris); margin-bottom:20px; text-transform:uppercase; letter-spacing:.08em; }
+  .cert-rows { border-top:1px solid var(--crema2); }
+  .cert-row { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--crema2); font-size:.82rem; }
+  .cert-row-label { color:var(--gris); font-size:.75rem; }
+  .cert-row-val { color:var(--tierra); font-weight:500; }
+  .cert-qr { margin-top:20px; display:flex; align-items:center; gap:14px; }
+  .cert-qr-box { width:60px; height:60px; background:var(--tierra); border-radius:4px; display:flex; align-items:center; justify-content:center; }
+  .cert-qr-text { font-size:.78rem; color:var(--gris); line-height:1.5; }
+  .cert-qr-text strong { color:var(--tierra); }
+  .cert-texto { background:var(--crema); padding:80px 72px; display:flex; flex-direction:column; justify-content:center; }
+
+  /* CONSUMIDOR */
+  .consumidor { background:var(--sol2); padding:120px 10%; }
+  .consumidor .section-label { color:var(--tierra2); opacity:.7; }
+  .consumidor .section-label::before { color:var(--tierra); }
+  .consumidor-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:56px; align-items:start; }
+  .consumidor .section-title { color:var(--tierra); }
+  .consumidor .section-body { color:var(--tierra2); }
+  .consumidor-pasos { display:flex; flex-direction:column; gap:28px; }
+  .paso { display:flex; align-items:flex-start; gap:20px; }
+  .paso-num { font-family:var(--mono); font-size:.7rem; color:var(--tierra); background:white; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-weight:500; margin-top:2px; }
+  .paso-texto strong { display:block; font-size:.95rem; font-weight:500; color:var(--tierra); margin-bottom:4px; }
+  .paso-texto span { font-size:.88rem; color:var(--tierra2); line-height:1.6; font-weight:300; }
+
+  /* APP */
+  .app-section { display:grid; grid-template-columns:1fr 1fr; min-height:70vh; }
+  .app-visual { background:var(--tierra); display:flex; align-items:center; justify-content:center; padding:80px; position:relative; overflow:hidden; }
+  .app-visual::before { content:'mihuerto'; position:absolute; font-family:var(--serif); font-size:9rem; font-weight:900; color:rgba(255,255,255,.03); top:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap; pointer-events:none; }
+  .app-texto { background:var(--blanco); padding:80px 72px; display:flex; flex-direction:column; justify-content:center; }
+  .app-btns { display:flex; flex-direction:column; gap:14px; margin-top:40px; }
+  .app-btn { display:flex; align-items:center; gap:16px; background:var(--tierra); color:var(--crema); text-decoration:none; padding:18px 24px; border-radius:8px; transition:background .25s,transform .2s; width:fit-content; }
+  .app-btn:hover { background:var(--hoja); transform:translateX(4px); }
+  .app-btn-icon { font-size:1.8rem; }
+  .app-btn-text small { display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; opacity:.7; }
+  .app-btn-text strong { display:block; font-size:1rem; font-weight:500; }
+  .app-comingsoon { display:inline-flex; align-items:center; gap:8px; margin-top:12px; font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; color:var(--gris); text-transform:uppercase; }
+  .dot-pulse { width:7px; height:7px; border-radius:50%; background:var(--hoja); animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+  /* REDES */
+  .redes { background:var(--hoja); padding:100px 10%; text-align:center; position:relative; overflow:hidden; }
+  .redes::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px); background-size:24px 24px; animation:dotsMove 25s linear infinite; }
+  .redes .section-label { justify-content:center; color:rgba(255,255,255,.5); }
+  .redes .section-label::before { content:''; width:32px; height:1px; background:rgba(255,255,255,.3); display:block; }
+  .redes-title { font-family:var(--serif); font-size:clamp(2.2rem,4vw,4rem); color:white; letter-spacing:-1.5px; line-height:1.1; margin-bottom:16px; }
+  .redes-sub { font-size:1rem; color:rgba(255,255,255,.7); font-weight:300; max-width:420px; margin:0 auto 52px; line-height:1.7; }
+  .redes-cards { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; position:relative; z-index:1; }
+  .red-card { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:12px; padding:40px 48px; text-decoration:none; color:white; transition:background .25s,transform .25s; display:flex; flex-direction:column; align-items:center; gap:14px; min-width:220px; }
+  .red-card:hover { background:rgba(255,255,255,.18); transform:translateY(-6px); }
+  .red-card-icon { font-size:2.6rem; }
+  .red-card-name { font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; opacity:.8; }
+  .red-card-handle { font-family:var(--serif); font-size:1.4rem; font-style:italic; }
+  .red-card-cta { font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sol2); margin-top:4px; }
+
+  /* NÚMEROS */
+  .numeros { background:var(--sol2); padding:80px 10%; display:grid; grid-template-columns:repeat(4,1fr); gap:40px; text-align:center; }
+  .numero-val { font-family:var(--serif); font-size:clamp(2.8rem,4vw,4.5rem); font-weight:900; color:var(--tierra); line-height:1; display:block; }
+  .numero-label { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--tierra2); margin-top:10px; opacity:.75; }
+
+  /* CTA */
+  .cta-final { background:var(--tierra); padding:140px 10%; text-align:center; position:relative; overflow:hidden; }
+  .cta-final::before { content:'mihuerto'; position:absolute; font-family:var(--serif); font-size:clamp(8rem,20vw,18rem); font-weight:900; color:rgba(255,255,255,.03); top:50%; left:50%; transform:translate(-50%,-50%); white-space:nowrap; pointer-events:none; letter-spacing:-4px; }
+  .cta-final .section-label { justify-content:center; color:rgba(245,239,224,.5); }
+  .cta-final .section-label::before { content:''; width:32px; height:1px; background:rgba(255,255,255,.3); display:block; }
+  .cta-title { font-family:var(--serif); font-size:clamp(2.5rem,5vw,5rem); color:white; letter-spacing:-2px; line-height:1.05; margin-bottom:20px; }
+  .cta-title em { font-style:italic; color:var(--sol2); }
+  .cta-sub { font-size:1rem; color:rgba(255,255,255,.7); font-weight:300; max-width:480px; margin:0 auto 48px; line-height:1.7; }
+  .cta-btn { display:inline-flex; align-items:center; gap:12px; background:var(--sol2); color:var(--tierra); font-family:var(--mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; padding:18px 36px; border-radius:2px; font-weight:500; transition:background .25s,gap .25s; }
+  .cta-btn:hover { background:white; gap:20px; }
+
+  footer { background:var(--tierra2); padding:48px 10%; display:flex; align-items:center; justify-content:space-between; }
+  .footer-logo { font-family:var(--serif); font-size:1.3rem; color:var(--crema); }
+  .footer-logo span { color:var(--hoja3); }
+  .footer-copy { font-family:var(--mono); font-size:.7rem; color:rgba(245,239,224,.4); letter-spacing:.08em; }
+  .footer-links { display:flex; gap:28px; }
+  .footer-links a { font-family:var(--mono); font-size:.7rem; color:rgba(245,239,224,.5); text-decoration:none; letter-spacing:.08em; text-transform:uppercase; transition:color .2s; }
+  .footer-links a:hover { color:var(--hoja3); }
+
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .8s ease,transform .8s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:900px) {
+    .hero,.carlos,.certificado,.tecnologia,.app-section { grid-template-columns:1fr; }
+    .consumidor-grid { grid-template-columns:1fr; gap:40px; }
+    .hero-right,.app-visual { min-height:50vh; }
+    .hero-left { padding:100px 32px 60px; }
+    .carlos-texto,.cert-texto,.tec-texto,.app-texto { padding:60px 32px; }
+    .impacto-grid,.features-grid { grid-template-columns:1fr; }
+    .numeros { grid-template-columns:1fr 1fr; }
+    nav { padding:20px 24px; }
+    nav ul { display:none; }
+    footer { flex-direction:column; gap:20px; text-align:center; }
+  }
+</style>
 </head>
-
 <body>
+<div class="cursor" id="cursor"></div>
 
-    <div class="grid-bg"></div>
+<nav>
+  <a href="#" class="nav-logo">mi<span>huerto</span>.co</a>
+  <ul>
+    <li><a href="#quien">Agricultor</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+    <li><a href="#tecnologia">Tecnología</a></li>
+    <li><a href="#consumidor">Consumidor</a></li>
+    <li><a href="#app">App</a></li>
+    <li><a href="#redes">Redes</a></li>
+  </ul>
+</nav>
 
-    <!-- TOPBAR -->
-    <div class="topbar">
-        <div class="logo">
-            MH·EXCHANGE
-            <span class="logo-sub">Mercado Vivo · Día 0</span>
-        </div>
-        <div class="topbar-right">
-            <div class="building-badge">
-                <div class="building-dot"></div>
-                <span class="building-text">En construcción</span>
-            </div>
-            <span class="clock" id="clock">--:--:--</span>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left reveal">
+    <p class="hero-eyebrow">Antioquia, Colombia · 2025</p>
+    <h1 class="hero-title">Del campo<br>al plato,<br><em>con nombre<br>propio.</em></h1>
+    <p class="hero-sub">Productos frescos con historia real. Sabés quién lo sembró, cómo lo cultivó y cuándo fue cosechado. Eso es mihuerto.co.</p>
+    <a href="#quien" class="hero-cta">Conocer el proyecto <span>→</span></a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <svg class="campo-svg" viewBox="0 0 400 360" fill="none">
+        <ellipse cx="200" cy="310" rx="180" ry="30" fill="rgba(44,26,14,0.35)"/>
+        <rect x="192" y="180" width="16" height="130" rx="8" fill="#2C1A0E" opacity=".6"/>
+        <ellipse cx="200" cy="170" rx="55" ry="60" fill="#3B6B35"/>
+        <ellipse cx="165" cy="200" rx="38" ry="42" fill="#4A8040"/>
+        <ellipse cx="235" cy="200" rx="38" ry="42" fill="#4A8040"/>
+        <ellipse cx="200" cy="140" rx="32" ry="38" fill="#5A9150"/>
+        <circle cx="178" cy="188" r="12" fill="#D4380D" opacity=".9"/>
+        <circle cx="222" cy="182" r="10" fill="#D4380D" opacity=".9"/>
+        <circle cx="200" cy="165" r="9" fill="#E85D24" opacity=".85"/>
+        <circle cx="188" cy="210" r="8" fill="#D4380D" opacity=".75"/>
+        <g opacity=".75">
+          <rect x="82" y="230" width="10" height="80" rx="5" fill="#2C1A0E" opacity=".5"/>
+          <ellipse cx="87" cy="225" rx="32" ry="35" fill="#3B6B35"/>
+          <ellipse cx="70" cy="242" rx="22" ry="24" fill="#4A8040"/>
+          <ellipse cx="104" cy="242" rx="22" ry="24" fill="#4A8040"/>
+          <circle cx="80" cy="230" r="7" fill="#F59E0B" opacity=".9"/>
+          <circle cx="96" cy="225" r="6" fill="#F59E0B" opacity=".85"/>
+        </g>
+        <g opacity=".75">
+          <rect x="308" y="230" width="10" height="80" rx="5" fill="#2C1A0E" opacity=".5"/>
+          <ellipse cx="313" cy="225" rx="32" ry="35" fill="#3B6B35"/>
+          <ellipse cx="296" cy="242" rx="22" ry="24" fill="#4A8040"/>
+          <ellipse cx="330" cy="242" rx="22" ry="24" fill="#4A8040"/>
+          <circle cx="306" cy="228" r="7" fill="#D4380D" opacity=".9"/>
+          <circle cx="322" cy="233" r="6" fill="#D4380D" opacity=".85"/>
+        </g>
+        <circle cx="340" cy="60" r="36" fill="rgba(244,201,22,0.25)"/>
+        <circle cx="340" cy="60" r="24" fill="rgba(244,201,22,0.45)"/>
+        <line x1="340" y1="18" x2="340" y2="10" stroke="rgba(244,201,22,.5)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="368" y1="32" x2="374" y2="26" stroke="rgba(244,201,22,.5)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="382" y1="60" x2="390" y2="60" stroke="rgba(244,201,22,.5)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="312" y1="32" x2="306" y2="26" stroke="rgba(244,201,22,.5)" stroke-width="2" stroke-linecap="round"/>
+        <g transform="translate(32,48)" opacity=".85">
+          <rect width="64" height="64" rx="6" fill="white" opacity=".92"/>
+          <rect x="8" y="8" width="18" height="18" rx="2" fill="#2C1A0E"/>
+          <rect x="38" y="8" width="18" height="18" rx="2" fill="#2C1A0E"/>
+          <rect x="8" y="38" width="18" height="18" rx="2" fill="#2C1A0E"/>
+          <rect x="12" y="12" width="10" height="10" rx="1" fill="white"/>
+          <rect x="42" y="12" width="10" height="10" rx="1" fill="white"/>
+          <rect x="12" y="42" width="10" height="10" rx="1" fill="white"/>
+          <rect x="38" y="38" width="6" height="6" rx="1" fill="#2C1A0E"/>
+          <rect x="46" y="38" width="6" height="6" rx="1" fill="#2C1A0E"/>
+          <rect x="50" y="50" width="6" height="6" rx="1" fill="#2C1A0E"/>
+        </g>
+      </svg>
     </div>
-
-    <!-- HERO -->
-    <div class="hero">
-        <div class="hero-left">
-            <span class="day-zero">DÍA 0</span>
-            <div class="hero-eyebrow">Colombia · Exchange agrícola · Construyendo desde cero</div>
-            <h1 class="hero-title">
-                <span class="green">CAMPO</span><br />
-                <span class="outline">MERCADO</span><br />
-                DIRECTO
-            </h1>
-            <p class="hero-sub">
-                Esto no es aún un mercado con cientos de toneladas. Es el día en que alguien decidió construirlo. Un
-                agricultor, dos hectáreas, y la tecnología para demostrar que puede funcionar.
-            </p>
-            <div class="honest-metrics">
-                <div class="honest-metric">
-                    <div class="metric-label">Productores activos</div>
-                    <div class="metric-val val-real">1</div>
-                    <div class="metric-unit" style="color:var(--green);">Agricultor</div>
-                    <div class="metric-note">Carlos Ospina · Sonsón, ANT</div>
-                </div>
-                <div class="honest-metric">
-                    <div class="metric-label">Área en producción</div>
-                    <div class="metric-val val-real">2</div>
-                    <div class="metric-unit" style="color:var(--green);">Hectáreas</div>
-                    <div class="metric-note">Producción propia en curso</div>
-                </div>
-                <div class="honest-metric">
-                    <div class="metric-label">Volumen actual</div>
-                    <div class="metric-val val-building">~</div>
-                    <div class="metric-unit" style="color:var(--amber);">Sembrando</div>
-                    <div class="metric-note">Primera cosecha en camino</div>
-                </div>
-                <div class="honest-metric">
-                    <div class="metric-label">Plataforma</div>
-                    <div class="metric-val val-zero">0%</div>
-                    <div class="metric-unit" style="color:rgba(232,245,236,0.25);">Abierta</div>
-                    <div class="metric-note">Beta en construcción</div>
-                </div>
-            </div>
-            <div class="hero-ctas">
-                <button class="btn-ex filled"
-                    onclick="document.getElementById('whatsapp-section').scrollIntoView({behavior:'smooth'})">Quiero ser
-                    productor</button>
-                <button class="btn-ex secondary"
-                    onclick="document.getElementById('unete').scrollIntoView({behavior:'smooth'})">Quiero comprar
-                    aquí</button>
-            </div>
-        </div>
-
-        <!-- CARLOS PANEL — desktop only -->
-        <div class="carlos-panel">
-            <div class="cp-header">
-                <div class="cp-title">// Productores registrados</div>
-                <div class="cp-live">
-                    <div class="building-dot"></div>1 de 1
-                </div>
-            </div>
-            <div class="producer-sole">
-                <span class="p-avatar">👨‍🌾</span>
-                <div class="p-name-big">Carlos Ospina</div>
-                <div class="p-role">Fundador · Agricultor · Dev</div>
-                <div class="p-detail-row"><span class="p-detail-label">Ubicación</span><span
-                        class="p-detail-val">Sonsón, Antioquia</span></div>
-                <div class="p-detail-row"><span class="p-detail-label">Área</span><span class="p-detail-val"
-                        style="color:var(--green);">2 hectáreas</span></div>
-                <div class="p-detail-row"><span class="p-detail-label">Estado</span><span class="p-detail-val"
-                        style="color:var(--amber);">⟳ Sembrando</span></div>
-                <div class="p-detail-row"><span class="p-detail-label">App instalada</span><span class="p-detail-val"
-                        style="color:var(--green);">✓ Sí</span></div>
-                <div class="p-detail-row"><span class="p-detail-label">Trazabilidad</span><span class="p-detail-val"
-                        style="color:var(--green);">✓ Activa</span></div>
-                <div class="p-detail-row" style="border:none;"><span class="p-detail-label">Primera cosecha</span><span
-                        class="p-detail-val" style="color:var(--amber);">Próximamente</span></div>
-                <div class="status-verified">
-                    <div
-                        style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:amberPulse 2s infinite;">
-                    </div>
-                    Productor verificado
-                </div>
-            </div>
-            <div class="empty-slot">
-                <div class="empty-num">02</div>
-                <div>
-                    <div class="empty-text">Próximo agricultor verificado</div>
-                    <div class="empty-tag">Esperando solicitudes</div>
-                </div>
-            </div>
-            <div class="empty-slot">
-                <div class="empty-num">03</div>
-                <div>
-                    <div class="empty-text">Próximo agricultor verificado</div>
-                    <div class="empty-tag">Esperando solicitudes</div>
-                </div>
-            </div>
-            <div class="join-cta"
-                onclick="document.getElementById('whatsapp-section').scrollIntoView({behavior:'smooth'})">
-                <div class="join-cta-title">¿Eres agricultor? → Únete por WhatsApp</div>
-                <div class="join-cta-sub">Registra tus siembras · Trazabilidad real · Accede al mercado</div>
-            </div>
-        </div>
+    <div class="hero-badge">
+      <svg viewBox="0 0 110 110">
+        <path id="badgeCircle" d="M55,10 a45,45 0 1,1 -0.1,0" fill="none"/>
+        <text font-family="DM Mono,monospace" font-size="9.5" fill="rgba(255,255,255,0.65)" letter-spacing="2.8">
+          <textPath href="#badgeCircle">MIHUERTO.CO · TRAZABILIDAD · CAMPO · </textPath>
+        </text>
+      </svg>
+      <div class="hero-badge-inner">
+        <span class="hero-badge-text">100%<br>campo</span>
+        <span class="hero-badge-sub">Colombia</span>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- CARLOS MOBILE -->
-    <div class="carlos-mobile">
-        <div class="carlos-mobile-card">
-            <div class="cm-inner">
-                <div class="cm-avatar">👨‍🌾</div>
-                <div>
-                    <div class="cm-name">Carlos Ospina</div>
-                    <div class="cm-role">Fundador · Agricultor · Dev</div>
-                </div>
-            </div>
-            <div class="cm-details">
-                <div><span class="cm-detail-label">Ubicación</span><span
-                        style="font-size:0.72rem;color:var(--white);">Sonsón, ANT</span></div>
-                <div><span class="cm-detail-label">Área</span><span style="font-size:0.72rem;color:var(--green);">2
-                        hectáreas</span></div>
-                <div><span class="cm-detail-label">Estado</span><span style="font-size:0.72rem;color:var(--amber);">⟳
-                        Sembrando</span></div>
-                <div><span class="cm-detail-label">App</span><span style="font-size:0.72rem;color:var(--green);">✓
-                        Instalada</span></div>
-                <div><span class="cm-detail-label">Trazabilidad</span><span
-                        style="font-size:0.72rem;color:var(--green);">✓ Activa</span></div>
-                <div><span class="cm-detail-label">1ª cosecha</span><span
-                        style="font-size:0.72rem;color:var(--amber);">Pronto</span></div>
-            </div>
-        </div>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span>✦</span> Trazabilidad real</span>
+    <span class="ticker-item"><span>✦</span> Cero desperdicio</span>
+    <span class="ticker-item"><span>✦</span> Blockchain</span>
+    <span class="ticker-item"><span>✦</span> Semillas nativas</span>
+    <span class="ticker-item"><span>✦</span> Precios estables</span>
+    <span class="ticker-item"><span>✦</span> Certificado vivo</span>
+    <span class="ticker-item"><span>✦</span> Agricultura limpia</span>
+    <span class="ticker-item"><span>✦</span> Big data</span>
+    <span class="ticker-item"><span>✦</span> Antioquia, Colombia</span>
+    <span class="ticker-item"><span>✦</span> Trazabilidad real</span>
+    <span class="ticker-item"><span>✦</span> Cero desperdicio</span>
+    <span class="ticker-item"><span>✦</span> Blockchain</span>
+    <span class="ticker-item"><span>✦</span> Semillas nativas</span>
+    <span class="ticker-item"><span>✦</span> Precios estables</span>
+    <span class="ticker-item"><span>✦</span> Certificado vivo</span>
+    <span class="ticker-item"><span>✦</span> Agricultura limpia</span>
+    <span class="ticker-item"><span>✦</span> Big data</span>
+    <span class="ticker-item"><span>✦</span> Antioquia, Colombia</span>
+  </div>
+</div>
+
+<!-- CARLOS -->
+<section class="carlos" id="quien">
+  <div class="carlos-img">
+    <div class="finca-pattern">
+      <svg viewBox="0 0 400 500" width="100%" height="100%">
+        <rect width="400" height="500" fill="#EDE4CE"/>
+        <rect width="400" height="220" fill="#C8DDE8" opacity=".5"/>
+        <polygon points="0,220 80,120 160,180 240,100 320,160 400,110 400,220" fill="#5A9150" opacity=".4"/>
+        <polygon points="0,220 60,150 140,200 220,130 300,180 400,140 400,220" fill="#3B6B35" opacity=".5"/>
+        <rect y="220" width="400" height="280" fill="#8B6340" opacity=".3"/>
+        <line x1="0" y1="280" x2="400" y2="265" stroke="#6B4A28" stroke-width="2" opacity=".3"/>
+        <line x1="0" y1="320" x2="400" y2="305" stroke="#6B4A28" stroke-width="2" opacity=".3"/>
+        <line x1="0" y1="360" x2="400" y2="345" stroke="#6B4A28" stroke-width="2" opacity=".3"/>
+        <rect x="150" y="155" width="100" height="70" fill="#F5EFE0"/>
+        <polygon points="140,155 200,110 260,155" fill="#8B3A3A"/>
+        <rect x="175" y="185" width="20" height="40" fill="#8B6340"/>
+        <rect x="205" y="175" width="25" height="20" fill="#C8DDE8" opacity=".8"/>
+        <rect x="100" y="185" width="8" height="40" fill="#6B4A28"/>
+        <ellipse cx="104" cy="175" rx="22" ry="26" fill="#3B6B35"/>
+        <rect x="290" y="185" width="8" height="40" fill="#6B4A28"/>
+        <ellipse cx="294" cy="175" rx="22" ry="26" fill="#3B6B35"/>
+        <g opacity=".8">
+          <ellipse cx="60" cy="270" rx="16" ry="18" fill="#5A9150"/>
+          <ellipse cx="120" cy="275" rx="14" ry="16" fill="#4A8040"/>
+          <ellipse cx="180" cy="268" rx="16" ry="18" fill="#5A9150"/>
+          <ellipse cx="240" cy="273" rx="14" ry="16" fill="#4A8040"/>
+          <ellipse cx="300" cy="270" rx="16" ry="18" fill="#5A9150"/>
+          <ellipse cx="360" cy="275" rx="14" ry="16" fill="#4A8040"/>
+        </g>
+        <g opacity=".7">
+          <ellipse cx="40" cy="315" rx="14" ry="16" fill="#5A9150"/>
+          <ellipse cx="100" cy="320" rx="16" ry="18" fill="#4A8040"/>
+          <ellipse cx="160" cy="313" rx="14" ry="16" fill="#5A9150"/>
+          <ellipse cx="220" cy="318" rx="16" ry="18" fill="#4A8040"/>
+          <ellipse cx="280" cy="315" rx="14" ry="16" fill="#5A9150"/>
+          <ellipse cx="340" cy="320" rx="16" ry="18" fill="#4A8040"/>
+        </g>
+        <text x="200" y="460" text-anchor="middle" font-family="Playfair Display,serif" font-size="22" font-style="italic" fill="#2C1A0E" opacity=".5">Carlos Ospina</text>
+        <text x="200" y="480" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#4A2E18" opacity=".4" letter-spacing="3">PRIMER AGRICULTOR · MIHUERTO.CO</text>
+      </svg>
     </div>
-
-    <!-- MANIFESTO -->
-    <div class="manifesto-strip">
-        <p class="manifesto-quote">
-            "No inventamos datos para parecer grandes. Somos <em>uno</em> empezando a sembrar, construyendo la
-            infraestructura para que <em>cientos</em> puedan vender mejor."
-        </p>
-        <div class="manifesto-author">
-            <div class="manifesto-author-name">Carlos Ospina</div>
-            <div class="manifesto-author-role">Fundador · Mihuerto.co<br />Sonsón, Antioquia</div>
-        </div>
+  </div>
+  <div class="carlos-texto reveal">
+    <p class="section-label" data-num="01">El agricultor</p>
+    <h2 class="section-title">Soy Carlos Ospina.<br>Cultivo con propósito.</h2>
+    <div class="section-body">
+      <p>Nací y crecí en Antioquia. La tierra no es solo mi trabajo — es mi manera de entender el mundo. Cada semilla que siembro la conozco por nombre, cada lote tiene su historia.</p>
+      <p>Decidí crear <strong>mihuerto.co</strong> porque cansé de ver cómo el intermediario borraba esa historia. El cliente final no sabía quién había cultivado lo que ponía en su mesa.</p>
+      <p>Hoy registro cada aplicación, cada costo, cada cosecha. Esa información viaja con el producto hasta el punto de venta. <strong>Transparencia total, del surco a la góndola.</strong></p>
     </div>
-
-    <!-- VIDEO SECTION -->
-    <div class="video-section">
-        <div class="video-inner">
-            <div>
-                <div class="video-wrapper" id="video-wrapper">
-                    <!-- ═══════════════════════════════════════════════════════════
-             INSTRUCCIÓN: Reemplaza "TU_VIDEO_ID" con el ID de tu video de YouTube.
-             Por ejemplo, si tu URL es: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-             entonces el ID es: dQw4w9WgXcQ
-             ════════════════════════════════════════════════════════ -->
-                    <div class="video-placeholder" id="TIArf7Xfne8&t=8s" onclick="loadVideo()">
-                        <div class="video-play-btn">
-                            <div class="video-play-icon"></div>
-                        </div>
-                        <span class="video-overlay-text">Ver el video del proyecto</span>
-                    </div>
-                    <iframe id="yt-iframe" style="display:none;" src="" title="Mihuerto Exchange — El proyecto"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-            <div class="video-text-side">
-                <div class="video-badge">
-                    <div class="video-badge-dot"></div>
-                    <span class="video-badge-text">YouTube</span>
-                </div>
-                <div class="video-title">EL PROYECTO<br />EN TUS MANOS</div>
-                <p class="video-desc">
-                    Te cuento de dónde viene mihuerto, por qué lo estoy construyendo desde Sonsón, y hacia dónde vamos.
-                    Sin filtros, desde el campo.
-                </p>
-                <div class="video-stats">
-                    <div>
-                        <div class="video-stat-label">Fundador</div>
-                        <div class="video-stat-val"
-                            style="font-size:1rem;color:var(--white);font-family:'Inter',sans-serif;font-weight:600;">
-                            Carlos Ospina</div>
-                    </div>
-                    <div>
-                        <div class="video-stat-label">Desde</div>
-                        <div class="video-stat-val"
-                            style="font-size:1rem;color:var(--white);font-family:'Inter',sans-serif;font-weight:600;">
-                            Sonsón, ANT</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="firma">
+      <div>
+        <div class="firma-nombre">Carlos Ospina</div>
+        <div class="firma-rol">Agricultor · Fundador mihuerto.co · Sonsón, Antioquia</div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- WHATSAPP ONBOARDING -->
-    <div class="whatsapp-section" id="whatsapp-section">
-        <div class="section-tag">Onboarding para agricultores</div>
-        <div class="section-title">ENTRA AL MERCADO<br /><span style="color:var(--green);">POR WHATSAPP</span></div>
-
-        <div class="whatsapp-inner">
-            <!-- Steps -->
-            <div>
-                <p class="section-note" style="margin-bottom:0.5rem;">
-                    Tu puerta de entrada a mihuerto es nuestro asistente de WhatsApp — un gestor de cultivos inteligente
-                    que te acompaña desde la siembra hasta la primera venta.
-                </p>
-                <div class="wa-steps">
-                    <div class="wa-step">
-                        <div class="wa-step-num">01</div>
-                        <div class="wa-step-icon">📱</div>
-                        <div class="wa-step-body">
-                            <div class="wa-step-title">Inicia conversación con el asistente</div>
-                            <div class="wa-step-desc">Escribe "Hola" a nuestro número de WhatsApp. El asistente te guía
-                                paso a paso en tu registro como agricultor verificado.</div>
-                        </div>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">02</div>
-                        <div class="wa-step-icon">🌱</div>
-                        <div class="wa-step-body">
-                            <div class="wa-step-title">Registra tus siembras y prácticas</div>
-                            <div class="wa-step-desc">El gestor te ayuda a documentar tus cultivos, área sembrada,
-                                insumos y prácticas agrícolas. Así nace tu trazabilidad.</div>
-                        </div>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">03</div>
-                        <div class="wa-step-icon">✅</div>
-                        <div class="wa-step-body">
-                            <div class="wa-step-title">Verificación y acceso al Exchange</div>
-                            <div class="wa-step-desc">Con suficiente historial y cumpliendo los filtros de calidad, tu
-                                perfil se activa en el Exchange. Tu primera cosecha llega al mercado.</div>
-                        </div>
-                    </div>
-                    <div class="wa-step">
-                        <div class="wa-step-num">04</div>
-                        <div class="wa-step-icon">📊</div>
-                        <div class="wa-step-body">
-                            <div class="wa-step-title">Gestión continua desde el campo</div>
-                            <div class="wa-step-desc">El asistente sigue contigo: alertas de cosecha, precios de
-                                referencia, seguimiento de ventas y métricas de tu finca. Todo por WhatsApp.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="wa-cta-outer">
-                    <!-- ═══════════════════════════════════════════════════════
-             INSTRUCCIÓN: Reemplaza el número en el href de abajo.
-             Formato: https://wa.me/57XXXXXXXXXX (código de Colombia + tu número)
-             Ejemplo: https://wa.me/573001234567
-             ════════════════════════════════════════════════════ -->
-                    <a href="https://wa.me/57XXXXXXXXXX?text=Hola%2C%20quiero%20registrarme%20como%20agricultor%20en%20mihuerto"
-                        class="wa-cta-btn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                        </svg>
-                        Comenzar en WhatsApp →
-                    </a>
-                    <p class="wa-disclaimer">
-                        💬 Escríbenos "Hola" para iniciar el proceso de registro.<br />
-                        Solo entran agricultores verificados. Sin intermediarios, sin complicaciones.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Chat mockup -->
-            <div class="wa-chat-card">
-                <div class="wa-chat-header">
-                    <div class="wa-avatar">🌾</div>
-                    <div>
-                        <div class="wa-contact-name">Mihuerto — Gestor de Cultivos</div>
-                        <div class="wa-contact-status">● En línea · Asistente agrícola</div>
-                    </div>
-                </div>
-                <div class="wa-messages">
-                    <div class="wa-msg wa-msg-bot">
-                        ¡Hola! Soy el asistente de gestión de cultivos de Mihuerto. 🌱<br /><br />
-                        Te acompaño desde la primera siembra hasta tu primera venta en el Exchange.
-                        <div class="wa-msg-time">10:30</div>
-                    </div>
-                    <div class="wa-msg wa-msg-bot">
-                        Para comenzar, ¿cuántas hectáreas tienes disponibles y en qué municipio estás ubicado?
-                        <div class="wa-msg-time">10:30</div>
-                    </div>
-                    <div class="wa-msg wa-msg-user">
-                        Hola, tengo 3 hectáreas en Marinilla, Antioquia. Quiero vender directamente.
-                        <div class="wa-msg-time">10:32 ✓✓</div>
-                    </div>
-                    <div class="wa-msg wa-msg-bot">
-                        ¡Perfecto! Marinilla tiene excelentes condiciones. 🟢<br /><br />
-                        Voy a crear tu perfil de productor. ¿Qué cultivos tienes o planeas sembrar?
-                        <div class="wa-msg-time">10:32</div>
-                    </div>
-                    <div class="wa-msg wa-msg-user">
-                        Tomate de árbol y fresa principalmente.
-                        <div class="wa-msg-time">10:33 ✓✓</div>
-                    </div>
-                    <div class="wa-msg wa-msg-bot">
-                        Registrado ✓ Ahora documenta tus prácticas de siembra para activar tu trazabilidad y acceder al
-                        Exchange.
-                        <div class="wa-msg-time">10:33</div>
-                    </div>
-                </div>
-                <div class="wa-input-bar">
-                    <div class="wa-input-fake">Escribe un mensaje...</div>
-                    <button class="wa-send-btn">➤</button>
-                </div>
-            </div>
-        </div>
+<!-- IMPACTO -->
+<section class="impacto" id="impacto">
+  <p class="section-label" data-num="02">Impacto</p>
+  <h2 class="section-title" style="color:var(--crema); max-width:580px; letter-spacing:-1px; font-size:clamp(2.2rem,3.5vw,3.4rem);">Producir bien es<br><em style="font-style:italic">cuidar lo que nos da de comer.</em></h2>
+  <div class="impacto-grid">
+    <div class="impacto-card reveal">
+      <span class="impacto-icon">🌿</span>
+      <h3 class="impacto-title">Evitamos el desperdicio</h3>
+      <p class="impacto-desc">Conectamos la producción real con la demanda del punto de venta. Cosechamos lo que se va a vender. Nada sobra, nada se bota en el camino.</p>
+      <span class="impacto-tag">Cadena eficiente</span>
     </div>
-
-    <!-- MARKET TABLE -->
-    <div class="market-section">
-        <div class="section-tag">Estado del mercado</div>
-        <div class="section-title">LO QUE HAY</div>
-        <p class="section-note">
-            Esto es lo que existe hoy. No hay más productos listados porque no hay más productores verificados todavía.
-            Así funciona mihuerto: solo entra lo real.
-        </p>
-        <div class="table-scroll">
-            <table class="market-table">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Disponible</th>
-                        <th>Volumen</th>
-                        <th>Origen</th>
-                        <th>Estado</th>
-                        <th>Trazabilidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="real-row">
-                        <td>
-                            <div class="prod-cell">
-                                <span class="prod-icon">🌱</span>
-                                <div>
-                                    <div class="prod-name">PRIMERA COSECHA</div>
-                                    <div class="prod-origin">Carlos Ospina · Sonsón, Antioquia</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td style="color:var(--amber);">Por definir</td>
-                        <td><span class="planting-badge">⟳ Sembrando...</span></td>
-                        <td style="color:var(--muted);font-size:0.7rem;">2 ha activas</td>
-                        <td style="color:var(--muted);font-size:0.68rem;">ANTIOQUIA</td>
-                        <td style="color:var(--amber);font-size:0.7rem;">En campo</td>
-                        <td><span class="tag-real">✓ ACTIVA</span></td>
-                    </tr>
-                    <tr class="ghost-row">
-                        <td>
-                            <div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span>
-                                <div>
-                                    <div style="font-size:0.7rem;letter-spacing:0.04em;">Agricultor #02 — pendiente
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td><span class="tag-soon">PENDIENTE</span></td>
-                    </tr>
-                    <tr class="ghost-row">
-                        <td>
-                            <div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span>
-                                <div>
-                                    <div style="font-size:0.7rem;letter-spacing:0.04em;">Agricultor #03 — pendiente
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td><span class="tag-soon">PENDIENTE</span></td>
-                    </tr>
-                    <tr class="ghost-row">
-                        <td>
-                            <div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span>
-                                <div>
-                                    <div style="font-size:0.7rem;letter-spacing:0.04em;">Agricultor #04 — pendiente
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td><span class="tag-soon">PENDIENTE</span></td>
-                    </tr>
-                    <tr class="ghost-row">
-                        <td>
-                            <div class="prod-cell"><span style="opacity:0.3;font-size:1.2rem;">▒</span>
-                                <div>
-                                    <div style="font-size:0.7rem;letter-spacing:0.04em;">Agricultor #05 — pendiente
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td><span class="tag-soon">PENDIENTE</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="amber-notice"
-            style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid rgba(245,158,11,0.2);display:inline-flex;align-items:center;gap:0.75rem;">
-            <div class="building-dot"></div>
-            <span style="font-size:0.65rem;letter-spacing:0.06em;color:var(--amber);">Los espacios vacíos se llenan con
-                cada agricultor que completa el proceso de verificación.</span>
-        </div>
+    <div class="impacto-card reveal">
+      <span class="impacto-icon">🌱</span>
+      <h3 class="impacto-title">Agricultura más limpia</h3>
+      <p class="impacto-desc">Acompañamos al agricultor en la transición hacia prácticas con menos agroquímicos, mejor manejo del suelo y ciclos más sostenibles. Paso a paso, sin imponer.</p>
+      <span class="impacto-tag">Transición guiada</span>
     </div>
-
-    <!-- FLOW -->
-    <div class="flow-section">
-        <div class="section-tag">Flujo de productos</div>
-        <div class="section-title">EL FLUJO HOY</div>
-        <p class="section-note" style="margin-bottom:0;">
-            Un solo productor, cero centrales abiertas, cero compradores conectados. Pero la infraestructura está lista.
-            Así se ve el día 0.
-        </p>
-        <div class="flow-grid">
-            <div>
-                <div class="flow-col-title">// Productores</div>
-                <div class="producer-real">
-                    <span style="font-size:1.5rem;margin-bottom:0.5rem;display:block;">👨‍🌾</span>
-                    <div style="font-size:0.75rem;font-weight:700;color:var(--white);margin-bottom:0.2rem;">Carlos
-                        Ospina</div>
-                    <div
-                        style="font-size:0.6rem;color:var(--green);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.75rem;font-weight:600;">
-                        SONSÓN · ANTIOQUIA</div>
-                    <div style="font-size:0.65rem;color:var(--amber);">⟳ Sembrando · 2ha</div>
-                </div>
-                <div class="producer-empty">
-                    <span style="font-size:1.2rem;opacity:0.3;">＋</span>
-                    <div>
-                        <div style="font-size:0.68rem;color:var(--muted2);">Próximo productor</div>
-                        <div style="font-size:0.56rem;color:var(--muted2);margin-top:0.15rem;letter-spacing:0.06em;">
-                            Esperando aplicación</div>
-                    </div>
-                </div>
-                <div class="producer-empty">
-                    <span style="font-size:1.2rem;opacity:0.3;">＋</span>
-                    <div>
-                        <div style="font-size:0.68rem;color:var(--muted2);">Próximo productor</div>
-                        <div style="font-size:0.56rem;color:var(--muted2);margin-top:0.15rem;letter-spacing:0.06em;">
-                            Esperando aplicación</div>
-                    </div>
-                </div>
-            </div>
-            <div class="flow-center">
-                <div
-                    style="position:relative;width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
-                    <svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;">
-                        <line x1="0" y1="60" x2="50%" y2="50%" stroke="rgba(74,222,128,0.25)" stroke-width="1"
-                            stroke-dasharray="5,5">
-                            <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1.5s"
-                                repeatCount="indefinite" />
-                        </line>
-                        <line x1="0" y1="140" x2="50%" y2="50%" stroke="rgba(232,245,236,0.04)" stroke-width="1"
-                            stroke-dasharray="4,8" />
-                        <line x1="0" y1="210" x2="50%" y2="50%" stroke="rgba(232,245,236,0.04)" stroke-width="1"
-                            stroke-dasharray="4,8" />
-                        <line x1="50%" y1="50%" x2="100%" y2="80" stroke="rgba(232,245,236,0.04)" stroke-width="1"
-                            stroke-dasharray="4,8" />
-                        <line x1="50%" y1="50%" x2="100%" y2="150" stroke="rgba(232,245,236,0.04)" stroke-width="1"
-                            stroke-dasharray="4,8" />
-                        <line x1="50%" y1="50%" x2="100%" y2="220" stroke="rgba(232,245,236,0.04)" stroke-width="1"
-                            stroke-dasharray="4,8" />
-                        <circle r="4" fill="var(--green)" opacity="0.7">
-                            <animateMotion dur="3s" repeatCount="indefinite">
-                                <mpath>
-                                    <path d="M 0 60 L 50% 50%" />
-                                </mpath>
-                            </animateMotion>
-                        </circle>
-                    </svg>
-                    <div class="exchange-hub">
-                        <div class="hub-name">MH·EX</div>
-                        <div class="hub-sub">Exchange</div>
-                        <div class="hub-tons" style="font-size:0.7rem;margin-top:0.4rem;">DÍA 0</div>
-                        <div class="hub-tons-label">Construyendo</div>
-                    </div>
-                </div>
-                <div class="flow-note">La infraestructura existe. El flujo empieza cuando el primer agricultor llega con
-                    su primera cosecha.</div>
-            </div>
-            <div>
-                <div class="flow-col-title">// Puntos de abasto</div>
-                <div class="first-buyer">
-                    <span style="font-size:1.5rem;">🏬</span>
-                    <div style="text-align:right;">
-                        <div style="font-size:0.72rem;font-weight:600;color:var(--amber);">Primera central</div>
-                        <div style="font-size:0.58rem;color:var(--muted2);letter-spacing:0.04em;margin-top:0.15rem;">
-                            MEDELLÍN · En planificación</div>
-                        <div style="font-size:0.6rem;color:var(--amber);margin-top:0.25rem;">Apertura con 1ª cosecha
-                        </div>
-                    </div>
-                </div>
-                <div class="buyer-empty"><span style="font-size:1.2rem;opacity:0.3;">▒</span>
-                    <div style="text-align:right;">
-                        <div style="font-size:0.65rem;color:var(--muted2);">Bogotá · Pendiente</div>
-                    </div>
-                </div>
-                <div class="buyer-empty"><span style="font-size:1.2rem;opacity:0.3;">▒</span>
-                    <div style="text-align:right;">
-                        <div style="font-size:0.65rem;color:var(--muted2);">Cali · Pendiente</div>
-                    </div>
-                </div>
-                <div class="buyer-empty"><span style="font-size:1.2rem;opacity:0.3;">▒</span>
-                    <div style="text-align:right;">
-                        <div style="font-size:0.65rem;color:var(--muted2);">Barranquilla · Pendiente</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="impacto-card reveal">
+      <span class="impacto-icon">🌍</span>
+      <h3 class="impacto-title">Cuidamos el ecosistema</h3>
+      <p class="impacto-desc">Cada decisión de siembra, aplicación y cosecha queda registrada. Eso nos permite analizar el impacto ambiental y reducirlo con datos, no con suposiciones.</p>
+      <span class="impacto-tag">Trazabilidad ambiental</span>
     </div>
-
-    <!-- VISION -->
-    <div class="vision-section">
-        <div class="section-tag">Hoja de ruta</div>
-        <div class="section-title">LO QUE VIENE</div>
-        <div class="vision-grid">
-            <div class="vision-card phase-now">
-                <div class="vision-phase">Fase actual</div>
-                <div class="vision-num">01</div>
-                <div class="vision-icon">🌱</div>
-                <div class="vision-title">SEMBRANDO</div>
-                <p class="vision-body">Carlos siembra en sus 2 hectáreas. La app de gestión registra cada práctica. La
-                    trazabilidad comienza. Se construye la plataforma y se diseña el proceso de verificación de
-                    productores.</p>
-                <div class="phase-tag-now">
-                    <div
-                        style="width:5px;height:5px;border-radius:50%;background:var(--green);animation:amberPulse 2s infinite;">
-                    </div>
-                    Ahora mismo
-                </div>
-            </div>
-            <div class="vision-card">
-                <div class="vision-phase">Fase 2</div>
-                <div class="vision-num">02</div>
-                <div class="vision-icon">🏪</div>
-                <div class="vision-title">PRIMERA VENTA</div>
-                <p class="vision-body">La primera cosecha llega a la primera minicentral de abasto. El primer comprador
-                    ve la historia detrás del producto. El modelo se prueba en la realidad. Cero desperdicio como meta.
-                </p>
-                <div class="phase-tag-future">Próximamente</div>
-            </div>
-            <div class="vision-card">
-                <div class="vision-phase">Fase 3</div>
-                <div class="vision-num">03</div>
-                <div class="vision-icon">🌐</div>
-                <div class="vision-title">ESCALAR</div>
-                <p class="vision-body">Más agricultores verificados. Más centrales. Precios en tiempo real. Big data,
-                    IoT, IA predictiva. Toneladas moviéndose. El campo colombiano en una pantalla, sin intermediarios.
-                </p>
-                <div class="phase-tag-future">El futuro</div>
-            </div>
-        </div>
+    <div class="impacto-card reveal">
+      <span class="impacto-icon">🌾</span>
+      <h3 class="impacto-title">Recuperación de semillas</h3>
+      <p class="impacto-desc">Rescatamos variedades nativas y criollas que el mercado industrial desplazó. Cada semilla recuperada es biodiversidad que vuelve al campo y variedad que llega al plato.</p>
+      <span class="impacto-tag">Biodiversidad</span>
     </div>
-
-    <!-- JOIN -->
-    <div class="join-section" id="unete">
-        <div class="join-left">
-            <div class="section-tag">Únete ahora</div>
-            <div class="section-title">SÉ PARTE<br /><span style="color:var(--green);">DESDE EL</span><br />INICIO</div>
-            <p class="join-sub">Los que entran primero ayudan a construir cómo funciona esto. Si eres agricultor, tu
-                retroalimentación define el proceso. Si quieres comprar, tu demanda define los productos.</p>
-            <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:1.25rem;">
-                <div style="display:flex;align-items:flex-start;gap:1rem;">
-                    <span style="font-size:1.3rem;flex-shrink:0;">🌱</span>
-                    <div>
-                        <div style="font-size:0.78rem;font-weight:700;color:var(--white);margin-bottom:0.3rem;">Para
-                            agricultores</div>
-                        <div style="font-size:0.72rem;color:var(--muted);line-height:1.7;">Inicia por WhatsApp, registra
-                            tus siembras con el gestor de cultivos y activa tu acceso al mercado cuando cumplas los
-                            criterios de calidad.</div>
-                    </div>
-                </div>
-                <div style="display:flex;align-items:flex-start;gap:1rem;">
-                    <span style="font-size:1.3rem;flex-shrink:0;">🛒</span>
-                    <div>
-                        <div style="font-size:0.78rem;font-weight:700;color:var(--white);margin-bottom:0.3rem;">Para
-                            compradores</div>
-                        <div style="font-size:0.72rem;color:var(--muted);line-height:1.7;">Déjanos saber qué compras y
-                            dónde. Cuando abramos el primer punto de abasto, tú serás el primero en saberlo.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="join-right">
-            <div
-                style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:2rem;display:flex;align-items:center;gap:0.5rem;font-weight:600;">
-                <span style="opacity:0.5;font-family:'IBM Plex Mono',monospace;">//</span> Registro de interés
-            </div>
-            <div class="form-block">
-                <label class="form-label">Nombre completo</label>
-                <input type="text" class="form-input" placeholder="Tu nombre">
-            </div>
-            <div class="form-block">
-                <label class="form-label">Correo electrónico</label>
-                <input type="email" class="form-input" placeholder="tu@correo.co">
-            </div>
-            <div class="form-block">
-                <label class="form-label">Soy...</label>
-                <select class="form-select">
-                    <option value="">Selecciona tu perfil</option>
-                    <option>Agricultor / Productor</option>
-                    <option>Comprador / Consumidor</option>
-                    <option>Aliado / Inversor</option>
-                    <option>Desarrollador interesado</option>
-                    <option>Otro</option>
-                </select>
-            </div>
-            <div class="form-block">
-                <label class="form-label">¿Qué produces o necesitas? (opcional)</label>
-                <textarea class="form-textarea" placeholder="Ej: tengo 3 hectáreas de maíz en Córdoba..."></textarea>
-            </div>
-            <button class="submit-btn" onclick="handleJoin(this)">Registrar interés →</button>
-            <p class="form-note">Sin spam · Solo novedades reales de mihuerto.co</p>
-        </div>
+    <div class="impacto-card reveal">
+      <span class="impacto-icon">💰</span>
+      <h3 class="impacto-title">Precios estables</h3>
+      <p class="impacto-desc">El agricultor no debería ganar o perder por los caprichos del mercado. Acordamos precios justos que cubren los costos reales y garantizan ingreso digno todo el año.</p>
+      <span class="impacto-tag">Economía campesina</span>
     </div>
-
-    <!-- FOOTER -->
-    <div class="ex-footer">
-        <div>
-            <div class="footer-logo">MH·EXCHANGE</div>
-            <p class="footer-tagline">El primer exchange agrícola colombiano con trazabilidad total. Fundado por Carlos
-                Ospina desde Sonsón, Antioquia. Día 0. En construcción. Con convicción.</p>
-            <div
-                style="margin-top:2rem;display:inline-flex;align-items:center;gap:0.5rem;border:1px solid rgba(245,158,11,0.2);padding:0.4rem 0.75rem;">
-                <div class="building-dot"></div>
-                <span
-                    style="font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);font-weight:500;">Beta
-                    en construcción</span>
-            </div>
-        </div>
-        <div>
-            <div class="footer-col-title">Plataforma</div>
-            <div class="footer-links">
-                <a href="#">Exchange</a><a href="#">Gestor WhatsApp</a>
-                <a href="#">Centrales de abasto</a><a href="#">Trazabilidad</a>
-            </div>
-        </div>
-        <div>
-            <div class="footer-col-title">Tecnología</div>
-            <div class="footer-links">
-                <a href="#">Big Data</a><a href="#">IoT Agrícola</a>
-                <a href="#">IA Predictiva</a><a href="#">Gestión agrícola</a>
-            </div>
-        </div>
-        <div>
-            <div class="footer-col-title">Contacto</div>
-            <div class="footer-links">
-                <a href="mailto:hola@mihuerto.co">hola@mihuerto.co</a>
-                <a href="#">Instagram</a><a href="#">LinkedIn</a>
-            </div>
-            <div style="margin-top:1.5rem;">
-                <div class="footer-col-title">Fundador</div>
-                <div style="font-size:0.72rem;color:var(--muted);line-height:1.75;">
-                    Carlos Ospina<br />
-                    <span style="font-size:0.62rem;color:var(--muted2);">Sonsón, Antioquia · CO</span>
-                </div>
-            </div>
-        </div>
+    <div class="impacto-card reveal">
+      <span class="impacto-icon">🤝</span>
+      <h3 class="impacto-title">Más agricultores, más variedad</h3>
+      <p class="impacto-desc">La plataforma crece con cada agricultor que se suma. Más productores significa más diversidad de productos, más regiones, más historia detrás de cada alimento.</p>
+      <span class="impacto-tag">Comunidad</span>
     </div>
+  </div>
+</section>
 
-    <div class="footer-bottom">
-        <span class="footer-copy">© 2025 Mihuerto.co · Todos los derechos reservados</span>
-        <span class="footer-copy" style="color:var(--green);opacity:0.5;font-family:'IBM Plex Mono',monospace;">// Campo
-            + Código = Futuro</span>
+<!-- TECNOLOGÍA -->
+<section class="tecnologia" id="tecnologia">
+  <div class="tec-visual">
+    <svg viewBox="0 0 300 360" width="100%" style="max-width:300px">
+      <rect x="10" y="10" width="280" height="340" rx="16" fill="#EDE4CE" opacity=".6"/>
+      <rect x="40" y="40" width="220" height="52" rx="8" fill="#2C1A0E"/>
+      <text x="150" y="61" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#F2C94C" letter-spacing="1">BLOQUE #0001</text>
+      <text x="150" y="79" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(245,239,224,0.5)">Siembra · 12 Mar · Lote 07</text>
+      <line x1="150" y1="92" x2="150" y2="112" stroke="#3B6B35" stroke-width="2" stroke-dasharray="4 3"/>
+      <rect x="40" y="112" width="220" height="52" rx="8" fill="#3B6B35"/>
+      <text x="150" y="133" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#F2C94C" letter-spacing="1">BLOQUE #0002</text>
+      <text x="150" y="151" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(245,239,224,0.7)">Aplicación · 28 May · Dosis 2L</text>
+      <line x1="150" y1="164" x2="150" y2="184" stroke="#3B6B35" stroke-width="2" stroke-dasharray="4 3"/>
+      <rect x="40" y="184" width="220" height="52" rx="8" fill="#2C1A0E"/>
+      <text x="150" y="205" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#F2C94C" letter-spacing="1">BLOQUE #0003</text>
+      <text x="150" y="223" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(245,239,224,0.5)">Cosecha · 14 Jun · 480kg</text>
+      <line x1="150" y1="236" x2="150" y2="256" stroke="#3B6B35" stroke-width="2" stroke-dasharray="4 3"/>
+      <rect x="40" y="256" width="220" height="52" rx="8" fill="#D4A017"/>
+      <text x="150" y="277" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#2C1A0E" letter-spacing="1">BLOQUE #0004</text>
+      <text x="150" y="295" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(44,26,14,0.6)">Venta · Central Abasto · QR</text>
+      <text x="150" y="332" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#8A7F72" opacity=".7">a3f7c2...9b1e · inmutable · verificado</text>
+    </svg>
+  </div>
+  <div class="tec-texto reveal">
+    <p class="section-label" data-num="03">Tecnología</p>
+    <h2 class="section-title">Blockchain y big data al servicio del campo.</h2>
+    <div class="section-body">
+      <p>Cada registro que hace el agricultor — una siembra, una aplicación, una cosecha — queda grabado en una cadena de bloques <strong>inmutable y verificable</strong>. Nadie puede alterar la historia del producto.</p>
+      <p>Con big data analizamos patrones de producción, alertas fitosanitarias, rendimientos por variedad y zona. Esa inteligencia vuelve al agricultor en forma de <strong>recomendaciones precisas</strong> para producir mejor y más barato.</p>
+      <p>Tecnología de punta que habla el idioma del campo.</p>
     </div>
+    <div class="tec-pills">
+      <span class="tec-pill accent">Blockchain</span>
+      <span class="tec-pill accent">Big data</span>
+      <span class="tec-pill">Trazabilidad inmutable</span>
+      <span class="tec-pill">Análisis predictivo</span>
+      <span class="tec-pill">QR certificado</span>
+      <span class="tec-pill">Alertas inteligentes</span>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Clock
-        function tick() {
-            const now = new Date();
-            const pad = n => String(n).padStart(2, '0');
-            document.getElementById('clock').textContent =
-                `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-        }
-        setInterval(tick, 1000); tick();
+<!-- PLATAFORMA -->
+<section class="que-es" id="plataforma">
+  <p class="section-label" data-num="04">La plataforma</p>
+  <h2 class="section-title" style="color:var(--crema); max-width:600px; letter-spacing:-1px; font-size:clamp(2.2rem,3.5vw,3.4rem);">Una herramienta para el agricultor que quiere vender mejor.</h2>
+  <div class="features-grid">
+    <div class="feature reveal"><div class="feature-num">01</div><span class="feature-icon">🌱</span><h3 class="feature-title">Gestión de siembras</h3><p class="feature-desc">Registrá cada lote: variedad, fecha de siembra, área, condiciones. Todo desde el celular.</p></div>
+    <div class="feature reveal"><div class="feature-num">02</div><span class="feature-icon">🧪</span><h3 class="feature-title">Control de insumos</h3><p class="feature-desc">Inventario de agroquímicos y fertilizantes. Registrá cada aplicación con dosis, fecha y etapa.</p></div>
+    <div class="feature reveal"><div class="feature-num">03</div><span class="feature-icon">📊</span><h3 class="feature-title">Costos de producción</h3><p class="feature-desc">Calculá cuánto te cuesta producir por kilo. Decisiones de precio con datos reales.</p></div>
+    <div class="feature reveal"><div class="feature-num">04</div><span class="feature-icon">🔔</span><h3 class="feature-title">Alertas y recomendaciones</h3><p class="feature-desc">Plagas, clima, riego. El sistema te avisa qué hacer y cuándo para proteger la cosecha.</p></div>
+    <div class="feature reveal"><div class="feature-num">05</div><span class="feature-icon">📦</span><h3 class="feature-title">Despacho y lotes</h3><p class="feature-desc">Registrá cada despacho: peso, empaque, destino. El certificado vivo se genera automáticamente.</p></div>
+    <div class="feature reveal"><div class="feature-num">06</div><span class="feature-icon">📈</span><h3 class="feature-title">Reportes e historial</h3><p class="feature-desc">Trazabilidad completa de cada cultivo. Del primer surco a la venta, siempre disponible.</p></div>
+  </div>
+</section>
 
-        // Join form
-        function handleJoin(btn) {
-            btn.textContent = '✓ Registrado — gracias, te avisamos pronto.';
-            btn.style.background = 'transparent';
-            btn.style.color = 'var(--green)';
-            btn.disabled = true;
-        }
+<!-- CERTIFICADO VIVO -->
+<section class="certificado" id="certificado">
+  <div class="cert-visual">
+    <div class="cert-card">
+      <div class="cert-card-top">
+        <span class="cert-tag">✦ Certificado vivo</span>
+        <span class="cert-fecha">Jun 2025</span>
+      </div>
+      <div class="cert-producto">Tomate chonto</div>
+      <div class="cert-variedad">Variedad Daniela · Lote #07</div>
+      <div class="cert-rows">
+        <div class="cert-row"><span class="cert-row-label">Agricultor</span><span class="cert-row-val">Carlos Ospina</span></div>
+        <div class="cert-row"><span class="cert-row-label">Finca</span><span class="cert-row-val">Sonsón, Antioquia</span></div>
+        <div class="cert-row"><span class="cert-row-label">Siembra</span><span class="cert-row-val">12 Mar 2025</span></div>
+        <div class="cert-row"><span class="cert-row-label">Cosecha</span><span class="cert-row-val">14 Jun 2025</span></div>
+        <div class="cert-row"><span class="cert-row-label">Última aplicación</span><span class="cert-row-val">28 May 2025</span></div>
+        <div class="cert-row"><span class="cert-row-label">Blockchain</span><span class="cert-row-val" style="color:var(--hoja);font-size:.72rem">a3f7c2...9b1e ✓</span></div>
+      </div>
+      <div class="cert-qr">
+        <div class="cert-qr-box">
+          <svg viewBox="0 0 32 32" width="36" height="36" fill="none">
+            <rect x="2" y="2" width="10" height="10" rx="1" fill="white"/>
+            <rect x="20" y="2" width="10" height="10" rx="1" fill="white"/>
+            <rect x="2" y="20" width="10" height="10" rx="1" fill="white"/>
+            <rect x="4" y="4" width="6" height="6" fill="#2C1A0E"/>
+            <rect x="22" y="4" width="6" height="6" fill="#2C1A0E"/>
+            <rect x="4" y="22" width="6" height="6" fill="#2C1A0E"/>
+            <rect x="20" y="20" width="3" height="3" fill="white"/>
+            <rect x="25" y="20" width="3" height="3" fill="white"/>
+            <rect x="20" y="25" width="3" height="3" fill="white"/>
+            <rect x="28" y="28" width="3" height="3" fill="white"/>
+          </svg>
+        </div>
+        <div class="cert-qr-text">Escaneá y conocé<br><strong>la historia completa</strong><br>de este producto</div>
+      </div>
+    </div>
+  </div>
+  <div class="cert-texto reveal">
+    <p class="section-label" data-num="05">Trazabilidad</p>
+    <h2 class="section-title">El producto<br>llega con<br><em style="color:var(--hoja)">su historia.</em></h2>
+    <div class="section-body">
+      <p>Cada producto despachado desde la finca lleva una etiqueta con un código QR. Ese código lleva al <strong>registro real de ese lote</strong>: quién lo cultivó, qué se le aplicó, cuándo se cosechó.</p>
+      <p>En la central de abasto, el comprador escanea el QR y accede a la historia viva del producto. <strong>Respaldada en blockchain.</strong> Eso es confianza que ningún intermediario puede construir.</p>
+    </div>
+  </div>
+</section>
 
-        // YouTube lazy load
-        // ══════════════════════════════════════════════════
-        // INSTRUCCIÓN: Cambia "TU_VIDEO_ID" por el ID real
-        // de tu video de YouTube.
-        // Ejemplo: si tu URL es https://youtube.com/watch?v=abc123
-        // entonces escribe: const VIDEO_ID = "abc123";
-        // ══════════════════════════════════════════════════
-        const VIDEO_ID = "TU_VIDEO_ID";
+<!-- CONSUMIDOR -->
+<section class="consumidor" id="consumidor">
+  <p class="section-label" data-num="06">Para vos, consumidor</p>
+  <div class="consumidor-grid">
+    <div>
+      <h2 class="section-title" style="color:var(--tierra)">Sabé exactamente qué<br>estás llevando<br>a tu mesa.</h2>
+      <div class="section-body">
+        <p>El certificado vivo no es un sello decorativo. Es el registro real del cultivo, verificado con blockchain, que podés consultar en segundos desde tu celular en cualquier punto de venta.</p>
+        <p>Comprás con confianza. Apoyás al agricultor directamente. Y exigís lo que merecés: <strong>alimentos con historia y precio justo.</strong></p>
+      </div>
+    </div>
+    <div class="consumidor-pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-texto"><strong>Encontrá el producto</strong><span>En tu central de abasto, plaza o punto aliado. Buscá la etiqueta mihuerto.co.</span></div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-texto"><strong>Escaneá el QR</strong><span>Con la cámara de tu celular. En segundos accedés al certificado vivo: agricultor, finca, fecha de cosecha.</span></div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-texto"><strong>Conocé al que cultivó tu comida</strong><span>Nombre, región, prácticas de cultivo. Una conexión real entre el campo y tu cocina.</span></div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <div class="paso-texto"><strong>Comprá con confianza</strong><span>Precio estable, sin intermediarios. Bueno para vos, justo para el agricultor.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function loadVideo() {
-            const iframe = document.getElementById('yt-iframe');
-            const placeholder = document.getElementById('video-placeholder');
-            iframe.src = `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0`;
-            iframe.style.display = 'block';
-            placeholder.style.display = 'none';
-        }
-    </script>
+<!-- APP -->
+<section class="app-section" id="app">
+  <div class="app-visual">
+    <svg viewBox="0 0 200 380" width="175" style="position:relative;z-index:1;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.4))">
+      <rect x="10" y="10" width="180" height="360" rx="28" fill="#1A1A1A"/>
+      <rect x="14" y="14" width="172" height="352" rx="24" fill="#111"/>
+      <rect x="18" y="36" width="164" height="308" rx="16" fill="#2C1A0E"/>
+      <rect x="18" y="36" width="164" height="56" rx="0" fill="#3B6B35"/>
+      <rect x="18" y="36" width="164" height="20" rx="0" fill="#3B6B35"/>
+      <text x="100" y="72" text-anchor="middle" font-family="Playfair Display,serif" font-size="15" font-style="italic" fill="white">mihuerto.co</text>
+      <rect x="28" y="104" width="144" height="56" rx="6" fill="rgba(245,239,224,0.08)"/>
+      <text x="40" y="121" font-family="DM Mono,monospace" font-size="7" fill="#F2C94C">LOTE ACTIVO</text>
+      <text x="40" y="136" font-family="Playfair Display,serif" font-size="12" fill="white">Tomate · Lote #07</text>
+      <text x="40" y="152" font-family="DM Mono,monospace" font-size="7" fill="rgba(245,239,224,0.5)">día 94 · cosecha en 12 días</text>
+      <rect x="28" y="170" width="144" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+      <rect x="28" y="170" width="110" height="4" rx="2" fill="#5A9150"/>
+      <rect x="28" y="184" width="68" height="46" rx="6" fill="rgba(245,239,224,0.08)"/>
+      <text x="62" y="205" text-anchor="middle" font-family="Playfair Display,serif" font-size="15" font-weight="700" fill="white">$820</text>
+      <text x="62" y="221" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(245,239,224,0.5)">costo/kg</text>
+      <rect x="104" y="184" width="68" height="46" rx="6" fill="rgba(245,239,224,0.08)"/>
+      <text x="138" y="205" text-anchor="middle" font-family="Playfair Display,serif" font-size="15" font-weight="700" fill="#8DC97F">480kg</text>
+      <text x="138" y="221" text-anchor="middle" font-family="DM Mono,monospace" font-size="6" fill="rgba(245,239,224,0.5)">proyectado</text>
+      <rect x="28" y="240" width="144" height="40" rx="6" fill="rgba(212,160,23,0.15)"/>
+      <text x="40" y="257" font-family="DM Mono,monospace" font-size="7" fill="#F2C94C">⚡ ALERTA</text>
+      <text x="40" y="272" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(245,239,224,0.7)">Aplicar fungicida · esta semana</text>
+      <rect x="28" y="292" width="144" height="36" rx="6" fill="rgba(59,107,53,0.2)"/>
+      <text x="40" y="308" font-family="DM Mono,monospace" font-size="7" fill="#8DC97F">BLOCKCHAIN</text>
+      <text x="40" y="322" font-family="DM Mono,monospace" font-size="7" fill="rgba(141,201,127,0.6)">a3f7c2...9b1e ✓</text>
+      <rect x="18" y="316" width="164" height="28" rx="0" fill="rgba(0,0,0,0.3)"/>
+      <text x="52" y="333" text-anchor="middle" font-size="10" fill="rgba(245,239,224,0.4)">🌱</text>
+      <text x="100" y="333" text-anchor="middle" font-size="10" fill="white">📊</text>
+      <text x="148" y="333" text-anchor="middle" font-size="10" fill="rgba(245,239,224,0.4)">📦</text>
+      <rect x="70" y="20" width="60" height="14" rx="7" fill="#1A1A1A"/>
+    </svg>
+  </div>
+  <div class="app-texto reveal">
+    <p class="section-label" data-num="07">La app</p>
+    <h2 class="section-title">Tu finca en el bolsillo.</h2>
+    <div class="section-body">
+      <p>La app de mihuerto.co es la herramienta diaria del agricultor. Registrá siembras, controlá insumos, calculá costos y generá el certificado vivo de cada lote — todo desde el celular, desde la finca.</p>
+      <p>Diseñada para funcionar en campo: <strong>simple, rápida y sin necesidad de internet</strong> para los registros básicos. Disponible ahora en Android.</p>
+    </div>
+    <div class="app-btns">
+      <a href="https://play.google.com/store" target="_blank" class="app-btn">
+        <span class="app-btn-icon">▶</span>
+        <div class="app-btn-text">
+          <small>Disponible en</small>
+          <strong>Google Play Store</strong>
+        </div>
+      </a>
+    </div>
+    <p class="app-comingsoon"><span class="dot-pulse"></span> App Store · próximamente</p>
+  </div>
+</section>
+
+<!-- REDES -->
+<section class="redes" id="redes">
+  <p class="section-label" data-num="08">Seguinos</p>
+  <h2 class="redes-title">El campo tiene<br><em style="color:var(--sol2)">mucho que contar.</em></h2>
+  <p class="redes-sub">Seguinos en redes y conocé el día a día de la finca: siembras, cosechas, recetas, historia y la gente detrás de lo que comés.</p>
+  <div class="redes-cards">
+    <a href="https://instagram.com/mihuerto.co" target="_blank" class="red-card">
+      <span class="red-card-icon">📸</span>
+      <span class="red-card-name">Instagram</span>
+      <span class="red-card-handle">@mihuerto.co</span>
+      <span class="red-card-cta">Seguir →</span>
+    </a>
+    <a href="https://tiktok.com/@mihuerto.co" target="_blank" class="red-card">
+      <span class="red-card-icon">🎬</span>
+      <span class="red-card-name">TikTok</span>
+      <span class="red-card-handle">@mihuerto.co</span>
+      <span class="red-card-cta">Seguir →</span>
+    </a>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="numeros">
+  <div class="numero-item reveal"><span class="numero-val">1</span><span class="numero-label">Agricultor fundador</span></div>
+  <div class="numero-item reveal"><span class="numero-val">100%</span><span class="numero-label">Trazabilidad documentada</span></div>
+  <div class="numero-item reveal"><span class="numero-val">0</span><span class="numero-label">Intermediarios ocultos</span></div>
+  <div class="numero-item reveal"><span class="numero-val">∞</span><span class="numero-label">Potencial de escalar</span></div>
+</div>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="contacto">
+  <p class="section-label" data-num="">Sumate al proyecto</p>
+  <h2 class="cta-title">¿Sos agricultor?<br><em>Tu historia merece<br>ser contada.</em></h2>
+  <p class="cta-sub">Si cultivás y querés vender con trazabilidad, precios justos y tecnología de tu lado — mihuerto.co es tu plataforma. Estamos sumando agricultores ahora.</p>
+  <a href="mailto:hola@mihuerto.co" class="cta-btn">Escribinos → hola@mihuerto.co</a>
+</section>
+
+<footer>
+  <div class="footer-logo">mi<span>huerto</span>.co</div>
+  <div class="footer-copy">© 2025 mihuerto.co · Sonsón, Antioquia, Colombia</div>
+  <div class="footer-links">
+    <a href="https://instagram.com/mihuerto.co" target="_blank">Instagram</a>
+    <a href="https://tiktok.com/@mihuerto.co" target="_blank">TikTok</a>
+    <a href="mailto:hola@mihuerto.co">Contacto</a>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+  document.querySelectorAll('a,button,.feature,.impacto-card,.red-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*80); });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+  document.querySelectorAll('.numero-val').forEach(c => {
+    c.style.cssText='transform:scale(0.8);opacity:0;transition:transform .6s ease,opacity .6s ease';
+    new IntersectionObserver(([e])=>{ if(e.isIntersecting){c.style.transform='scale(1)';c.style.opacity='1';}},{threshold:.5}).observe(c);
+  });
+</script>
 </body>
-
 </html>
